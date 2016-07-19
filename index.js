@@ -34,14 +34,14 @@ try {
 const PORT = process.env.PORT || 8445;
 
 // Wit.ai parameters
-const WIT_TOKEN = process.env.WIT_TOKEN;
+const WIT_TOKEN = 'OJSQEAKXCPOEQT72ZTUZIZMOKWUDHS4Q';
 
 // Messenger API parameters
-const FB_PAGE_ID = process.env.FB_PAGE_ID;
+const FB_PAGE_ID = '1570320759939707';
 if (!FB_PAGE_ID) { throw new Error('missing FB_PAGE_ID') }
-const FB_PAGE_TOKEN = process.env.FB_PAGE_TOKEN;
+const FB_PAGE_TOKEN = 'EAAO4Pbcmmj0BAPZBhoLpRoqtut6jL6XVS6gNfinmujxJULDIfXGCZBwZBh9584sanuHvFgOOPs3ZAsmNdhWEZAbzf2CzHH52afWiZCVptJOHGVK21gZANKkjRaDspwbvm9NZAQZC4LZCsSUypmYDDdGtg2B1WwhwLhpOEcrPilX9ZCIrwZDZD';
 if (!FB_PAGE_TOKEN) { throw new Error('missing FB_PAGE_TOKEN') }
-const FB_APP_SECRET = process.env.FB_APP_SECRET;
+const FB_APP_SECRET = '1047000135408189';
 if (!FB_APP_SECRET) { throw new Error('missing FB_APP_SECRET') }
 
 let FB_VERIFY_TOKEN = null;
