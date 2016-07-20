@@ -39,7 +39,7 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             let text = event.message.text
             var key = 'hungry'
-            if (text.indexOf(hungry) > -1)
+            if (text.indexOf(key) > -1)
             	sendTextMessage(sender, "ECHO: " + text.substring(0, 200))
         }
     }
