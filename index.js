@@ -47,9 +47,8 @@ app.post('/webhook/', function (req, res) {
 				isHungry = isHungry || (text.indexOf(key[j]) > -1);
 			}
 			if (isHungry) {
-				sendGenericMessage(sender,randFood(),randFood(),randFood())
-				continue
-				sendTextMessage(sender, foods.food[randomnumber].name)
+				sendTextMessage(sender, 'Here\'s some food for you!')
+				sendFoodCards(sender,randFood(),randFood(),randFood())
 			}
 		}
 	}
@@ -81,7 +80,7 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function sendGenericMessage(sender,rf1,rf2,rf3) {
+function sendFoodCards(sender,rf1,rf2,rf3) {
 	var title = 'Check it Out!'
 	let messageData = {
 		"attachment": {
