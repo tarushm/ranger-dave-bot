@@ -48,7 +48,7 @@ app.post('/webhook/', function (req, res) {
 			}
 			var randomnumber = Math.floor(Math.random() * (77)) + 1;
 			if (isHungry) {
-				sendGenericMessage(sender)
+				sendGenericMessage(sender,randomnumber)
 				continue
 				sendTextMessage(sender, foods.food[randomnumber].name)
 			}
@@ -78,33 +78,19 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function sendGenericMessage(sender) {
+function sendGenericMessage(sender,randomnumber) {
     let messageData = {
         "attachment": {
             "type": "template",
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
+                    "title": foods.food[randomnumber].name,
+                    "subtitle": foods.food[randomnumber].description,
                     "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
                     "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "type": "web_url",
+                        "url": foods.food[randomnumber].url
                     }],
                 }]
             }
