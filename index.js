@@ -46,9 +46,8 @@ app.post('/webhook/', function (req, res) {
 			for (var j = 0; j < key.length; j++){
 				isHungry = isHungry || (text.indexOf(key[j]) > -1);
 			}
-			var randomnumber = Math.floor(Math.random() * (77)) + 1;
 			if (isHungry) {
-				sendGenericMessage(sender,randomnumber)
+				sendGenericMessage(sender,randFood(),randFood(),randFood())
 				continue
 				sendTextMessage(sender, foods.food[randomnumber].name)
 			}
@@ -56,6 +55,10 @@ app.post('/webhook/', function (req, res) {
 	}
 	res.sendStatus(200)
 })
+
+function randFood(){
+	return Math.floor(Math.random() * (77)) + 1;
+}
 
 const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
 
@@ -78,7 +81,8 @@ function sendTextMessage(sender, text) {
 	})
 }
 
-function sendGenericMessage(sender,randomnumber) {
+function sendGenericMessage(sender,rf1,rf2,rf3) {
+	var title = "Check it out!"
     let messageData = {
         "attachment": {
             "type": "template",
@@ -91,7 +95,25 @@ function sendGenericMessage(sender,randomnumber) {
                     "buttons": [{
                         "type": "web_url",
                         "url": foods.food[randomnumber].url,
-                        "title": "online"
+                        "title": title
+                    },
+                    {
+                    "title": foods.food[randomnumber].name,
+                    "subtitle": foods.food[randomnumber].description,
+                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": foods.food[randomnumber].url,
+                        "title": title
+                    },
+                    {
+                    "title": foods.food[randomnumber].name,
+                    "subtitle": foods.food[randomnumber].description,
+                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": foods.food[randomnumber].url,
+                        "title": title
                     }],
                 }]
             }
