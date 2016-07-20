@@ -47,7 +47,7 @@ app.post('/webhook/', function (req, res) {
 				isHungry = isHungry || (text.indexOf(key[j]) > -1);
 			}
 			if (isHungry) {
-				sendTextMessage(sender, 'Here\'s some food for you,'+sender)
+				sendTextMessage(sender, 'Here\'s some food for you,'+event.sender.name+'!')
 				sendFoodCards(sender,randFood(),randFood(),randFood())
 			}
 		}
