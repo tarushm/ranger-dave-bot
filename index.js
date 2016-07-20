@@ -47,8 +47,9 @@ app.post('/webhook/', function (req, res) {
 				isHungry = isHungry || (text.indexOf(key[j]) > -1);
 			}
 			if (isHungry) {
-				sendTextMessage(sender, 'Here\'s some food for you,'+event.sender.name+'!')
+				sendTextMessage(sender, 'Here are some options!')
 				sendFoodCards(sender,randFood(),randFood(),randFood())
+				sendTextMessage(sender, 'Let me know if you want to see more.')
 			}
 		}
 	}
@@ -77,6 +78,12 @@ function sendTextMessage(sender, text) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
 		}
+	})
+}
+
+function getUserInfo(sender){
+	request({
+		url: 'https'
 	})
 }
 
