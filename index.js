@@ -90,7 +90,8 @@ function sendGenericMessage(sender,randomnumber) {
                     "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
                     "buttons": [{
                         "type": "web_url",
-                        "url": foods.food[randomnumber].url
+                        "url": foods.food[randomnumber].url,
+                        "title": "online"
                     }],
                 }]
             }
