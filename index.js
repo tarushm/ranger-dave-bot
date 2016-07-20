@@ -6,7 +6,7 @@ const request = require('request')
 var redis = require('redis');
 const app = express()
 
-this._db = redis.createClient(); 
+//this._db = redis.createClient(); 
 
 app.set('port', (process.env.PORT || 5000))
 
