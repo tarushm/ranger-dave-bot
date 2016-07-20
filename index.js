@@ -3,7 +3,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+var redis = require('redis');
 const app = express()
+
+this._db = redis.createClient(); 
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -38,13 +41,14 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            var key = ['hungry','eat','lunch','dinner'];
+            var key = ['hungry','eat','lunch','dinner','more'];
             var isHungry = false;
             for (var j = 0; j < key.length; j++){
             	isHungry = isHungry || (text.indexOf(key[j]) > -1);
             }
+            var randomnumber = Math.floor(Math.random() * (77)) + 1;
             if (isHungry)
-            	sendTextMessage(sender, "ECHO: " + text.substring(0, 200))
+            	sendTextMessage(sender, randomnumber)
         }
     }
     res.sendStatus(200)
