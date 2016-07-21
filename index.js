@@ -70,7 +70,7 @@ app.post('/webhook/', function (req, res) {
           }
         });
       }
-      else (){
+      else {
         sendTextMessage(sender, 'I don\'t seem to understand! I\'m still learning. You can ask me about the weather, or let me know if you are hungry!');
       }
 
