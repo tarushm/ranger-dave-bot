@@ -45,10 +45,10 @@ app.post('/webhook/', function (req, res) {
       var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
 			var isHungry = false;
 			for (var j = 0; j < food_key.length; j++){
-				isHungry = isHungry || (text.toUpperCase().indexOf(food_key[j.toUpperCase()]) > -1);
+				isHungry = isHungry || (text.toUpperCase().indexOf(food_key[j].toUpperCase()) > -1);
 			}
       for (var j = 0; j < weather_key.length; j++){
-        isWeather = isWeather || (text.toUpperCase().indexOf(weather_key[j.toUpperCase()]) > -1);
+        isWeather = isWeather || (text.toUpperCase().indexOf(weather_key[j].toUpperCase()) > -1);
       }
 			if (isHungry) {
 				sendTextMessage(sender, 'Here are some options!')
