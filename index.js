@@ -59,7 +59,7 @@ app.post('/webhook/', function (req, res) {
         }, function(error, response, body) {
           try {
             var condition = body.query.results.channel.item.condition;
-            sendTextMessage(sender, "Today is " + condition.temp + " and " + condition.text + " at Outside Lands in Golden Gate Park");
+            sendWeatherCard(sender, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
           } catch(err) {
             console.error('error caught', err);
             sendTextMessage(sender, "There was an error.");
@@ -102,6 +102,41 @@ function getUserInfo(sender){
 	request({
 		url: 'https'
 	})
+}
+
+function sendWeatherCard(sender,temp,text,loc){
+  let messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements":[{
+          "title": temp + 'and' text,
+          "subtitle": loc,
+          "buttons":[{
+            "type": "web_url",
+            "url": 'https://www.yahoo.com/news/weather/united-states/san-francisco/san-francisco-23679437',
+            "title": 'Expand forecast.'
+          }]
+        }]
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
 }
 
 function sendFoodCards(sender,rf1,rf2,rf3) {
