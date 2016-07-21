@@ -43,8 +43,8 @@ app.post('/webhook/', function (req, res) {
 			let text = event.message.text
 			var food_key = ['hungry','eat','lunch','dinner','more'];
 			var isHungry = false;
-			for (var j = 0; j < key.length; j++){
-				isHungry = isHungry || (text.indexOf(key[j]) > -1);
+			for (var j = 0; j < food_key.length; j++){
+				isHungry = isHungry || (text.indexOf(food_key[j]) > -1);
 			}
 			if (isHungry) {
 				sendTextMessage(sender, 'Here are some options!')
