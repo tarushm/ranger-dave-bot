@@ -82,13 +82,13 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       var location = event.message.text;
       var witAIEndpoint = 'https://api.wit.ai/message?v=20141022&q=' + location;
-      request({
+      var options = {
         url: witAIEndpoint,
-        json: true,
         headers: {
-          'Authorization: Bearer LUKXMZ2XPSJAW6556VIOLLEDLJR7QGBN'
+          "Authorization": "Bearer LUKXMZ2XPSJAW6556VIOLLEDLJR7QGBN"
         }
-      }, function(error, response, body) {
+      };
+      request(options, function(error, response, body) {
         try {
           var firstOutcome = body.outcomes.pop();
           var entities = firstOutcome.entities;
