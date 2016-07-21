@@ -111,7 +111,7 @@ function sendWeatherCard(sender,temp,text,loc){
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": temp + 'and' text,
+          "title": temp + 'and' + text,
           "subtitle": loc,
           "buttons":[{
             "type": "web_url",
