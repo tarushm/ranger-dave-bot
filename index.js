@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 //var redis = require('redis');
-var food = require('./food.json')
+var foods = require('./food.json')
 var bands = require('./bands.json')
 const app = express()
 
