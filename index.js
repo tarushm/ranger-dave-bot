@@ -41,7 +41,7 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			var food_key = ['hungry','eat','lunch','dinner','more'];
+			var food_key = ['hungry',' eat','lunch','dinner','more'];
 			var isHungry = false;
 			for (var j = 0; j < food_key.length; j++){
 				isHungry = isHungry || (text.indexOf(food_key[j]) > -1);
