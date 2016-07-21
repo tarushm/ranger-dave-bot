@@ -44,6 +44,7 @@ app.post('/webhook/', function (req, res) {
 			var food_key = ['hungry',' eat','lunch','dinner','more'];
       var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
 			var isHungry = false;
+      var isWeather = false;
 			for (var j = 0; j < food_key.length; j++){
 				isHungry = isHungry || (text.toUpperCase().indexOf(food_key[j].toUpperCase()) > -1);
 			}
