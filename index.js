@@ -41,25 +41,42 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			var food_key = ['hungry','eat','lunch','dinner','more'];
-			var isHungry = false;
-			for (var j = 0; j < food_key.length; j++){
-				isHungry = isHungry || (text.indexOf(food_key[j]) > -1);
-			}
-			if (isHungry) {
-				sendTextMessage(sender, 'Here are some options!')
-				sendFoodCards(sender,randFood(),randFood(),randFood())
-				continue
-			}
+      var witAIEndpoint = 'https://api.wit.ai/message?v=20141022&q='+text;
+      var food_key = ['hungry','eat','lunch','dinner','more'];
+      var isHungry = false;
+      for (var j = 0; j < food_key.length; j++){
+        isHungry = isHungry || (text.indexOf(food_key[j]) > -1);
+      }
+      if (isHungry) {
+        sendTextMessage(sender, 'Here are some options!')
+        sendFoodCards(sender,randFood(),randFood(),randFood())
+        continue
+      }
       else {
-        var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + text + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
         request({
-          url: weatherEndpoint,
-          json: true
+          url: witAIEndpoint,
+          json: true,
+          headers: {
+            'Authorization: Bearer LUKXMZ2XPSJAW6556VIOLLEDLJR7QGBN'
+          }
         }, function(error, response, body) {
           try {
-            var condition = body.query.results.channel.item.condition;
-            sendTextMessage(sender, "Today is " + condition.temp + " and " + condition.text + " in " + text);
+            var firstOutcome = body.outcomes.pop();
+            var entities = firstOutcome.entities;
+            var location = entities.location.pop().value;
+            var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + location + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+            request({
+              url: weatherEndpoint,
+              json: true
+            }, function(error, response, body) {
+              try {
+                var condition = body.query.results.channel.item.condition;
+                sendTextMessage(sender, "Today is " + condition.temp + " and " + condition.text + " in " + location);
+              } catch(err) {
+                console.error('error caught', err);
+                sendTextMessage(sender, "There was an error.");
+              }
+            });
           } catch(err) {
             console.error('error caught', err);
             sendTextMessage(sender, "There was an error.");
