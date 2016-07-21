@@ -42,16 +42,20 @@ app.post('/webhook/', function (req, res) {
 		if (event.message && event.message.text) {
 			let text = event.message.text
 			var food_key = ['hungry',' eat','lunch','dinner','more'];
+      var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
 			var isHungry = false;
 			for (var j = 0; j < food_key.length; j++){
-				isHungry = isHungry || (text.indexOf(food_key[j]) > -1);
+				isHungry = isHungry || (text.toUpperCase().indexOf(food_key[j.toUpperCase()]) > -1);
 			}
+      for (var j = 0; j < weather_key.length; j++){
+        isWeather = isWeather || (text.toUpperCase().indexOf(weather_key[j.toUpperCase()]) > -1);
+      }
 			if (isHungry) {
 				sendTextMessage(sender, 'Here are some options!')
 				sendFoodCards(sender,randFood(),randFood(),randFood())
 				continue
 			}
-      else {
+      else if (isWeather) {
         var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
         request({
           url: weatherEndpoint,
@@ -65,6 +69,9 @@ app.post('/webhook/', function (req, res) {
             sendTextMessage(sender, "There was an error.");
           }
         });
+      }
+      else (){
+        sendTextMessage(sender, 'I don\'t seem to understand! I\'m still learning. You can ask me about the weather, or let me know if you are hungry!');
       }
 
     }
