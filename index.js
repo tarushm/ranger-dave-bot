@@ -96,7 +96,7 @@ function sendToApiAi(sender, message,id){
     var info = JSON.parse(body);
     var bandID = info.result.parameters.bands;
     var command = info.result.metadata.intentName;
-    sendTextMessage(sender,command + ' is ' bandID);
+    sendTextMessage(sender,command + ' is ' + bandID);
     }
   }
 
