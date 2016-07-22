@@ -116,7 +116,7 @@ function processRequest(sender, func, id){
     case 'get_settime':
       get_settime(sender,id)
       break;
-    case 'get_info':
+    case 'get_bandinfo':
       get_bandinfo(sender,id)
       break;
     default:
