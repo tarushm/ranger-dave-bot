@@ -119,6 +119,8 @@ function processRequest(sender, func, id){
     case 'get_bandinfo':
       get_bandinfo(sender,id)
       break;
+    case 'greet':
+      greet(sender)
     default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
@@ -139,6 +141,9 @@ function get_bandinfo(sender, id){
   return true;
 }
 
+function greet(sender){
+  sendTextMessage(sender, "Hello! I am Ranger Dave Bot. I know anything and everything about Outside Lands. Ask me about your favorite artist, what kind of food you want to eat, or even the weather!")
+}
 function checkIfContained(text,key){
   var contained = false;
     for (var j = 0; j < key.length; j++){
