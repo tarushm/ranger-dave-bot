@@ -94,15 +94,24 @@ function sendToApiAi(sender, message,id){
   }
   else if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
-    sendTextMessage(sender,info.result.parameters.bands);
+    var bandID = getBandId(info.result.parameters.bands)
+    sendTextMessage(sender,bands.band[bandID].name);
     }
   }
 
   request(options, callback);
 }
 
-function get_settime(id){
-  return bands.band[id].time;
+function getBandId(name){
+  var id = -1;
+  var contained = false;
+  for (var k = 0; k < bands.band.length && !contained; k++){
+    contained = contained || (name.indexOf(bands.band[k]) > -1);
+    if (contained){
+      id=k;
+    }
+  }
+  return id;
 }
 
 function checkIfContained(text,key){
