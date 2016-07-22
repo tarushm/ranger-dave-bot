@@ -98,6 +98,7 @@ function sendToApiAi(sender, message,id){
     var command = info.result.metadata.intentName;
     if (!info.result.actionIncomplete){
       sendTextMessage(sender,command + ' is ' + bandID);
+      sendBandCard(sender,bandID);
     }
     else {
       sendTextMessage(sender, info.result.fulfillment.speech);
