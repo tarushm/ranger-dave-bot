@@ -94,7 +94,7 @@ function sendToApiAi(sender, message,id){
   }
   else if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
-    var bandID = getBandId(info.result.parameters.bands)
+    var bandID = info.result.parameters.bands;
     sendTextMessage(sender,bandID);
     }
   }
@@ -102,6 +102,7 @@ function sendToApiAi(sender, message,id){
   request(options, callback);
 }
 
+/*
 function getBandId(name){
   var id = -1;
   var contained = false;
@@ -113,6 +114,7 @@ function getBandId(name){
   }
   return id;
 }
+*/
 
 function checkIfContained(text,key){
   var contained = false;
