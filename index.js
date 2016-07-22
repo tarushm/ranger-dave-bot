@@ -120,7 +120,7 @@ function processRequest(sender, func, id){
       get_bandinfo(sender,id)
       break;
     default:
-      sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!);
+      sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
 }
 
