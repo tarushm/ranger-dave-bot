@@ -130,7 +130,7 @@ function get_stage(sender, id) {
 }
 
 function get_settime(sender, id) {
-  sendTextMessage(sender, bands.band[id].day +' '+ bands.band[id].time);
+  sendTextMessage(sender, bands.band[id].name + ' is playing from ' + bands.band[id].start_time +' to '+ bands.band[id].end_time + ' on ' + bands.band[id].day);
   return true;
 }
 
@@ -181,12 +181,6 @@ function sendTextMessage(sender, text) {
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
 		}
-	})
-}
-
-function getUserInfo(sender){
-	request({
-		url: 'https'
 	})
 }
 
