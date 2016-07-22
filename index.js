@@ -97,7 +97,7 @@ function sendToApiAi(sender, message,id){
     var bandID = info.result.parameters.bands;
     var command = info.result.metadata.intentName;
     if (!info.result.actionIncomplete){
-      info.result.action(sender, bandID);
+      processRequest(sender, info.result.action, bandID);
     }
     else {
       sendTextMessage(sender, info.result.fulfillment.speech);
@@ -106,6 +106,22 @@ function sendToApiAi(sender, message,id){
   }
 
   request(options, callback);
+}
+
+function processRequest(sender, func, id){
+  switch(func){
+    case 'get_stage':
+      get_stage(sender,id)
+      break;
+    case 'get_settime':
+      get_stage(sender,id)
+      break;
+    case 'get_info':
+      get_stage(sender,id)
+      break;
+    default:
+      sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!);
+    }
 }
 
 function get_stage(sender, id) {
