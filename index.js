@@ -85,9 +85,9 @@ function sendToApiAi(sender, message,id){
   var options = {
     url: 'https://api.api.ai/api/query?v=20150910&query=' + message + '&lang=en&sessionId=fac22b98-a8e8-4457-a45a-55aac20aa286&timezone=Ameria/Los_Angeles',
     headers: {
-      'Authorization:Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
+      'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
     }
-  }
+  };
   function callback(error, response, body) {
   if (error){
     console.log(error);
