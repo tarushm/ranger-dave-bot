@@ -125,7 +125,7 @@ function processRequest(sender, func, id){
 }
 
 function get_stage(sender, id) {
-  sendTextMessage(sender, bands.band[id].stage + 'is playing at' + bands.band[id].stage);
+  sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
   return true;
 }
 
