@@ -93,7 +93,7 @@ function sendToApiAi(sender, message,id){
     console.log(error);
   }
   else if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
+    var info = body;
     if (info.result.actionIncomplete == 'false'){
       sendTextMessage(sender,info.result.action)
     }
