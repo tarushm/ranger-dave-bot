@@ -189,7 +189,7 @@ function sendBandCard(sender,id){
           },
           {
             "type": "web_url",
-            "url": band.band[id].url,
+            "url": bands.band[id].url,
             "title": 'Add to Schedule'
           }
           ]
