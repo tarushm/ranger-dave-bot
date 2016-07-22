@@ -95,7 +95,7 @@ function sendToApiAi(sender, message,id){
   else if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
     var bandID = getBandId(info.result.parameters.bands)
-    sendTextMessage(sender,bands.band[bandID].name);
+    sendTextMessage(sender,bandID);
     }
   }
 
