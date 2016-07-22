@@ -121,6 +121,7 @@ function processRequest(sender, func, id){
       break;
     case 'greet':
       greet(sender)
+      break;
     default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
