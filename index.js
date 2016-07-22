@@ -100,7 +100,7 @@ function checkBand(text,key){
     for (var j = 0; j < key.length && !contained; j++){
         contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
         if (contained){
-          band_name= j;
+          band= j;
         }
       }
   return band;
