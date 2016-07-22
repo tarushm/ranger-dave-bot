@@ -94,7 +94,7 @@ function sendToApiAi(sender, message,id){
   }
   else if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
-    sendTextMessage(sender,bands.band[id].time' on 'bands.band[id].day);
+    sendTextMessage(sender,bands.band[id].time+' on '+bands.band[id].day);
     }
   }
 
