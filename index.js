@@ -89,7 +89,10 @@ function sendToApiAi(sender, message,id){
     }
   }
   function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
+  if (error){
+    console.log(error);
+  }
+  else if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
     if (info.result.actionIncomplete == 'false'){
       sendTextMessage(sender,info.result.action)
