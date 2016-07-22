@@ -87,13 +87,13 @@ function sendToApiAi(sender, message,id){
     headers: {
       'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
     }
-  };
+  }
   function callback(error, response, body) {
   if (error){
     console.log(error);
   }
   else if (!error && response.statusCode == 200) {
-    var info = body;
+    var info = JSON.parse(body);
     if (info.result.actionIncomplete == 'false'){
       sendTextMessage(sender,info.result.action)
     }
