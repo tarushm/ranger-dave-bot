@@ -45,14 +45,14 @@ app.post('/webhook/', function (req, res) {
 			let text = event.message.text
 			var food_key = ['hungry',' eat','lunch','dinner','more'];
       var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
-			var isHungry = false;
-      var isWeather = false;
-			for (var j = 0; j < food_key.length; j++){
-				isHungry = isHungry || (text.toUpperCase().indexOf(food_key[j].toUpperCase()) > -1);
-			}
-      for (var j = 0; j < weather_key.length; j++){
-        isWeather = isWeather || (text.toUpperCase().indexOf(weather_key[j].toUpperCase()) > -1);
+      var band_key = [];
+      for (var j = 0; j < bands.band.length; j++ ){
+        band_key.push(bands.band[j].name);
       }
+      var isBand = checkIfContained(text,band_key);
+      var isFood = checkIfContained(text,food_key);
+      var isWeather = checkIfContained(text,weather_key);
+
 			if (isHungry) {
 				sendTextMessage(sender, 'Here are some options!')
 				sendFoodCards(sender,randFood(),randFood(),randFood())
@@ -73,6 +73,10 @@ app.post('/webhook/', function (req, res) {
           }
         });
       }
+      else if (isBand) {
+        var band = checkBand(text,band_key);
+        sendBandCard(sender,band)
+      }
       else {
         sendTextMessage(sender, 'I don\'t seem to understand! I\'m still learning. You can ask me about the weather, or let me know if you are hungry!');
       }
@@ -82,6 +86,25 @@ app.post('/webhook/', function (req, res) {
   res.sendStatus(200)
 })
 
+function checkIfContained(text,key){
+  var contained = false;
+    for (var j = 0; j < key.length; j++){
+        contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
+      }
+    return contained;
+}
+
+function checkBand(text,key){
+  var contained = false;
+  var band;
+    for (var j = 0; j < key.length && !contained; j++){
+        contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
+        if (contained){
+          band_name= j;
+        }
+      }
+  return band;
+}
 
 function randFood(){
 	return Math.floor(Math.random() * (77));
@@ -123,6 +146,42 @@ function sendWeatherCard(sender,temp,text,loc){
         "elements":[{
           "title": temp + '\xB0 and ' + text,
           "subtitle": loc,
+          "buttons":[{
+            "type": "web_url",
+            "url": 'https://www.yahoo.com/news/weather/united-states/san-francisco/san-francisco-23679437',
+            "title": 'Expand forecast.'
+          }]
+        }]
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
+
+function sendBandCard(sender,name){
+  let messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "template_type": "generic",
+        "elements":[{
+          "title": name,
+          "subtitle": ,
           "buttons":[{
             "type": "web_url",
             "url": 'https://www.yahoo.com/news/weather/united-states/san-francisco/san-francisco-23679437',
