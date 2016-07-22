@@ -172,21 +172,28 @@ function sendWeatherCard(sender,temp,text,loc){
   })
 }
 
-function sendBandCard(sender,name){
+function sendBandCard(sender,id){
   let messageData = {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "generic",
-        "template_type": "generic",
         "elements":[{
-          "title": name,
-          "subtitle": ,
+          "title": bands.band[id].name,
+          "subtitle": bands.band[id].stage + ',' + bands.band[id].day,
+          "subtitle": bands.band[id].time,
+          "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
-            "url": 'https://www.yahoo.com/news/weather/united-states/san-francisco/san-francisco-23679437',
-            "title": 'Expand forecast.'
-          }]
+            "url": band.band[id].website_url,
+            "title": 'Artist Website'
+          },
+          {
+            "type": "web_url",
+            "url": band.band[id].url,
+            "title": 'Add to Schedule'
+          }
+          ]
         }]
       }
     }
