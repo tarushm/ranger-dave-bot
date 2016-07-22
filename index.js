@@ -179,8 +179,7 @@ function sendBandCard(sender,id){
         "template_type": "generic",
         "elements":[{
           "title": bands.band[id].name,
-          "subtitle": bands.band[id].stage + ',' + bands.band[id].day,
-          "subtitle": bands.band[id].time,
+          "subtitle": bands.band[id].stage + ',' + bands.band[id].day + '\n' + bands.band[id].time,
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
