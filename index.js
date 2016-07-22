@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
         band_key.push(bands.band[j].name);
       }
       var isBand = checkIfContained(text,band_key);
-      var isFood = checkIfContained(text,food_key);
+      var isHungry = checkIfContained(text,food_key);
       var isWeather = checkIfContained(text,weather_key);
 
 			if (isHungry) {
