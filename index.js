@@ -52,7 +52,7 @@ app.post('/webhook/', function (req, res) {
       var isBand = checkIfContained(text,band_key);
       var isHungry = checkIfContained(text,food_key);
       var isWeather = checkIfContained(text,weather_key);
-
+      var band_id = checkBand(text,band_key);
 			if (isHungry) {
 				sendTextMessage(sender, 'Here are some options!')
 				sendFoodCards(sender,randFood(),randFood(),randFood())
@@ -73,9 +73,8 @@ app.post('/webhook/', function (req, res) {
           }
         });
       }
-      else if (isBand) {
-        var band = checkBand(text,band_key);
-        sendBandCard(sender,band)
+      else if (isBand && band_id >-1) {
+        sendBandCard(sender,band_id)
       }
       else {
         sendTextMessage(sender, 'I don\'t seem to understand! I\'m still learning. You can ask me about the weather, or let me know if you are hungry!');
@@ -96,7 +95,7 @@ function checkIfContained(text,key){
 
 function checkBand(text,key){
   var contained = false;
-  var band;
+  var band = -1;
     for (var j = 0; j < key.length && !contained; j++){
         contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
         if (contained){
