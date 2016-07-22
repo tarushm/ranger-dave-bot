@@ -97,8 +97,7 @@ function sendToApiAi(sender, message,id){
     var bandID = info.result.parameters.bands;
     var command = info.result.metadata.intentName;
     if (!info.result.actionIncomplete){
-      sendTextMessage(sender,command + ' is ' + bandID);
-      sendBandCard(sender,bandID);
+      info.result.action(sender, bandID);
     }
     else {
       sendTextMessage(sender, info.result.fulfillment.speech);
@@ -109,19 +108,20 @@ function sendToApiAi(sender, message,id){
   request(options, callback);
 }
 
-/*
-function getBandId(name){
-  var id = -1;
-  var contained = false;
-  for (var k = 0; k < bands.band.length && !contained; k++){
-    contained = contained || (name.indexOf(bands.band[k]) > -1);
-    if (contained){
-      id=k;
-    }
-  }
-  return id;
+function get_stage(sender, id) {
+  sendTextMessage(sender, bands.band[id].stage + 'is playing at' + bands.band[id].stage);
+  return true;
 }
-*/
+
+function get_settime(sender, id) {
+  sendTextMessage(sender, bands.band[id].day +' '+ bands.band[id].time);
+  return true;
+}
+
+function get_bandinfo(sender, id){
+  sendBandCard(sender, id);
+  return true;
+}
 
 function checkIfContained(text,key){
   var contained = false;
