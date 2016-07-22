@@ -184,7 +184,7 @@ function sendBandCard(sender,id){
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
-            "url": band.band[id].website_url,
+            "url": bands.band[id].website_url,
             "title": 'Artist Website'
           },
           {
