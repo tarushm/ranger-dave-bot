@@ -114,10 +114,10 @@ function processRequest(sender, func, id){
       get_stage(sender,id)
       break;
     case 'get_settime':
-      get_stage(sender,id)
+      get_settime(sender,id)
       break;
     case 'get_info':
-      get_stage(sender,id)
+      get_bandinfo(sender,id)
       break;
     default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!);
