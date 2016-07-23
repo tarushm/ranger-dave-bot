@@ -42,44 +42,49 @@ app.post('/webhook/', function (req, res) {
 		let event = req.body.entry[0].messaging[i]
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
-			let text = event.message.text
-			var food_key = ['hungry',' eat','lunch','dinner','more options'];
-      var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
-      var band_key = [];
-      for (var j = 0; j < bands.band.length; j++ ){
+		    let text = event.message.text
+                    processMessage(sender, text);
+                }
+        }
+        res.sendStatus(200)
+});
+
+function processMessage(facebookUid, text) {
+    var food_key = ['hungry',' eat','lunch','dinner','more options'];
+    var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
+    var band_key = [];
+    for (var j = 0; j < bands.band.length; j++ ){
         band_key.push(bands.band[j].name);
-      }
-      var isBand = checkIfContained(text,band_key);
-      var isHungry = checkIfContained(text,food_key);
-      var isWeather = checkIfContained(text,weather_key);
-      var band_id = checkBand(text,band_key);
-			if (isHungry) {
-				sendTextMessage(sender, 'Here are some options!')
-				sendFoodCards(sender,randFood(),randFood(),randFood())
-				continue
-			}
-      else if (isWeather) {
+    }
+    var isBand = checkIfContained(text,band_key);
+    var isHungry = checkIfContained(text,food_key);
+    var isWeather = checkIfContained(text,weather_key);
+    var band_id = checkBand(text,band_key);
+    if (isHungry) {
+        sendTextMessage(facebookUid, 'Here are some options!')
+            sendFoodCards(facebookUid, randFood(),randFood(),randFood())
+            continue
+    }
+    else if (isWeather) {
         var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
         request({
-          url: weatherEndpoint,
-          json: true
+            url: weatherEndpoint,
+            json: true
         }, function(error, response, body) {
-          try {
-            var condition = body.query.results.channel.item.condition;
-            sendWeatherCard(sender, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
-          } catch(err) {
-            console.error('error caught', err);
-            sendTextMessage(sender, "There was an error.");
-          }
+            try {
+                var condition = body.query.results.channel.item.condition;
+                sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
+            } catch(err) {
+                console.error('error caught', err);
+                sendTextMessage(facebookUid, "There was an error.");
+            }
         });
-      }
-      else {
-        sendToApiAi(sender,text,band_id);
-      }
     }
-  }
-  res.sendStatus(200)
-})
+    else {
+        sendToApiAi(facebookUid, text, band_id);
+    }
+}
+
 
 function sendToApiAi(sender, message,id){
   var options = {
