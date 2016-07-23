@@ -32,5 +32,5 @@ function sendLineup(sender) {
 }
 
 module.exports = {
-	sendLineup: sendLineup;
+	sendLineup: sendLineup
 }
