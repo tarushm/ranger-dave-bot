@@ -150,7 +150,7 @@ function greet(sender){
 }
 
 function get_lineup(sender){
-  sendLineup(sender, "Here\'s the Outside Lands lineup!")
+  sendTextMessage(sender, "Here\'s the Outside Lands lineup!")
   sendLineup(sender);
 }
 function checkIfContained(text,key){
