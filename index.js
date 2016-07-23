@@ -122,6 +122,8 @@ function processRequest(sender, func, id){
     case 'greet':
       greet(sender)
       break;
+    case 'get_lineup':
+      get_lineup(sender)
     default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
@@ -144,6 +146,11 @@ function get_bandinfo(sender, id){
 
 function greet(sender){
   sendTextMessage(sender, "Hello! I am Ranger Dave Bot. I know anything and everything about Outside Lands. Ask me about your favorite artist, what kind of food you want to eat, or even the weather!")
+}
+
+function get_lineup(sender){
+  sendLineup(sender, "Here\'s the Outside Lands lineup!")
+  sendLineup(sender);
 }
 function checkIfContained(text,key){
   var contained = false;
@@ -190,6 +197,27 @@ function sendTextMessage(sender, text) {
 	})
 }
 
+function sendLineup(sender) {
+  let messageData = { attachment:'https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806' }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
+
+https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806
+
 function sendWeatherCard(sender,temp,text,loc){
   let messageData = {
     "attachment": {
@@ -233,7 +261,7 @@ function sendBandCard(sender,id){
         "template_type": "generic",
         "elements":[{
           "title": bands.band[id].name,
-          "subtitle": bands.band[id].stage + ', ' + bands.band[id].day + ' at' + bands.band[id].start_time,
+          "subtitle": bands.band[id].stage + ', ' + bands.band[id].day + ' at ' + bands.band[id].start_time,
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
