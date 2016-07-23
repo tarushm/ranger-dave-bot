@@ -216,8 +216,6 @@ function sendLineup(sender) {
   })
 }
 
-https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806
-
 function sendWeatherCard(sender,temp,text,loc){
   let messageData = {
     "attachment": {
