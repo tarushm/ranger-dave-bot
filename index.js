@@ -6,6 +6,8 @@ const request = require('request')
 //var redis = require('redis');
 var foods = require('./food.json')
 var bands = require('./bands.json')
+var sendTextMessage = require('./messaging.js').sendTextMessage;
+var sendLineup = require('./lineup.js').sendLineup;
 const app = express()
 
 //this._db = redis.createClient(); 
@@ -175,27 +177,6 @@ function checkBand(text,key){
 
 function randFood(){
 	return Math.floor(Math.random() * (77));
-}
-
-const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
-
-function sendTextMessage(sender, text) {
-	let messageData = { text:text }
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token:token},
-		method: 'POST',
-		json: {
-			recipient: {id:sender},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
 }
 
 function sendLineup(sender) {
