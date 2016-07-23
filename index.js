@@ -124,6 +124,7 @@ function processRequest(sender, func, id){
       break;
     case 'get_lineup':
       get_lineup(sender)
+      break;
     default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
