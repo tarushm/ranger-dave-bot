@@ -199,7 +199,15 @@ function sendTextMessage(sender, text) {
 }
 
 function sendLineup(sender) {
-  let messageData = { attachment:'https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806' }
+  let messageData =
+  {
+    "attachment":{
+      "type":"image",
+      "payload":{
+        "url":"https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806"
+      }
+    }
+  }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
