@@ -43,7 +43,7 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			var food_key = ['hungry',' eat','lunch','dinner','more'];
+			var food_key = ['hungry',' eat','lunch','dinner','more options'];
       var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
       var band_key = [];
       for (var j = 0; j < bands.band.length; j++ ){
