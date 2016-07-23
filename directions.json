@@ -1,0 +1,24 @@
+{
+	"directions": [
+		{
+		"stage": "Lands End",
+		"url": "https://www.google.com/maps/dir//37.767695,-122.4946643/@37.7659648,-122.4919391,16z",
+		},
+		{
+		"stage": "Twin Peaks",
+		"url" : "https://www.google.com/maps/dir//37.7697306,-122.4833813/@37.7694884,-122.4837829, 16z",
+		},
+		{
+		"stage": "Panhandle",
+		"url": "https://www.google.com/maps/dir//37.7697333,-122.4859187/@37.7707384,-122.488167,16z",
+		},
+		{
+		"stage": "Presidio",
+		"url": "https://www.google.com/maps/dir//37.7705421,-122.4881121/@37.7707703,-122.490338,,16z",
+		},
+		{
+			"stage": "Sutro",
+			"url": "https://www.google.com/maps/dir//37.7702222,-122.4922402/@37.7703458,-122.4931696,16z",
+		},
+	]
+}
