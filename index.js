@@ -204,7 +204,7 @@ function sendLineup(sender) {
     "attachment":{
       "type":"image",
       "payload":{
-        "url":"https://consequenceofsound.files.wordpress.com/2016/04/outside-lands1.jpg?w=806"
+        "url":"http://richmondsfblog.com/wp-content/uploads/2016/04/2016lineup.jpg"
       }
     }
   }
