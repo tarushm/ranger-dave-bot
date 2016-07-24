@@ -8,7 +8,7 @@ const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4I
 
 function sendDirections(sender,bandID,stageID){
   var destination;
-  if (bandID == ''){
+  if (bandID === ''){
     destination = directions.directions[stageID].name;
   }
   else {
@@ -20,7 +20,7 @@ function sendDirections(sender,bandID,stageID){
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": 'Here\'s how to get to' + destination,
+          "title": 'Here\'s how to get to ' + destination,
           "image_url": 'http://cdn.funcheap.com/wp-content/uploads/2014/07/www.sfoutsidelands.com-sites-default-files-content-files-files-OL15_PrintableMap-1-.pdf.png',
           "buttons":[{
             "type": "web_url",
