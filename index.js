@@ -23,6 +23,12 @@ const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BAGZCQ4bJwOpBBJdGfDMOPqdmHHJv0f84Rxcd0ZABB3de00OWITlEbWGDHV4I1Fmiaphws4y8IGya0ECbVPMYbUZBgtUa9yYiOoZAr2cZA6kS3R0WZCjaLBouWtIXuAKi5W7HRvSGKUezSZArIyfWR4fcVZAFcefmiAZDZD';
 
+const DAY_TO_MOMENT_MAP = [
+    moment('Friday, August 05 2016'),
+    moment('Saturday, August 06 2016'),
+    moment('Sunday, August 07 2016')
+]
+
 const SENTIMENT_MAP = [
     "pretty bad",
     "Mediocre",
@@ -223,11 +229,16 @@ function processMessage(facebookUid, text) {
 
       // if no date, assume it's today
       var date;
-      if (params.date) {
-       date = moment(params.date);
-     } else {
-       date = moment();
-     }
+      if (params.day) {
+          date = DAY_TO_MOMENT_MAP[parseInt(params.day)];
+      } else {
+          if (params.date) {
+              date = moment(params.date);
+          } else {
+              date = moment();
+          }
+      }
+
 
       // get time and bump to 12 hr if necessary
       let timeItems = params.time.split(':').map(function(e) { return parseInt(e);} );
