@@ -189,7 +189,7 @@ function processRequest(sender, body){
 
 function get_directions(sender, body) {
   var band_id = body.result.parameters.bands;
-  var stage_id = body.result.parameters.stage;
+  var stage_id = body.result.parameters.stages;
   // they did give stage and maybe band
   if(stage_id != ""){
     sendDirections(sender,"",stage_id);
