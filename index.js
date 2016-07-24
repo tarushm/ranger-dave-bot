@@ -162,6 +162,7 @@ function processRequest(sender, body){
   switch(func){
     case 'get_directions':
       get_directions(sender,body);
+      break;
     case 'get_rating':
       process_rating(sender, body)
       break;
