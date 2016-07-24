@@ -196,7 +196,7 @@ function processMessage(facebookUid, text) {
       break;
       case 'get_hotness_at_epoch':
       var date = moment()
-      date = date.add(14, 'days').subtract(2, 'hours');
+      date = date.add(14, 'days').subtract(12, 'hours');
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
           sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
