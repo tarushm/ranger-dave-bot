@@ -383,7 +383,7 @@ function sendPlayingAtTimeCards(sender,playing) {
     elements.push(
     {
       "title": bands.band[playing[i]].name,
-      "image_url": bands.band[playing[i]].url,
+      "image_url": bands.band[playing[i]].img,
       "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
     })
   }
