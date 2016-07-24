@@ -23,7 +23,6 @@ function sendDirections(sender,bandID,stageID){
           }
           ]
         }
-      }
     }
   }
   request({
