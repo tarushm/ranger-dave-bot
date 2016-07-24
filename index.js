@@ -387,6 +387,7 @@ function sendPlayingAtTimeCards(playing) {
   //     "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
   //   })
   // }
+  console.log('sendPlayingAtTimeCards has started');
   let messageData = {
     "attachment":{
       "type":"template",
