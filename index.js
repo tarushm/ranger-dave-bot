@@ -194,7 +194,7 @@ function processRequest(sender, body){
         var bandItem = bands.band[idx];
         msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
       });
-      sendTextMessage(sender, rater.get_artist_at_time(date));
+      sendTextMessage(sender, msg);
       break;
     case 'get_hotness_at_epoch':
       var date = moment()
