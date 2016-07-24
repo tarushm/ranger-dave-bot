@@ -147,6 +147,9 @@ function processMessage(facebookUid, text) {
             if (!data.result.actionIncomplete){
               processRequest(sender, data);
             }
+            else if (data.result.source == 'domains') {
+              sendTextMessage(sender, data.result.fulfillment.speech);
+            }
             else {
               sendTextMessage(sender, data.result.fulfillment.speech);
             }
