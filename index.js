@@ -11,6 +11,7 @@ var foods = require('./food.json')
 var bands = require('./bands.json')
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendLineup = require('./lineup.js').sendLineup;
+var sendDirections = require('./maps.js').sendDirections;
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);

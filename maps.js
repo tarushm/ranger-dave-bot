@@ -5,7 +5,6 @@ const request = require('request');
 const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
 
 function sendDirections(sender,bandID,stageID){
-  sendTextMessage(sender, 'band_id'+bandID+'stage_id'+stageID);
   var destination;
   if (bandID == "") {
     destination = directions.directions[stageID].stage;
