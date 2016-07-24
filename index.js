@@ -349,17 +349,17 @@ function sendHelp(sender) {
           {
             "type":"postback",
             "title": "I want fried food.",
-            "payload": "I want fried food."
+            "payload": "I want a burger."
           },
           {
             "type":"postback",
             "title": "What stage is popping right now?",
-            "payload": "What stage is popping right now?"
+            "payload": "What stage is lit?"
           },
           {
             "type":"postback",
             "title": "How do I get to Sutro?",
-            "payload": "How do I get to Sutro?"
+            "payload": "Directions to Sutro?"
           }
         ]
       }
