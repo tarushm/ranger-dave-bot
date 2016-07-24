@@ -166,8 +166,35 @@ function processRequest(sender, body){
     case 'get_rating':
       rater.process_rating(sender, body)
       break;
+    case 'playing_at_time':
+      let params = body.result.parameters;
+
+      // if no date, assume it's today
+      var date;
+      if (params.date) {
+         date = moment(params.date);
+      } else {
+         date = moment();
+      }
+
+      // get time and bump to 12 hr if necessary
+      let timeItems = params.time.split(':').map(function(e) { return parseInt(e);} );
+      if (timeItems[0] < 12) {
+          timeItems[0] += 12;
+      }
+      date.hour(timeItems[0]);
+      date.minutes(timeItems[1]);
+      date.seconds(0);
+
+      // Process response
+      var msg = "Here is the line up you requested:\n";
+      rater.get_artist_at_time(date).forEach(function(idx) {
+        var bandItem = bands.band[idx];
+        msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
+      });
+      sendTextMessage(sender, msg);
+      break;
     case 'get_hotness_at_epoch':
-      //var date = moment(new Date(), 'America/Los_Angeles');
       var date = moment()
       date = date.add(14, 'days').subtract(2, 'hours');
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
