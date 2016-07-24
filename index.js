@@ -377,27 +377,22 @@ function sendWeatherCard(sender,temp,text,loc){
   })
 }
 
-function sendPlayingAtTimeCards(playing) {
-  // var elements = [];
-  // for (var i = 0; i < playing.length; i++){
-  //   elements.push(
-  //   {
-  //     "title": bands.band[playing[i]].name,
-  //     "image_url": bands.band[playing[i]].url,
-  //     "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
-  //   })
-  // }
-  console.log('sendPlayingAtTimeCards has started');
+function sendPlayingAtTimeCards(sender,playing) {
+  let elements = [];
+  for (var i = 0; i < playing.length; i++){
+    elements.push(
+    {
+      "title": bands.band[playing[i]].name,
+      "image_url": bands.band[playing[i]].url,
+      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
+    })
+  }
   let messageData = {
     "attachment":{
       "type":"template",
       "payload":{
         "template_type":"generic",
-        "elements": [{
-          "title": bands.band[playing[0]].name,
-          "image_url": bands.band[playing[0]].url,
-          "subtitle": bands.band[playing[0]].start_time + ' - ' + bands.band[playing[0]].end_time
-        }]
+        "elements": elements
       }
     }
   }
