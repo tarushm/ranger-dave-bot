@@ -31,6 +31,7 @@ function get_rating_for_artist(artist_idx) {
 }
 
 function get_hotness_at_epoch(date, numBest) {
+    console.log(date);
     var bandsInEpoch = [];
     for (var i=0; i < bands.length; i++) {
         let currentBand = bands[i];
