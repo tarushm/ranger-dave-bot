@@ -194,7 +194,7 @@ function processRequest(sender, body){
         var bandItem = bands.band[idx];
         msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
       });
-      sendTextMessage(sender, msg);
+      sendTextMessage(sender, rater.get_artist_at_time(date));
       break;
     case 'get_hotness_at_epoch':
       var date = moment()
@@ -417,7 +417,7 @@ function sendBandCard(sender,id){
     }
   })
 }
-
+function sendPlayingAtTimeCard()
 function sendFoodCards(sender,rf1,rf2,rf3) {
 	var title = 'Check it Out!'
 
