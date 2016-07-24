@@ -261,7 +261,6 @@ function processMessage(facebookUid, text) {
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
   }
-  function
 
   function get_directions(sender, body) {
     var band_id = body.result.parameters.bands;
