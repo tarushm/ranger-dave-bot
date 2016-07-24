@@ -254,6 +254,7 @@ function processMessage(facebookUid, text) {
       break;
       case 'get_help':
       get_help(sender);
+      break;
       case 'get_lineup':
       get_lineup(sender)
       break;
@@ -262,6 +263,10 @@ function processMessage(facebookUid, text) {
     }
   }
 
+  function get_help(sender){
+    sendHelp(sender);
+    return true;
+  }
   function get_directions(sender, body) {
     var band_id = body.result.parameters.bands;
     var stage_id = body.result.parameters.stages;
@@ -332,6 +337,52 @@ function randFood(array){
   return Math.floor(Math.random() * (array.length));
 }
 
+function sendHelp(sender) {
+  let messageData =
+  {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text": "Here are some things you can ask me!",
+        "buttons":[
+          {
+            "type":"postback",
+            "title": "I want fried food."
+            "payload": "I want fried food."
+          },
+          {
+            "type":"postback",
+            "title": "What stage is popping right now?"
+            "payload": "What stage is popping right now?"
+          },
+          {
+            "type":"postback",
+            "title": "How do I get to Sutro?"
+            "payload": "How do I get to Sutro?"
+          }
+        ]
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      //console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      //console.log('Error: ', response.body.error)
+    }
+  })
+
+
+}
 function sendLineup(sender) {
   let messageData =
   {
