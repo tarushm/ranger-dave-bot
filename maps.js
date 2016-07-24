@@ -22,7 +22,7 @@ function sendDirections(sender,bandID,stageID){
             "title": 'Take me there!'
           }
           ]
-        }]
+        }
       }
     }
   }
