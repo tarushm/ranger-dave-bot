@@ -116,6 +116,25 @@ function processMessage(facebookUid, text) {
     });
   }
 
+  function getTopTracks(sender, id){
+    var band = bands.band[id].name;
+    var endpoint = 'https://api.spotify.com/v1/search?q='+band+'&type=artist&limit=1'
+    request({
+      url: endpoint,
+      json: true
+    }, function(error, response, body) {
+      try {
+        var condition = body.artists.items.id;
+        sendTextMessage(sender,condition)
+      } catch(err) {
+        console.error('error caught', err);
+        sendTextMessage(sender, "There was an error.");
+      }
+    });
+  }
+
+
+
   function sendToApiAi(sender, message, id){
     let urlParams = {
       v: "20150910",
