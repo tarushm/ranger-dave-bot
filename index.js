@@ -167,8 +167,8 @@ function processRequest(sender, body){
       rater.process_rating(sender, body)
       break;
     case 'get_hotness_at_epoch':
-      var date = moment(new Date, 'America/Los_Angeles').toString();
-      var date = date.add(14, 'days').subtract(1, 'hour').tz("America/Los_Angeles");
+      var date = moment(new Date(), 'America/Los_Angeles');
+      date = date.add(14, 'days').subtract(2, 'hours');
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
