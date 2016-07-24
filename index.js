@@ -197,6 +197,7 @@ function processMessage(facebookUid, text) {
       case 'get_hotness_at_epoch':
       var date = moment()
       date = date.add(14, 'days').subtract(12, 'hours');
+      var popping = [];
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
           sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
@@ -219,9 +220,7 @@ function processMessage(facebookUid, text) {
       break;
       case 'get_food_type':
       var type = body.result.parameters.food_type
-      console.log("hello," + type)
       get_food_type(sender, type)
-      console.log(type)
       break;
       case 'get_bandinfo':
       var id = body.result.parameters.bands;
@@ -266,14 +265,9 @@ function get_settime(sender, id) {
 
 function get_food_type(sender,type){
   var foodtype_map = preprocessFoodTypes()
-  console.log("reached1")
-  console.log(type)
-  if(foodtype_map[type] instanceof Array){
-    console.log("hello")
-  }
-  //console.log(foodtype_map[type])
+  // if(foodtype_map[type] instanceof Array){
+  // }
   showMeFood(foodtype_map[type])
-  console.log("reached2")
 }
 function get_bandinfo(sender, id){
   sendBandCard(sender, id);
@@ -308,8 +302,8 @@ function checkBand(text,key){
   return band;
 }
 
-function randFood(){
-  return Math.floor(Math.random() * (77));
+function randFood(array){
+  return Math.floor(Math.random() * (array.length));
 }
 
 function sendLineup(sender) {
@@ -409,6 +403,52 @@ function sendPlayingAtTimeCards(sender,playing) {
     }
   })
 }
+
+function showMeFood(sender,list) {
+  let elements = [];
+  for (var i = 0; i < list.length; i++){
+    elements.push(
+    {
+      "title": list[i].name,
+      "image_url": list[i].img,
+      "subtitle": list[i].description,
+      "buttons":[{
+        "type": "web_url",
+        "url": list[i].url,
+        "title": 'Check it out!'
+      }]
+    })
+  }
+  
+  let messageData = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements": elements
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
+
+
+
+// function sendRatingCards(sender,)
 
 function sendBandCard(sender,id){
   let messageData = {
