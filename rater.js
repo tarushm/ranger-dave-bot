@@ -3,7 +3,7 @@
 var redis = require('redis');
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var bands = require('./bands.json').band;
-var moment = require('moment')
+var moment = require('moment-timezone')
 
 const redisClient = redis.createClient(process.env.REDIS_URL);
 
@@ -35,8 +35,8 @@ function get_hotness_at_epoch(date, numBest) {
     var bandsInEpoch = [];
     for (var i=0; i < bands.length; i++) {
         let currentBand = bands[i];
-        let startDate = moment(currentBand.day + " " + currentBand.start_time);
-        let endDate = moment(currentBand.day + " " + currentBand.end_time);
+        let startDate = moment(currentBand.day + " " + currentBand.start_time).tz("America/Los_Angeles");
+        let endDate = moment(currentBand.day + " " + currentBand.end_time).tz("America/Los_Angeles");
 
         if (date.isSameOrAfter(startDate) && date.isBefore(endDate)) {
             bandsInEpoch.push(get_rating_for_artist(i));
