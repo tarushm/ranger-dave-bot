@@ -412,7 +412,6 @@ function sendPlayingAtTimeCards(playing) {
     }
   })
 }
-}
 
 function sendBandCard(sender,id){
   let messageData = {
