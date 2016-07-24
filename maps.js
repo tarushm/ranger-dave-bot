@@ -18,13 +18,8 @@ function sendDirections(sender,bandID,stageID){
           "image_url": bands.band[bandID].img,
           "buttons":[{
             "type": "web_url",
-            "url": bands.band[bandID].website_url,
-            "title": 'Artist Website'
-          },
-          {
-            "type": "web_url",
-            "url": bands.band[bandID].url,
-            "title": 'Add to Schedule'
+            "url": directions.directions[stageID].url,
+            "title": 'Take me there!'
           }
           ]
         }]
