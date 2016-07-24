@@ -417,7 +417,7 @@ function sendBandCard(sender,id){
     }
   })
 }
-function sendPlayingAtTimeCard()
+
 function sendFoodCards(sender,rf1,rf2,rf3) {
 	var title = 'Check it Out!'
 
