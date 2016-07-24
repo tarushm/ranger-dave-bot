@@ -407,7 +407,7 @@ function sendPlayingAtTimeCards(sender,playing) {
 function showMeFood(sender,list) {
   let elements = [];
   var rand = randFood(list);
-  for (var i = 0; i < list.length || i < 10; i++){
+  for (var i = 0; i < list.length && i < 10; i++){
     console.log(list[(i+rand)%list.length]);
     elements.push(
     {
