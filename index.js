@@ -10,6 +10,10 @@ const uuid = require('node-uuid');
 var redis = require('redis');
 var foods = require('./food.json')
 var bands = require('./bands.json')
+
+var artist_to_genre = require('./artist_to_genre.json')
+var genre_to_artists = require('./genre_to_artists.json')
+
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendLineup = require('./lineup.js').sendLineup;
 var sendDirections = require('./maps.js').sendDirections;
@@ -192,6 +196,22 @@ function processMessage(facebookUid, text) {
   function processRequest(sender, body){
     var func = body.result.action;
     switch(func){
+      case 'get_similar':
+        var params = body.result.parameters;
+        var band = params.bands;
+
+        // Get genre
+        let genreForBand = artist_to_genre[band.toString()];
+        if (genreForBand == undefined) {
+            sendTextMessage(sender, "we couldn't find similar artists at this time");
+        } else {
+            let reccomendList = genre_to_artists[genreForBand];
+            reccomendList = reccomendList.filter(function(el) {
+                return el != band;
+            });
+            console.log(reccomendList);
+        }
+
       case 'get_directions':
       get_directions(sender,body);
       break;
@@ -199,7 +219,7 @@ function processMessage(facebookUid, text) {
       rater.process_rating(sender, body)
       break;
       case 'playing_at_time':
-      let params = body.result.parameters;
+      var params = body.result.parameters;
 
       // if no date, assume it's today
       var date;
