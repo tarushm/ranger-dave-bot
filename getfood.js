@@ -60,5 +60,4 @@ function preprocessFoodTypes(){
 
 module.exports = {
   preprocessFoodTypes: preprocessFoodTypes,
-  showMeFood: showMeFood
 }
