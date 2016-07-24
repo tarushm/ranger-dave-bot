@@ -190,11 +190,11 @@ function processRequest(sender, body){
 
       // Process response
       var msg = "Here is the line up you requested:\n";
+      var playing = [];
       rater.get_artist_at_time(date).forEach(function(idx) {
-        var bandItem = bands.band[idx];
-        msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
+        playing.push(idx);
       });
-      sendTextMessage(sender, msg);
+      sendTextMessage(sender, playing);
       break;
     case 'get_hotness_at_epoch':
       var date = moment()
