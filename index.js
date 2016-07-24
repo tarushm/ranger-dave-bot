@@ -266,7 +266,7 @@ function get_food_type(sender,type){
   var foodtype_map = preprocessFoodTypes()
   // if(foodtype_map[type] instanceof Array){
   // }
-  console.log('in get_food_type, moving on to show me food')
+  console.log('in get_food_type, moving on to show me food' + type)
   showMeFood(foodtype_map[type])
 }
 function get_bandinfo(sender, id){
