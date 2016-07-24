@@ -349,17 +349,17 @@ function sendHelp(sender) {
           {
             "type":"postback",
             "title": "I want a burger.",
-            "payload": "I want a burger."
+            "payload": processMessage(sender,"I want a burger.")
           },
           {
             "type":"postback",
             "title": "What stage is lit?",
-            "payload": "What stage is lit?"
+            "payload": processMessage(sender,"What stage is lit?")
           },
           {
             "type":"postback",
             "title": "Directions to Sutro?",
-            "payload": "Directions to Sutro?"
+            "payload": processMessage(sender,"Directions to Sutro?")
           }
         ]
       }
