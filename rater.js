@@ -35,10 +35,8 @@ function get_hotness_at_epoch(date, numBest) {
     var bandsInEpoch = [];
     for (var i=0; i < bands.length; i++) {
         let currentBand = bands[i];
-        let startDate = moment(currentBand.day + " " + currentBand.start_time).tz("America/Los_Angeles");
-        let endDate = moment(currentBand.day + " " + currentBand.end_time).tz("America/Los_Angeles");
-        console.log(startDate.toString());
-        console.log(endDate.toString());
+        let startDate = moment(currentBand.day + " " + currentBand.start_time, "America/Los_Angeles");
+        let endDate = moment(currentBand.day + " " + currentBand.end_time, "America/Los_Angeles");
         if (date.isSameOrAfter(startDate) && date.isBefore(endDate)) {
             bandsInEpoch.push(get_rating_for_artist(i));
         }
