@@ -191,7 +191,6 @@ function get_directions(sender, body) {
   var band_id = body.result.parameters.bands;
   var stage_id = body.result.parameters.stages;
   // they did give stage and maybe band
-  sendTextMessage(sender, 'band_id'+band_id+'stage_id'+stage_id);
   if(stage_id != ""){
     sendDirections(sender,"",stage_id);
   }
