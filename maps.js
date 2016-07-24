@@ -9,7 +9,7 @@ const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4I
 function sendDirections(sender,bandID,stageID){
   var destination;
   if (bandID === ''){
-    destination = directions.directions[stageID].name;
+    destination = directions.directions[stageID].stage;
   }
   else {
     destination = bands.band[bandID].name;
