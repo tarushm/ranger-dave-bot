@@ -378,7 +378,7 @@ function sendWeatherCard(sender,temp,text,loc){
 }
 
 function sendPlayingAtTimeCards(playing) {
-  let elements = [];
+  var elements = [];
   for (var i = 0; i < playing.length; i++){
     elements.push(
     {
