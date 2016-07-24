@@ -406,17 +406,18 @@ function sendPlayingAtTimeCards(sender,playing) {
 
 function showMeFood(sender,list) {
   let elements = [];
+  var rand = randFood(list);
   console.log(list);
   for (var i = 0; i < list.length; i++){
-    console.log(list[i]);
+    console.log(list[(i+rand)%list.length]);
     elements.push(
     {
-      "title": list[i].name,
-      "image_url": list[i].img,
-      "subtitle": list[i].description,
+      "title": list[(i+rand)%list.length].name,
+      "image_url": list[(i+rand)%list.length].img,
+      "subtitle": list[(i+rand)%list.length].description,
       "buttons":[{
         "type": "web_url",
-        "url": list[i].url,
+        "url": list[(i+rand)%list.length].url,
         "title": 'Check it out!'
       }]
     })
@@ -473,64 +474,6 @@ function sendBandCard(sender,id){
             "title": 'Add to Schedule'
           }
           ]
-        }]
-      }
-    }
-  }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-}
-
-function sendFoodCards(sender,rf1,rf2,rf3) {
-  var title = 'Check it Out!'
-
-  let messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [{
-          "title": foods.food[rf1].name,
-          "subtitle": foods.food[rf1].description,
-          "image_url": foods.food[rf1].img,
-          "buttons": [{
-            "type": "web_url",
-            "url": foods.food[rf1].url,
-            "title": title
-          }],
-        },
-        {
-          "title": foods.food[rf2].name,
-          "subtitle": foods.food[rf2].description,
-          "image_url": foods.food[rf2].img,
-          "buttons": [{
-            "type": "web_url",
-            "url": foods.food[rf2].url,
-            "title": title
-          }],
-        },
-        {
-          "title": foods.food[rf3].name,
-          "subtitle": foods.food[rf3].description,
-          "image_url": foods.food[rf3].img,
-          "buttons": [{
-            "type": "web_url",
-            "url": foods.food[rf3].url,
-            "title": title
-          }],
         }]
       }
     }
