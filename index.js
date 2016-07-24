@@ -401,8 +401,7 @@ function sendPlayingAtTimeCards(sender,playing) {
     {
       "title": bands.band[playing[i]].name,
       "image_url": bands.band[playing[i]].img,
-      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time,
-      "subtitle": bands.band[playing[i]].stage
+      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time + ' at ' + bands.band[playing[i]].stage
     })
   }
   let messageData = {
