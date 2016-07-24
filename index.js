@@ -31,11 +31,6 @@ app.get('/webhook/', function (req, res) {
 	res.send('Error, wrong token')
 })
 
-// Spin up the server
-app.listen(app.get('port'), function() {
-	console.log('running on port', app.get('port'))
-})
-
 app.post('/webhook/', function (req, res) {
 	let messaging_events = req.body.entry[0].messaging
 	for (let i = 0; i < messaging_events.length; i++) {
@@ -49,6 +44,16 @@ app.post('/webhook/', function (req, res) {
         res.sendStatus(200)
 });
 
+app.post('/personal/', function (req, res) {
+    processMessage(req.body.uid, req.body.body);
+    res.sendStatus(200);
+});
+
+// Spin up the server
+app.listen(app.get('port'), function() {
+	console.log('running on port', app.get('port'))
+})
+
 function processMessage(facebookUid, text) {
     var food_key = ['hungry',' eat','lunch','dinner','more options'];
     var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
@@ -61,9 +66,9 @@ function processMessage(facebookUid, text) {
     var isWeather = checkIfContained(text,weather_key);
     var band_id = checkBand(text,band_key);
     if (isHungry) {
-        sendTextMessage(facebookUid, 'Here are some options!')
-            sendFoodCards(facebookUid, randFood(),randFood(),randFood())
-            continue
+        sendTextMessage(facebookUid, 'Here are some options!');
+        sendFoodCards(facebookUid, randFood(),randFood(),randFood())
+        return;
     }
     else if (isWeather) {
         var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
@@ -185,22 +190,23 @@ function randFood(){
 const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
 
 function sendTextMessage(sender, text) {
-	let messageData = { text:text }
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token:token},
-		method: 'POST',
-		json: {
-			recipient: {id:sender},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
+    console.log(sender + ": " + text);
+    let messageData = { text:text }
+    request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:token},
+            method: 'POST',
+            json: {
+                    recipient: {id:sender},
+                    message: messageData,
+            }
+    }, function(error, response, body) {
+            if (error) {
+                    console.log('Error sending messages: ', error)
+            } else if (response.body.error) {
+                    console.log('Error: ', response.body.error)
+            }
+    })
 }
 
 function sendLineup(sender) {
