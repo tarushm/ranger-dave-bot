@@ -30,17 +30,24 @@ function get_rating_for_artist(artist_idx) {
     });
 }
 
-function get_hotness_at_epoch(date, numBest) {
-    var bandsInEpoch = [];
+function get_artist_at_time(ts) {
+    var bandsInTs = [];
     for (var i=0; i < bands.length; i++) {
         let currentBand = bands[i];
         let startDate = moment(currentBand.day + " " + currentBand.start_time);
         let endDate = moment(currentBand.day + " " + currentBand.end_time);
-        console.log(date.toString(), endDate.toString());
-        if (date.isSameOrAfter(startDate) && date.isBefore(endDate)) {
-            bandsInEpoch.push(get_rating_for_artist(i));
+        if (ts.isSameOrAfter(startDate) && ts.isBefore(endDate)) {
+            bandsInTs.push(i);
         }
     }
+    return bandsInTs;
+}
+
+function get_hotness_at_epoch(date, numBest) {
+    
+    var bandsInEpoch = get_artist_at_time(date).map(function(artistId) {
+        return get_rating_for_artist(artistId);
+    });
     return Promise.all(bandsInEpoch).then(function(results) {
         var finalResults = [];
         for (var i=0; i < results.length; i++) {
@@ -84,5 +91,6 @@ function process_rating(sender, parsedJson) {
 module.exports = {
     get_rating_for_artist: get_rating_for_artist,
     process_rating: process_rating,
-    get_hotness_at_epoch: get_hotness_at_epoch
+    get_hotness_at_epoch: get_hotness_at_epoch,
+    get_artist_at_time: get_artist_at_time
 };
