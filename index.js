@@ -19,6 +19,15 @@ const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BAGZCQ4bJwOpBBJdGfDMOPqdmHHJv0f84Rxcd0ZABB3de00OWITlEbWGDHV4I1Fmiaphws4y8IGya0ECbVPMYbUZBgtUa9yYiOoZAr2cZA6kS3R0WZCjaLBouWtIXuAKi5W7HRvSGKUezSZArIyfWR4fcVZAFcefmiAZDZD';
 
+const SENTIMENT_MAP = [
+    "pretty bad",
+    "Mediocre",
+    "Great",
+    "Okay",
+    "Fantastic",
+    "Awesome!",
+]
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -232,6 +241,18 @@ function processMessage(facebookUid, text) {
        });
        break;
       break;
+      case 'score_single_artist':
+        var band_id = body.result.parameters.bands;
+        rater.get_rating_for_artist(band_id).then(function(result) {
+            if (!result.success) {
+                sendTextMessage(sender, bands.band[band_id].name + " has not been rated yet! You should rate artists as you\'re seeing them!");
+            } else {
+                let msg = "The crowd thinks " + bands.band[band_id].name + " is " + SENTIMENT_MAP[Math.ceil(result.amount)];
+                sendTextMessage(sender, msg);
+            }
+        });
+        break;
+
       case 'get_stage':
       var id = body.result.parameters.bands;
       get_stage(sender,id)
