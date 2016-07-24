@@ -43,17 +43,23 @@ function get_artist_at_time(ts) {
     return bandsInTs;
 }
 
-function get_hotness_at_epoch(date, numBest) {
-    
-    var bandsInEpoch = get_artist_at_time(date).map(function(artistId) {
-        return get_rating_for_artist(artistId);
-    });
+ffunction get_hotness_at_epoch(date, numBest) {
+    var bandsInEpoch = [];
+    for (var i=0; i < bands.length; i++) {
+        let currentBand = bands[i];
+        let startDate = moment(currentBand.day + " " + currentBand.start_time);
+        let endDate = moment(currentBand.day + " " + currentBand.end_time);
+        console.log(date.toString(), endDate.toString());
+        if (date.isSameOrAfter(startDate) && date.isBefore(endDate)) {
+            bandsInEpoch.push(get_rating_for_artist(i));
+        }
+    }
     return Promise.all(bandsInEpoch).then(function(results) {
         var finalResults = [];
         for (var i=0; i < results.length; i++) {
             if (results[i].success) {
                 finalResults.push([
-                    bands[results[i].artistId],
+                    bands[results[i].artistId].name,
                     results[i].amount
                 ]);
             }

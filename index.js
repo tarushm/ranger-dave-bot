@@ -217,20 +217,21 @@ function processMessage(facebookUid, text) {
         sendTextMessage(sender, 'It doesn\'t seem like anyone one is playing at the time! Outside Lands is Friday August 5 - Sunday August 7 this year!')
       break;
       case 'get_hotness_at_epoch':
-      var date = moment()
-      date = date.add(14, 'days').subtract(12, 'hours');
-      var popping = [];
-      rater.get_hotness_at_epoch(date, 3).then(function(results) {
-        if (results.length == 0) {
-          sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
-        } else {
-          let msg = "Here are the following artists in order:\n";
-          results.forEach(function(result) {
-            msg += results + "\n";
-          });
-          sendTextMessage(sender, msg);
-        }
-      });
+       //var date = moment(new Date(), 'America/Los_Angeles');
+       var date = moment()
+       date = date.add(14, 'days').subtract(12, 'hours');
+       rater.get_hotness_at_epoch(date, 3).then(function(results) {
+         if (results.length == 0) {
+             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
+         } else {
+           let msg = "Here are the following artists in order:\n";
+           results.forEach(function(result) {
+             msg += result + "\n";
+           });
+           sendTextMessage(sender, msg);
+         }
+       });
+       break;
       break;
       case 'get_stage':
       var id = body.result.parameters.bands;
