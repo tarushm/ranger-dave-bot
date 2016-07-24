@@ -167,7 +167,8 @@ function processRequest(sender, body){
       rater.process_rating(sender, body)
       break;
     case 'get_hotness_at_epoch':
-      var date = moment(new Date(), 'America/Los_Angeles');
+      //var date = moment(new Date(), 'America/Los_Angeles');
+      var date = moment()
       date = date.add(14, 'days').subtract(2, 'hours');
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
