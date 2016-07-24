@@ -54,7 +54,6 @@ function preprocessFoodTypes(){
       }
     }
   }
-  console.log("REACHED")
   return food_types
 }
 

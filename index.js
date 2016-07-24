@@ -406,7 +406,7 @@ function sendPlayingAtTimeCards(sender,playing) {
 function showMeFood(sender,list) {
   let elements = [];
   for (var i = 0; i < list.length; i++){
-    console.log(list[i].name);
+    console.log(list[i]);
     elements.push(
     {
       "title": list[i].name,
