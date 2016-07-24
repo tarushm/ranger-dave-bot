@@ -252,6 +252,8 @@ function processMessage(facebookUid, text) {
       case 'greet':
       greet(sender)
       break;
+      case 'get_help':
+      get_help(sender);
       case 'get_lineup':
       get_lineup(sender)
       break;
@@ -259,6 +261,7 @@ function processMessage(facebookUid, text) {
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
   }
+  function
 
   function get_directions(sender, body) {
     var band_id = body.result.parameters.bands;
@@ -399,7 +402,7 @@ function sendPlayingAtTimeCards(sender,playing) {
     {
       "title": bands.band[playing[i]].name,
       "image_url": bands.band[playing[i]].img,
-      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
+      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time +'\n' bands.band[playing[i]].stage
     })
   }
   let messageData = {
