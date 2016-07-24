@@ -349,7 +349,7 @@ function sendHelp(sender) {
           {
             "type":"postback",
             "title": "I want a burger.",
-            "payload": "I want a burger.";
+            "payload": "I want a burger."
           },
           {
             "type":"postback",
