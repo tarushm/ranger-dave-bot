@@ -7,7 +7,7 @@ const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4I
 function sendDirections(sender,bandID,stageID){
   var destination;
   if (bandID == "") {
-    destination = directions.directions[stageID].stage;
+    destination = directions.directions[stageId].stage;
   }
   else {
     destination = bands.band[bandID].name;
@@ -18,7 +18,7 @@ function sendDirections(sender,bandID,stageID){
       "payload": {
           "buttons":[{
             "type": "web_url",
-            "url": directions.directions[stageID].url,
+            "url": directions.directions[stageId].url,
             "title": 'Take me there!'
           }
           ]
