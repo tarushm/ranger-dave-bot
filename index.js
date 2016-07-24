@@ -3,8 +3,9 @@
 const querystring = require('querystring')
 const express = require('express')
 const bodyParser = require('body-parser')
+const moment = require('moment')
 const request = require('request')
-const process_rating = require('./rater.js').process_rating;
+const rater = require('./rater.js');
 const uuid = require('node-uuid');
 var redis = require('redis');
 var foods = require('./food.json')
@@ -164,8 +165,21 @@ function processRequest(sender, body){
       get_directions(sender,body);
       break;
     case 'get_rating':
-      process_rating(sender, body)
+      rater.process_rating(sender, body)
       break;
+    case 'get_hotness_by_epoch':
+      var date = moment().add(14, 'days');
+      rater.get_hotness_by_epoch(date, 3).then(function(results) {
+        if (results.length == 0) {
+            sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
+        } else {
+          let msg = "Here are the following artists in order:\n";
+          results.forEach(function(result) {
+            msg += result + "\n";
+          });
+          sendTextMessage(sender, msg);
+        }
+      });
     case 'get_stage':
       var id = body.result.parameters.bands;
       get_stage(sender,id)
