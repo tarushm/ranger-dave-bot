@@ -158,7 +158,6 @@ function sendToApiAi(sender, message, id){
 }
 
 function processRequest(sender, body){
-  console.log(sender, body);
   var func = body.result.action;
   switch(func){
     case 'get_directions':
@@ -167,9 +166,9 @@ function processRequest(sender, body){
     case 'get_rating':
       rater.process_rating(sender, body)
       break;
-    case 'get_hotness_by_epoch':
+    case 'get_hotness_at_epoch':
       var date = moment().add(14, 'days');
-      rater.get_hotness_by_epoch(date, 3).then(function(results) {
+      rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
         } else {
