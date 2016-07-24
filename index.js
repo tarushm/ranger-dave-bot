@@ -13,6 +13,8 @@ var bands = require('./bands.json')
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendLineup = require('./lineup.js').sendLineup;
 var sendDirections = require('./maps.js').sendDirections;
+var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
+var showMeFood = require('./getfood.js').showMeFood;
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
@@ -63,22 +65,22 @@ app.listen(app.get('port'), function() {
 })
 
 function processMessage(facebookUid, text) {
-    var food_key = ['hungry',' eat','lunch','dinner','more options'];
+    //var food_key = ['hungry',' eat','lunch','dinner','more options'];
     var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
     var band_key = [];
     for (var j = 0; j < bands.band.length; j++ ){
         band_key.push(bands.band[j].name);
     }
     var isBand = checkIfContained(text,band_key);
-    var isHungry = checkIfContained(text,food_key);
+    //var isHungry = checkIfContained(text,food_key);
     var isWeather = checkIfContained(text,weather_key);
     var band_id = checkBand(text,band_key);
-    if (isHungry) {
-        sendTextMessage(facebookUid, 'Here are some options!');
-        sendFoodCards(facebookUid, randFood(),randFood(),randFood())
-        return;
-    }
-    else if (isWeather) {
+    // if (isHungry) {
+    //     sendTextMessage(facebookUid, 'Here are some options!');
+    //     sendFoodCards(facebookUid, randFood(),randFood(),randFood())
+    //     return;
+    // }
+    if (isWeather) {
         var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
         request({
             url: weatherEndpoint,
@@ -190,6 +192,12 @@ function processRequest(sender, body){
       var id = body.result.parameters.bands;
       get_settime(sender,id)
       break;
+    case 'get_food_type':
+      var type = body.result.parameters.food_type
+      console.log("hello," + type)
+      get_food_type(sender, type)
+      console.log(type)
+      break;
     case 'get_bandinfo':
       var id = body.result.parameters.bands;
       get_bandinfo(sender,id)
@@ -231,6 +239,17 @@ function get_settime(sender, id) {
   return true;
 }
 
+function get_food_type(sender,type){
+  var foodtype_map = preprocessFoodTypes()
+  console.log("reached1")
+  console.log(type)
+  if(foodtype_map[type] instanceof Array){
+    console.log("hello")
+  }
+  //console.log(foodtype_map[type])
+  showMeFood(foodtype_map[type])
+  console.log("reached2")
+}
 function get_bandinfo(sender, id){
   sendBandCard(sender, id);
   return true;
