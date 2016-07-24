@@ -17,7 +17,8 @@ var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
-const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
+//const token = "EAAO4Pbcmmj0BAF4PCfFE5YMhpAnp5yVf5dDJYsFBIUfiYW4INJb7OveKZCsBun5bhP7kgvCE2a0HaE2EAPatQwxCKp1DbIgGkoTjBJYlgTc54Yi3QfrofnbG0CdTALB4zhZAvI7I6airf2uikkyENEaSwI1srFWZAZAdAD36QQZDZD";
+const test = 'EAAO4Pbcmmj0BAF4PCfFE5YMhpAnp5yVf5dDJYsFBIUfiYW4INJb7OveKZCsBun5bhP7kgvCE2a0HaE2EAPatQwxCKp1DbIgGkoTjBJYlgTc54Yi3QfrofnbG0CdTALB4zhZAvI7I6airf2uikkyENEaSwI1srFWZAZAdAD36QQZDZD';
 
 app.set('port', (process.env.PORT || 5000))
 
