@@ -188,14 +188,11 @@ function processMessage(facebookUid, text) {
       date.minutes(timeItems[1]);
       date.seconds(0);
 
-      // Process response
-      // var msg = "Here is the line up you requested:\n";
-      // rater.get_artist_at_time(date).forEach(function(idx) {
-      //   var bandItem = bands.band[idx];
-      //   msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
-      // });
-      // sendTextMessage(sender, msg);
-      sendPlayingAtTimeCards(sender,rater.get_artist_at_time(date))
+      var playingAtTime = rater.get_artist_at_time(date);
+      if (playingAtTime.length > 0)
+        sendPlayingAtTimeCards(sender,playingAtTime)
+      else 
+        sendTextMessage(sender, 'It doesn\'t seem like anyone one is playing at the time! Outside Lands is Friday August 5 - Sunday August 7 this year!')
       break;
       case 'get_hotness_at_epoch':
       var date = moment()
