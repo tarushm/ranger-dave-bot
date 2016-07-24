@@ -476,7 +476,7 @@ function sendPlayingAtTimeCards(sender,playing) {
       "button" : [
       	  {
             "type": "web_url",
-            "url": bands.band[id].url,
+            "url": bands.band[playing[i]].url,
             "title": 'Add to Schedule'
           }
       ]
