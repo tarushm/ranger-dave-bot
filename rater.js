@@ -53,7 +53,7 @@ function get_hotness_at_epoch(date, numBest) {
         for (var i=0; i < results.length; i++) {
             if (results[i].success) {
                 finalResults.push([
-                   artistId,
+                    bands[results[i].artistId],
                     results[i].amount
                 ]);
             }
