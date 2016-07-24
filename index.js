@@ -30,24 +30,24 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-	res.send('Hello world, I am a chat bot')
+  res.send('Hello world, I am a chat bot')
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
-		res.send(req.query['hub.challenge'])
-	}
-	res.send('Error, wrong token')
+  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+    res.send(req.query['hub.challenge'])
+  }
+  res.send('Error, wrong token')
 })
 
 app.post('/webhook/', function (req, res) {
-	let messaging_events = req.body.entry[0].messaging
-	for (let i = 0; i < messaging_events.length; i++) {
-		let event = req.body.entry[0].messaging[i]
-		let sender = event.sender.id
-		if (event.message && event.message.text) {
-		    let text = event.message.text
+  let messaging_events = req.body.entry[0].messaging
+  for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[i]
+    let sender = event.sender.id
+    if (event.message && event.message.text) {
+        let text = event.message.text
                     processMessage(sender, text);
                 }
         }
@@ -61,7 +61,7 @@ app.post('/personal/', function (req, res) {
 
 // Spin up the server
 app.listen(app.get('port'), function() {
-	console.log('running on port', app.get('port'))
+  console.log('running on port', app.get('port'))
 })
 
 function processMessage(facebookUid, text) {
@@ -190,11 +190,11 @@ function processRequest(sender, body){
 
       // Process response
       var msg = "Here is the line up you requested:\n";
-      var playing = [];
       rater.get_artist_at_time(date).forEach(function(idx) {
-        playing.push(idx);
+        var bandItem = bands.band[idx];
+        msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
       });
-      sendTextMessage(sender, playing);
+      sendTextMessage(sender, msg);
       break;
     case 'get_hotness_at_epoch':
       var date = moment()
@@ -311,7 +311,7 @@ function checkBand(text,key){
 }
 
 function randFood(){
-	return Math.floor(Math.random() * (77));
+  return Math.floor(Math.random() * (77));
 }
 
 function sendLineup(sender) {
@@ -419,59 +419,59 @@ function sendBandCard(sender,id){
 }
 
 function sendFoodCards(sender,rf1,rf2,rf3) {
-	var title = 'Check it Out!'
+  var title = 'Check it Out!'
 
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [{
-					"title": foods.food[rf1].name,
-					"subtitle": foods.food[rf1].description,
-					"image_url": foods.food[rf1].img,
-					"buttons": [{
-						"type": "web_url",
-						"url": foods.food[rf1].url,
-						"title": title
-					}],
-				},
-				{
-					"title": foods.food[rf2].name,
-					"subtitle": foods.food[rf2].description,
-					"image_url": foods.food[rf2].img,
-					"buttons": [{
-						"type": "web_url",
-						"url": foods.food[rf2].url,
-						"title": title
-					}],
-				},
-				{
-					"title": foods.food[rf3].name,
-					"subtitle": foods.food[rf3].description,
-					"image_url": foods.food[rf3].img,
-					"buttons": [{
-						"type": "web_url",
-						"url": foods.food[rf3].url,
-						"title": title
-					}],
-				}]
-			}
-		}
-	}
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token:token},
-		method: 'POST',
-		json: {
-			recipient: {id:sender},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
+  let messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": foods.food[rf1].name,
+          "subtitle": foods.food[rf1].description,
+          "image_url": foods.food[rf1].img,
+          "buttons": [{
+            "type": "web_url",
+            "url": foods.food[rf1].url,
+            "title": title
+          }],
+        },
+        {
+          "title": foods.food[rf2].name,
+          "subtitle": foods.food[rf2].description,
+          "image_url": foods.food[rf2].img,
+          "buttons": [{
+            "type": "web_url",
+            "url": foods.food[rf2].url,
+            "title": title
+          }],
+        },
+        {
+          "title": foods.food[rf3].name,
+          "subtitle": foods.food[rf3].description,
+          "image_url": foods.food[rf3].img,
+          "buttons": [{
+            "type": "web_url",
+            "url": foods.food[rf3].url,
+            "title": title
+          }],
+        }]
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
 }

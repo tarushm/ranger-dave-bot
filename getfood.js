@@ -1,5 +1,3 @@
-'use strict'
-
 var foods = require('./food.json')
 
 
