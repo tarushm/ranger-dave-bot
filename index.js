@@ -159,6 +159,8 @@ function processRequest(sender, body){
   console.log(sender, body);
   var func = body.result.action;
   switch(func){
+    case 'get_directions':
+      get_directions(sender,body);
     case 'get_rating':
       process_rating(sender, body)
       break;
@@ -185,6 +187,22 @@ function processRequest(sender, body){
     }
 }
 
+function get_directions(sender, body) {
+  var band_id = body.result.parameters.bands;
+  var stage_id = body.result.parameters.stage;
+  // they did give stage and maybe band
+  if(stage_id != ""){
+    sendDirections(sender,"",stage_id);
+  }
+  // they forsure gave us band only
+  else if(band_id != "") {
+    sendDirections(sender, band_id, bands.band[band_id].stageId);
+  }
+  else{
+    sendTextMessage(sender, 'I\'m a little bit confused about who you want to see');
+  }
+  return true;
+}
 function get_stage(sender, id) {
   sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
   return true;

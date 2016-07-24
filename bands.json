@@ -5,7 +5,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lany",
        "start_time": "12:45 PM", 
        "end_time": "1:35 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67400/custome4e1598fa12d639d0b530dc2c7b77b28.jpg",
        "website_url": "http://thisislany.com/"
@@ -15,7 +16,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/ra-ra-riot",
        "start_time": "2:05 PM", 
        "end_time": "2:55 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67420/customd678537ad74ce69dc25aa1f6cb118d20.jpg",
        "website_url": "http://rarariot.com/"
@@ -25,7 +27,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/st-lucia",
        "start_time": "3:25 PM", 
        "end_time": "4:15 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67430/custom06ef1b89a0f8c8fb264428495c108e49.jpg",
        "website_url": "http://stlucianewyork.com/"
@@ -35,7 +38,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/miike-snow",
        "start_time": "4:45 PM", 
        "end_time": "5:45 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67450/custom17d6d03bf0d43ef62da3ca2fb1ab034c.jpg",
        "website_url": "http://www.miikesnow.com/"
@@ -45,7 +49,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/duran-duran",
        "start_time": "6:15 PM", 
        "end_time": "7:25 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67474/custom23da93083b08a69beb5b0ebf3cb80e31.jpg",
        "website_url": "http://duranduran.warnereprise.com/"
@@ -55,7 +60,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lcd-soundsystem",
        "start_time": "8:10 PM", 
        "end_time": "9:55 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67462/custom2f862134fd0527fb4fd9a01ca89e72bb.jpg",
        "website_url": "http://lcdsoundsystem.com/"
@@ -65,7 +71,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/whitney",
        "start_time": "12:00 PM", 
        "end_time": "12:45 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67442/customd6d8b39e75fb138c6662f4816cfee9f3.jpg",
        "website_url": "http://www.secretlycanadian.com/artist/?name=whitney"
@@ -75,7 +82,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/caveman",
        "start_time": "1:15 PM", 
        "end_time": "2:00 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67458/custom075fb56da74afaa2e97a05b4335b9c52.jpg",
        "website_url": "http://cavemantheband.com/"
@@ -85,7 +93,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/wet",
        "start_time": "2:30 PM", 
        "end_time": "3:20 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67520/custom8c427ae0232ca27673b7fc8379917404.jpg",
        "website_url": "http://kanyewet.biz/dontyou"
@@ -95,7 +104,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/foals",
        "start_time": "3:50 PM", 
        "end_time": "4:40 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67478/custom1d2762792f9f00cc1b544f35db3d803a.jpg",
        "website_url": "http://www.foals.co.uk/"
@@ -105,7 +115,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/claypool-lennon-delirium",
        "start_time": "5:10 PM", 
        "end_time": "6:00 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67376/custom6c1265a59b5f90cf45d54debc11578e5.jpg",
        "website_url": "http://lesclaypool.com/news/"
@@ -115,7 +126,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/nathaniel-rateliff",
        "start_time": "6:30 PM", 
        "end_time": "7:20 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67414/custom3ffec3f5c9bec32d28fb07dfc9f2b6a0.jpg",
        "website_url": "http://www.nathanielrateliff.com/"
@@ -125,7 +137,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/beach-house",
        "start_time": "7:50 PM", 
        "end_time": "9:00 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67370/customed802d737a73cb1bff50474ff23a48d8.jpg",
        "website_url": "http://beachhousebaltimore.com/"
@@ -135,7 +148,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/marian-hill",
        "start_time": "12:45 PM", 
        "end_time": "1:30 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67410/custom5c128640882e40825eb7e82a37870a59.jpg",
        "website_url": "http://www.marianhillmusic.com/"
@@ -145,7 +159,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/jidenna",
        "start_time": "2:10 PM", 
        "end_time": "2:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67510/custome280c81ee5c14c4b763a8a3c598fadea.jpg",
        "website_url": "http://jidenna.com/"
@@ -155,7 +170,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/poli%C3%A7a",
        "start_time": "3:40 PM", 
        "end_time": "4:30 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67490/customa3f276d2edfe03303d1b945559b12925.jpg",
        "website_url": "http://thisispolica.com/"
@@ -165,7 +181,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/thomas-jack",
        "start_time": "5:15 PM", 
        "end_time": "6:05 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67504/custom38a6d21f6636a03b70eb5e8e2b68e772.jpg",
        "website_url": "http://thomasjackmusic.com/"
@@ -175,7 +192,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/grimes",
        "start_time": "6:50 PM", 
        "end_time": "7:50 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67380/custom405385480b2ce24f93673fcfd42d58bf.jpg",
        "website_url": "http://grimesmusic.com/"
@@ -185,7 +203,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/j-cole",
        "start_time": "8:40 PM", 
        "end_time": "9:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67388/customac1aca7d0e8f2fb0aa03582131a2475a.jpg",
        "website_url": "http://www.jcolemusic.com/"
@@ -195,7 +214,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/down-and-outlaws-",
        "start_time": "12:00 PM", 
        "end_time": "12:40 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/71095/custom2a573c896a103e316f34671ca2b78456.jpg",
        "website_url": "http://www.downandoutlaws.com/"
@@ -205,7 +225,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/moon-taxi",
        "start_time": "1:30 PM", 
        "end_time": "2:10 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67512/custombe9a5d45b4cd484afc06abdfba02851c.jpg",
        "website_url": "http://ridethemoontaxi.com/"
@@ -215,7 +236,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/vulpeck",
        "start_time": "2:55 PM", 
        "end_time": "3:35 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67541/custom816e13165a3e3ce09b55387ce89b5c68.jpg",
        "website_url": "http://vulfpeck.com/"
@@ -225,7 +247,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/tokimonsta",
        "start_time": "4:30 PM", 
        "end_time": "5:10 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67516/custom97fe032b1d538df772b40e485af60efe.jpg",
        "website_url": "http://www.tokimonsta.com/"
@@ -235,7 +258,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lapsley-",
        "start_time": "6:05 PM", 
        "end_time": "6:45 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67524/custom692acfbfc03ac4eca37e1deb45107dab.jpg",
        "website_url": "http://musiclapsley.com/"
@@ -245,7 +269,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/haitus-kaiyote",
        "start_time": "7:50 PM", 
        "end_time": "8:35 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Friday, August 05",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67482/customd2e512bc50f6ac1f622713705851e555.jpg",
        "website_url": "http://hiatuskaiyote.com/"
@@ -355,7 +380,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lewis-del-mar",
        "start_time": "12:45 PM", 
        "end_time": "1:30 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67448/custom1432c08d50d6be3a6e4c7dd64e4558f7.jpg",
        "website_url": "http://lewisdelmar.com/home"
@@ -365,7 +391,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/the-wombats",
        "start_time": "2:00 PM", 
        "end_time": "2:50 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/68819/custom26a2122a3b406f3eacfdf49f311fff6d.jpg",
        "website_url": "http://www.thewombats.co.uk/"
@@ -375,7 +402,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/years-and-years",
        "start_time": "3:20 PM", 
        "end_time": "4:10 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69246/custom6ea258d6e127823b3888ba8b82db40df.jpg",
        "website_url": "http://yearsandyearsofficial.com/"
@@ -385,7 +413,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/big-grams",
        "start_time": "4:40 PM", 
        "end_time": "5:40 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67522/customc1c553b98d704d332438f8f5563d9351.jpg",
        "website_url": "http://biggrams.com/"
@@ -395,7 +424,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/air-tjzkkqxi",
        "start_time": "6:10 PM", 
        "end_time": "7:10 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/68688/custom438f78ae7fb5dcc7fbaf7f35eba032ab.jpg",
        "website_url": "http://www.aircheology.com/"
@@ -405,7 +435,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/radiohead-",
        "start_time": "7:55 PM", 
        "end_time": "9:55 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67537/custom761cfe6f2e66837348a9b1ba0642f8f7.jpg",
        "website_url": "http://www.radiohead.com/"
@@ -415,7 +446,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/julien-baker",
        "start_time": "12:00 PM", 
        "end_time": "12:45 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67492/custom91f9a3eb90b9ccae09df6c3ee6c1266e.jpg",
        "website_url": "http://julienbaker.bandcamp.com/album/sprained-ankle-3"
@@ -425,7 +457,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/rogue-wave",
        "start_time": "1:15 PM", 
        "end_time": "2:05 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67422/custom4470bdcca7f9626489c38ba7d1498374.jpg",
        "website_url": "http://roguewavemusic.com/"
@@ -435,7 +468,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/ibeyi",
        "start_time": "2:35 PM", 
        "end_time": "3:25 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67386/custom4b7faf3ae7d0c49010acf093e6a00350.jpg",
        "website_url": "http://ibeyi.fr/"
@@ -445,7 +479,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lord-huron",
        "start_time": "3:55 PM", 
        "end_time": "4:45 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67406/custom20338932e24cd7839f194e7377276ebd.jpg",
        "website_url": "http://strangetrails.com/"
@@ -455,7 +490,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/the-last-shadow-puppets",
        "start_time": "5:15 PM", 
        "end_time": "6:05 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67446/custom5947b8907222c42e6969102e2111db49.jpg",
        "website_url": "http://www.thelastshadowpuppets.com/"
@@ -465,7 +501,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/sufjan-stevens",
        "start_time": "6:35 PM", 
        "end_time": "7:45 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67432/custom31dd7a18e0463728579774d588e9c313.jpg",
        "website_url": "http://sufjan.com/"
@@ -475,7 +512,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/fantastic-negrito",
        "start_time": "12:40 PM", 
        "end_time": "1:25 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/71025/custom18b55837f94c7dff2fc295bbb707a9cf.png",
        "website_url": "http://www.fantasticnegrito.com/"
@@ -485,7 +523,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/the-knocks",
        "start_time": "2:05 PM", 
        "end_time": "2:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67434/customc0afff04938881f260d058f4d617799b.jpg",
        "website_url": "http://www.theknocks.com/"
@@ -495,7 +534,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/vince-staples",
        "start_time": "3:40 PM", 
        "end_time": "4:30 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67440/custome19162faea2bfe40dea82100402a7845.jpg",
        "website_url": "http://www.vincestaples.com/"
@@ -505,7 +545,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/jauz",
        "start_time": "5:15 PM", 
        "end_time": "6:05 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67390/customc77d841e1268d3a3cc313d4c575f0673.jpg",
        "website_url": "http://jauzofficial.com/"
@@ -515,7 +556,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/halsey",
        "start_time": "6:55 PM", 
        "end_time": "7:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67384/customfa7f922cb5e3187d9acf843f8c03026e.jpg",
        "website_url": "http://iamhalsey.com/"
@@ -525,7 +567,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/zedd",
        "start_time": "8:40 PM", 
        "end_time": "9:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67444/customd5c3b8ab1020e7cfb95ed686357a65f1.jpg",
        "website_url": "http://zedd.net/"
@@ -535,7 +578,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/methyl-ethel",
        "start_time": "12:00 PM", 
        "end_time": "12:40 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67412/customcd5af4cff8d69ecfa216affefb0203a6.jpg",
        "website_url": "http://methylethel.com/"
@@ -545,7 +589,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/declan-mckenna-wfvuilat",
        "start_time": "1:25 PM", 
        "end_time": "2:05 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67472/customf454c9519b10377bebb5a0c8b1cd22b9.jpg",
        "website_url": "http://www.declanmckenna.net/"
@@ -555,7 +600,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/kevin-morby",
        "start_time": "2:55 PM", 
        "end_time": "3:35 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67396/custom04830caf1c7dc0e0fb37cb5e24f8fd6f.jpg",
        "website_url": "http://kevinmorby.com/"
@@ -565,7 +611,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/con-brio",
        "start_time": "4:30 PM", 
        "end_time": "5:10 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/70921/custom2171132f4009a259a51c0c51cb0539c3.png",
        "website_url": "http://thebandconbrio.com/"
@@ -575,7 +622,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/peaches-",
        "start_time": "6:05 PM", 
        "end_time": "6:50 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67518/custom4adc2dc5ef6ef60281011c3cd7e86c92.jpg",
        "website_url": "http://peachesrocks.com/rub-tv/"
@@ -585,7 +633,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/anderson-paak-and-the-free-nationals",
        "start_time": "7:55 PM", 
        "end_time": "8:40 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Saturday, August 06",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67368/custome4e354e93db2ebaf7eea9e367e17905c.jpg",
        "website_url": "http://andersonpaak.com/"
@@ -695,7 +744,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/kamasi-washington",
        "start_time": "12:00 PM", 
        "end_time": "12:45 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67392/custom9c53f1622d0223891818166dfce2b66b.jpg",
        "website_url": "http://kamasiwashington.com/"
@@ -705,7 +755,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/oh-wonder",
        "start_time": "1:15 PM", 
        "end_time": "2:00 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67416/customa8941d8324456bc2c440d8ba2f2b93cd.jpg",
        "website_url": "http://ohwondermusic.com/"
@@ -715,7 +766,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/the-muppets%E2%80%99-dr-teeth-and-the-electric-mayhem",
        "start_time": "2:30 PM", 
        "end_time": "2:55 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67436/custome0af3249b0d71707b4205b1416c1a3b3.jpg",
        "website_url": "http://muppets.disney.com/"
@@ -725,7 +777,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/third-eye-blind",
        "start_time": "3:25 PM", 
        "end_time": "4:25 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67456/customdf78a91c52350e570ef7689749922501.jpg",
        "website_url": "http://thirdeyeblind.com/"
@@ -735,7 +788,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/chance-the-rapper",
        "start_time": "4:55 PM", 
        "end_time": "5:55 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67468/custom460ebafe77bc797b014aeb9de83e265a.jpg",
        "website_url": "http://chanceraps.com/"
@@ -745,7 +799,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/major-lazer",
        "start_time": "6:25 PM", 
        "end_time": "7:25 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67408/custom42d1bbc3b5eeac38f84b7699c69fce08.jpg",
        "website_url": "http://majorlazer.com/"
@@ -755,7 +810,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lionel-richie",
        "start_time": "8:05 PM", 
        "end_time": "9:35 PM",
-       "stage": "Lands End",
+       "stage": "Lands End", 
+       "stageId":"0",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67404/custom5b585f00077fade98b7581a588cd940a.jpg",
        "website_url": "lionelrichie.com"
@@ -765,7 +821,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/frances-",
        "start_time": "12:05 PM", 
        "end_time": "12:50 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67480/custom5b25afaa1b0ea9380e8e863bc31352c5.jpg",
        "website_url": "http://www.francesmusic.com/"
@@ -775,7 +832,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/the-oh-hellos",
        "start_time": "1:20 PM", 
        "end_time": "2:05 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67438/custom16abf4f53d01fbeda701db99d5d7ae31.jpg",
        "website_url": "http://theohhellos.com/"
@@ -785,7 +843,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/jack-garratt",
        "start_time": "2:35 PM", 
        "end_time": "3:25 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67486/customf7bf29c12dfbcd9a25bf6f15abef51ea.jpg",
        "website_url": "http://jackgarratt.com/"
@@ -795,7 +854,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/brandi-carlile",
        "start_time": "3:55 PM", 
        "end_time": "4:45 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67374/custom1fb0c662762d747f51454d109bf2f058.jpg",
        "website_url": "http://brandicarlile.com/"
@@ -805,7 +865,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/jason-isbell",
        "start_time": "5:15 PM", 
        "end_time": "6:05 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67452/custom95c540f864715bceb044ca4a92c6fecc.jpg",
        "website_url": "http://jasonisbell.com/"
@@ -815,7 +876,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/ryan-adams",
        "start_time": "6:35 PM", 
        "end_time": "7:50 PM",
-       "stage": "Sutro",
+       "stage": "Sutro", 
+       "stageId":"4",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67426/customc8376edbe80d49d185a3d2b9daa61b15.jpg",
        "website_url": "http://paxamrecords.com/"
@@ -825,7 +887,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/natalie-lafourcade",
        "start_time": "12:40 PM", 
        "end_time": "1:20 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/70942/custom0871a0b7aa8d9a8c9c870c64a6a45b21.png",
        "website_url": "http://www.lafourcade.com.mx/en/"
@@ -835,7 +898,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/snakehips",
        "start_time": "2:00 PM", 
        "end_time": "2:45 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67428/custome3f59d6c6aded8cd7d46d5005e13b8cb.jpg",
        "website_url": "http://www.snakehips.biz/"
@@ -845,7 +909,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/griz",
        "start_time": "3:30 PM", 
        "end_time": "4:20 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67382/customd8f40212177e4c149f4de193dfdf0ca5.jpg",
        "website_url": "http://mynameisgriz.com/"
@@ -855,7 +920,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/kehlani",
        "start_time": "5:05 PM", 
        "end_time": "5:55 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67394/custom2b8f35e04824a51d182f9630610d1eba.jpg",
        "website_url": "http://www.kehlanimusic.com/"
@@ -865,7 +931,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/miguel",
        "start_time": "6:40 PM", 
        "end_time": "7:40 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67460/custom4912d719d0291934562c3c76fcd4d561.jpg",
        "website_url": "http://www.officialmiguel.com/"
@@ -875,7 +942,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lana-del-rey",
        "start_time": "8:25 PM", 
        "end_time": "9:35 PM",
-       "stage": "Twin Peaks",
+       "stage": "Twin Peaks", 
+       "stageId":"1",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67398/customfad0dc26037ecdfd2d104fa8fc7af311.jpg",
        "website_url": "http://lanadelrey.com/"
@@ -885,7 +953,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/heron-oblivion",
        "start_time": "12:00 PM", 
        "end_time": "12:40 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67454/custombb9b9880a1c419e66bab450e4b8facc6.jpg",
        "website_url": "https://soundcloud.com/heron-oblivion"
@@ -895,7 +964,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/cloves",
        "start_time": "1:20 PM", 
        "end_time": "2:00 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67470/customa1f4187f41f14d7aa31864292378af13.jpg",
        "website_url": "http://instagram.com/clovesdot"
@@ -905,7 +975,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/h%C3%86los",
        "start_time": "2:45 PM", 
        "end_time": "3:25 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67484/custom4f9511ae0de7857b002bacf9a105cfb0.jpg",
        "website_url": "http://www.haelos.com/"
@@ -915,7 +986,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/diiv",
        "start_time": "4:20 PM", 
        "end_time": "5:00 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67378/custom45a8ebda2f6baf48f3ed4a911ae8e045.jpg",
        "website_url": "http://www.diiv.net/"
@@ -925,7 +997,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/rufus-du-sol",
        "start_time": "5:55 PM", 
        "end_time": "6:35 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67424/custom84a872bdc5f596b047a7a68dcf054fd6.jpg",
        "website_url": "http://www.rufussounds.com/"
@@ -935,7 +1008,8 @@
        "url": "http://lineup.sfoutsidelands.com/band/lettuce",
        "start_time": "7:40 PM", 
        "end_time": "8:30 PM",
-       "stage": "Panhandle",
+       "stage": "Panhandle", 
+       "stageId":"2",
        "day": "Sunday, August 07",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/67402/custom12a7c5db2abeb476403be2f30a083359.jpg",
        "website_url": "http://lettucefunk.com/"
