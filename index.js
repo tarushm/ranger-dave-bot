@@ -180,6 +180,7 @@ function processRequest(sender, body){
           sendTextMessage(sender, msg);
         }
       });
+      break;
     case 'get_stage':
       var id = body.result.parameters.bands;
       get_stage(sender,id)
