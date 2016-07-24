@@ -500,16 +500,17 @@ function sendWeatherCard(sender,temp,text,loc){
 
 function sendPlayingAtTimeCards(sender,playing) {
   let elements = [];
-  for (var i = 0; i < playing.length; i++){
+  var rand = randFood(playing)
+  for (var i = 0; i < playing.length && i < 10; i++){
     elements.push(
     {
-      "title": bands.band[playing[i]].name,
-      "image_url": bands.band[playing[i]].img,
-      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time + ' at ' + bands.band[playing[i]].stage,
+      "title": bands.band[playing[(i+rand)%playing.length]].name,
+      "image_url": bands.band[playing[(i+rand)%playing.length]].img,
+      "subtitle": bands.band[playing[(i+rand)%playing.length]].start_time + ' - ' + bands.band[playing[(i+rand)%playing.length]].end_time + ' at ' + bands.band[playing[(i+rand)%playing.length]].stage,
       "buttons" : [
       	  {
             "type": "web_url",
-            "url": bands.band[playing[i]].url,
+            "url": bands.band[playing[(i+rand)%playing.length]].url,
             "title": 'Add to Schedule'
           }
       ]
