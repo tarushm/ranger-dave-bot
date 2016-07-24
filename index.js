@@ -1,14 +1,17 @@
 'use strict'
 
+const querystring = require('querystring')
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
-//var redis = require('redis');
+const process_rating = require('./rater.js').process_rating;
+const uuid = require('node-uuid');
+var redis = require('redis');
 var foods = require('./food.json')
 var bands = require('./bands.json')
-const app = express()
 
-//this._db = redis.createClient(); 
+const app = express()
+const redisClient = redis.createClient()
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -90,43 +93,82 @@ function processMessage(facebookUid, text) {
     }
 }
 
-
-function sendToApiAi(sender, message,id){
-  var options = {
-    url: 'https://api.api.ai/api/query?v=20150910&query=' + message + '&lang=en&sessionId=fac22b98-a8e8-4457-a45a-55aac20aa286&timezone=Ameria/Los_Angeles',
-    headers: {
-      'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
-    }
-  }
-  function callback(error, response, body) {
-  if (error){
-    console.log(error);
-  }
-  else if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
-    var bandID = info.result.parameters.bands;
-    var command = info.result.metadata.intentName;
-    if (!info.result.actionIncomplete){
-      processRequest(sender, info.result.action, bandID);
-    }
-    else {
-      sendTextMessage(sender, info.result.fulfillment.speech);
-    }
-    }
-  }
-
-  request(options, callback);
+function handleSessionId(currentSender, info) {
+    return new Promise(function(success, failure) {
+        if (info.result && info.result.actionIncomplete === false) {
+            redisClient.hdel("api_ai_sessions", currentSender, function(err, res) {
+                success();
+            });
+        } else {
+            if (!info.sessionId) {
+                return true;
+            }
+            redisClient.hset("api_ai_sessions", currentSender, info.sessionId, function(err, res) {
+                success();
+            });
+        }
+    });
 }
 
-function processRequest(sender, func, id){
+function sendToApiAi(sender, message, id){
+    let urlParams = {
+        v: "20150910",
+        query: message,
+        lang: 'en',
+        timezone: "America/Los_Angeles"
+    };
+
+    redisClient.hget("api_ai_sessions", sender, function (err, sessionId) {
+        if (sessionId) {
+            urlParams["sessionId"] = sessionId;
+        } else {
+            urlParams["sessionId"] = uuid.v1();
+        }
+
+        var options = {
+            url: 'https://api.api.ai/api/query?' + querystring.stringify(urlParams),
+            headers: {
+                'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
+            }
+        };
+
+        let currentSender = sender;
+        function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var data = JSON.parse(body);
+
+                handleSessionId(currentSender, data).then(function() {
+                    if (!data.result.actionIncomplete){
+                        processRequest(sender, data);
+                    }
+                    else {
+                        sendTextMessage(sender, data.result.fulfillment.speech);
+                    }
+                });
+            }
+        }
+
+        request(options, callback);
+    });
+}
+
+function processRequest(sender, body){
+  console.log(sender, body);
+  var func = body.result.action;
   switch(func){
+    case 'get_rating':
+      process_rating(sender, body)
+      break;
     case 'get_stage':
+      var id = body.result.parameters.bands;
       get_stage(sender,id)
       break;
     case 'get_settime':
+      var id = body.result.parameters.bands;
       get_settime(sender,id)
       break;
     case 'get_bandinfo':
+      var id = body.result.parameters.bands;
       get_bandinfo(sender,id)
       break;
     case 'greet':
@@ -229,9 +271,9 @@ function sendLineup(sender) {
     }
   }, function(error, response, body) {
     if (error) {
-      console.log('Error sending messages: ', error)
+      //console.log('Error sending messages: ', error)
     } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
+      //console.log('Error: ', response.body.error)
     }
   })
 }
