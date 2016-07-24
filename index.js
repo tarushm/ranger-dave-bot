@@ -348,17 +348,17 @@ function sendHelp(sender) {
         "buttons":[
           {
             "type":"postback",
-            "title": "I want fried food."
+            "title": "I want fried food.",
             "payload": "I want fried food."
           },
           {
             "type":"postback",
-            "title": "What stage is popping right now?"
+            "title": "What stage is popping right now?",
             "payload": "What stage is popping right now?"
           },
           {
             "type":"postback",
-            "title": "How do I get to Sutro?"
+            "title": "How do I get to Sutro?",
             "payload": "How do I get to Sutro?"
           }
         ]
@@ -380,9 +380,8 @@ function sendHelp(sender) {
       //console.log('Error: ', response.body.error)
     }
   })
-
-
 }
+
 function sendLineup(sender) {
   let messageData =
   {
