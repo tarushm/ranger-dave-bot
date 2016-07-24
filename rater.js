@@ -43,7 +43,7 @@ function get_artist_at_time(ts) {
     return bandsInTs;
 }
 
-ffunction get_hotness_at_epoch(date, numBest) {
+function get_hotness_at_epoch(date, numBest) {
     var bandsInEpoch = [];
     for (var i=0; i < bands.length; i++) {
         let currentBand = bands[i];
