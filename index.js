@@ -225,7 +225,7 @@ function processMessage(facebookUid, text) {
          } else {
            let msg = "Here are the following artists in order:\n";
            results.forEach(function(result) {
-             msg += result + "\n";
+             msg += bands.band[result].name + "\n";
            });
            sendTextMessage(sender, msg);
          }
