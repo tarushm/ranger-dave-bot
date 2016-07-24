@@ -13,9 +13,8 @@ function sendDirections(sender,bandID,stageID){
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": bands.band[bandID].name,
-          "subtitle": bands.band[bandID].stage + ', ' + bands.band[bandID].day + ' at ' + bands.band[bandID].start_time,
-          "image_url": bands.band[bandID].img,
+          "title": 'Here\'s how to get to where you want to go!',
+          "image_url": 'http://cdn.funcheap.com/wp-content/uploads/2014/07/www.sfoutsidelands.com-sites-default-files-content-files-files-OL15_PrintableMap-1-.pdf.png',
           "buttons":[{
             "type": "web_url",
             "url": directions.directions[stageID].url,
