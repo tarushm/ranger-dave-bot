@@ -17,7 +17,7 @@ var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
-const test = 'EAAO4Pbcmmj0BAHbPvx0UyBysuieOwcAWfZBdH4G8bgQ1QdWwZCme0bFYz7LeOQgZAZBmqWfLU6H8sDWfweEJ1xsmvC9mDJR22Vrl1BiuuEZBq9jR1NWMxt7ygymETzMrQdGgZBb0pTAz56MFQMr1TDkBUd8VIixIgB1yz6s7CTPwZDZD';
+const token = 'EAAO4Pbcmmj0BAHbPvx0UyBysuieOwcAWfZBdH4G8bgQ1QdWwZCme0bFYz7LeOQgZAZBmqWfLU6H8sDWfweEJ1xsmvC9mDJR22Vrl1BiuuEZBq9jR1NWMxt7ygymETzMrQdGgZBb0pTAz56MFQMr1TDkBUd8VIixIgB1yz6s7CTPwZDZD';
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -377,7 +377,7 @@ function sendWeatherCard(sender,temp,text,loc){
   }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    qs: {access_token: token},
     method: 'POST',
     json: {
       recipient: {id:sender},
