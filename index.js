@@ -215,7 +215,7 @@ function processMessage(facebookUid, text) {
             reccomendList = reccomendList.filter(function(el) {
                 return el != band;
             });
-            console.log(reccomendList);
+            sendPlayingAtTimeCards(sender,reccomendList);
         }
 
       case 'get_directions':
