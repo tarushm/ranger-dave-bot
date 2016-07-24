@@ -47,16 +47,16 @@ app.post('/webhook/', function (req, res) {
     let event = req.body.entry[0].messaging[i]
     let sender = event.sender.id
     if (event.message && event.message.text) {
-        let text = event.message.text
-                    processMessage(sender, text);
-                }
-        }
-        res.sendStatus(200)
+      let text = event.message.text
+      processMessage(sender, text);
+    }
+  }
+  res.sendStatus(200)
 });
 
 app.post('/personal/', function (req, res) {
-    processMessage(req.body.uid, req.body.body);
-    res.sendStatus(200);
+  processMessage(req.body.uid, req.body.body);
+  res.sendStatus(200);
 });
 
 // Spin up the server
@@ -69,7 +69,7 @@ function processMessage(facebookUid, text) {
     var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
     var band_key = [];
     for (var j = 0; j < bands.band.length; j++ ){
-        band_key.push(bands.band[j].name);
+      band_key.push(bands.band[j].name);
     }
     var isBand = checkIfContained(text,band_key);
     //var isHungry = checkIfContained(text,food_key);
@@ -81,127 +81,128 @@ function processMessage(facebookUid, text) {
     //     return;
     // }
     if (isWeather) {
-        var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-        request({
-            url: weatherEndpoint,
-            json: true
-        }, function(error, response, body) {
-            try {
-                var condition = body.query.results.channel.item.condition;
-                sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
-            } catch(err) {
-                console.error('error caught', err);
-                sendTextMessage(facebookUid, "There was an error.");
-            }
-        });
+      var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+      request({
+        url: weatherEndpoint,
+        json: true
+      }, function(error, response, body) {
+        try {
+          var condition = body.query.results.channel.item.condition;
+          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
+        } catch(err) {
+          console.error('error caught', err);
+          sendTextMessage(facebookUid, "There was an error.");
+        }
+      });
     }
     else {
-        sendToApiAi(facebookUid, text, band_id);
+      sendToApiAi(facebookUid, text, band_id);
     }
-}
+  }
 
-function handleSessionId(currentSender, info) {
+  function handleSessionId(currentSender, info) {
     return new Promise(function(success, failure) {
-        if (info.result && info.result.actionIncomplete === false) {
-            redisClient.hdel("api_ai_sessions", currentSender, function(err, res) {
-                success();
-            });
-        } else {
-            if (!info.sessionId) {
-                return true;
-            }
-            redisClient.hset("api_ai_sessions", currentSender, info.sessionId, function(err, res) {
-                success();
-            });
+      if (info.result && info.result.actionIncomplete === false) {
+        redisClient.hdel("api_ai_sessions", currentSender, function(err, res) {
+          success();
+        });
+      } else {
+        if (!info.sessionId) {
+          return true;
         }
+        redisClient.hset("api_ai_sessions", currentSender, info.sessionId, function(err, res) {
+          success();
+        });
+      }
     });
-}
+  }
 
-function sendToApiAi(sender, message, id){
+  function sendToApiAi(sender, message, id){
     let urlParams = {
-        v: "20150910",
-        query: message,
-        lang: 'en',
-        timezone: "America/Los_Angeles"
+      v: "20150910",
+      query: message,
+      lang: 'en',
+      timezone: "America/Los_Angeles"
     };
 
     redisClient.hget("api_ai_sessions", sender, function (err, sessionId) {
-        if (sessionId) {
-            urlParams["sessionId"] = sessionId;
-        } else {
-            urlParams["sessionId"] = uuid.v1();
+      if (sessionId) {
+        urlParams["sessionId"] = sessionId;
+      } else {
+        urlParams["sessionId"] = uuid.v1();
+      }
+
+      var options = {
+        url: 'https://api.api.ai/api/query?' + querystring.stringify(urlParams),
+        headers: {
+          'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
         }
+      };
 
-        var options = {
-            url: 'https://api.api.ai/api/query?' + querystring.stringify(urlParams),
-            headers: {
-                'Authorization': 'Bearer f0c35775b7ef487c9fee9f2e80ddb89c'
+      let currentSender = sender;
+      function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+          var data = JSON.parse(body);
+
+          handleSessionId(currentSender, data).then(function() {
+            if (!data.result.actionIncomplete){
+              processRequest(sender, data);
             }
-        };
-
-        let currentSender = sender;
-        function callback(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var data = JSON.parse(body);
-
-                handleSessionId(currentSender, data).then(function() {
-                    if (!data.result.actionIncomplete){
-                        processRequest(sender, data);
-                    }
-                    else {
-                        sendTextMessage(sender, data.result.fulfillment.speech);
-                    }
-                });
+            else {
+              sendTextMessage(sender, data.result.fulfillment.speech);
             }
+          });
         }
+      }
 
-        request(options, callback);
+      request(options, callback);
     });
-}
+  }
 
-function processRequest(sender, body){
-  var func = body.result.action;
-  switch(func){
-    case 'get_directions':
+  function processRequest(sender, body){
+    var func = body.result.action;
+    switch(func){
+      case 'get_directions':
       get_directions(sender,body);
       break;
-    case 'get_rating':
+      case 'get_rating':
       rater.process_rating(sender, body)
       break;
-    case 'playing_at_time':
+      case 'playing_at_time':
       let params = body.result.parameters;
 
       // if no date, assume it's today
       var date;
       if (params.date) {
-         date = moment(params.date);
-      } else {
-         date = moment();
-      }
+       date = moment(params.date);
+     } else {
+       date = moment();
+     }
 
       // get time and bump to 12 hr if necessary
       let timeItems = params.time.split(':').map(function(e) { return parseInt(e);} );
       if (timeItems[0] < 12) {
-          timeItems[0] += 12;
+        timeItems[0] += 12;
       }
       date.hour(timeItems[0]);
       date.minutes(timeItems[1]);
       date.seconds(0);
 
       // Process response
-      var msg = "Here is the line up you requested:\n";
-      rater.get_artist_at_time(date).forEach(function(idx) {
-        var bandItem = bands.band[idx];
-        msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
-      });
-      sendTextMessage(sender, msg);
+      // var msg = "Here is the line up you requested:\n";
+      // rater.get_artist_at_time(date).forEach(function(idx) {
+      //   var bandItem = bands.band[idx];
+      //   msg += bandItem.name + " starts at " + bandItem.start_time + " on " + bandItem.day + "\n";
+      // });
+      // sendTextMessage(sender, msg);
+      sendPlayingAtTimeCards(sender,rater.get_artist_at_time(date))
       break;
-    case 'get_hotness_at_epoch':
+      case 'get_hotness_at_epoch':
       var date = moment()
       date = date.add(14, 'days').subtract(2, 'hours');
       rater.get_hotness_at_epoch(date, 3).then(function(results) {
         if (results.length == 0) {
-            sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
+          sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
         } else {
           let msg = "Here are the following artists in order:\n";
           results.forEach(function(result) {
@@ -211,38 +212,38 @@ function processRequest(sender, body){
         }
       });
       break;
-    case 'get_stage':
+      case 'get_stage':
       var id = body.result.parameters.bands;
       get_stage(sender,id)
       break;
-    case 'get_settime':
+      case 'get_settime':
       var id = body.result.parameters.bands;
       get_settime(sender,id)
       break;
-    case 'get_food_type':
+      case 'get_food_type':
       var type = body.result.parameters.food_type
       console.log("hello," + type)
       get_food_type(sender, type)
       console.log(type)
       break;
-    case 'get_bandinfo':
+      case 'get_bandinfo':
       var id = body.result.parameters.bands;
       get_bandinfo(sender,id)
       break;
-    case 'greet':
+      case 'greet':
       greet(sender)
       break;
-    case 'get_lineup':
+      case 'get_lineup':
       get_lineup(sender)
       break;
-    default:
+      default:
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
     }
-}
+  }
 
-function get_directions(sender, body) {
-  var band_id = body.result.parameters.bands;
-  var stage_id = body.result.parameters.stages;
+  function get_directions(sender, body) {
+    var band_id = body.result.parameters.bands;
+    var stage_id = body.result.parameters.stages;
   // they did give stage and maybe band
   if(stage_id != ""){
     sendDirections(sender,"",stage_id);
@@ -292,21 +293,21 @@ function get_lineup(sender){
 }
 function checkIfContained(text,key){
   var contained = false;
-    for (var j = 0; j < key.length; j++){
-        contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
-      }
-    return contained;
+  for (var j = 0; j < key.length; j++){
+    contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
+  }
+  return contained;
 }
 
 function checkBand(text,key){
   var contained = false;
   var band = -1;
-    for (var j = 0; j < key.length && !contained; j++){
-        contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
-        if (contained){
-          band= j;
-        }
-      }
+  for (var j = 0; j < key.length && !contained; j++){
+    contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
+    if (contained){
+      band= j;
+    }
+  }
   return band;
 }
 
@@ -374,6 +375,43 @@ function sendWeatherCard(sender,temp,text,loc){
       console.log('Error: ', response.body.error)
     }
   })
+}
+
+function sendPlayingAtTimeCards(playing) {
+  let elements = [];
+  for (var i = 0; i < playing.length; i++){
+    elements.push(
+    {
+      "title": bands.band[playing[i]].name,
+      "image_url": bands.band[playing[i]].url,
+      "subtitle": bands.band[playing[i]].start_time + ' - ' + bands.band[playing[i]].end_time
+    })
+  }
+  let messageData = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements": elements
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+}
 }
 
 function sendBandCard(sender,id){
