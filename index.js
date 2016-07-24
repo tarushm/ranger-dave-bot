@@ -13,7 +13,7 @@ var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendLineup = require('./lineup.js').sendLineup;
 
 const app = express()
-const redisClient = redis.createClient()
+const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = "EAAO4Pbcmmj0BAF92LgbfehLojrlthke5Wv2J53g96YsFlNpf9HhlrCETKxJfCG4IHS8TxQHbFdHhF6YG9DNlYfuMFELQvUgUxle9RCSF8uvKvhwl9d6sKZBmF4PARA9j9GiHUQtwZC2zVi86fD8ZCoENAGY53ar7DcLKhHxagZDZD";
 
 app.set('port', (process.env.PORT || 5000))
