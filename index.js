@@ -348,17 +348,17 @@ function sendHelp(sender) {
         "buttons":[
           {
             "type":"postback",
-            "title": "I want fried food.",
+            "title": "I want a burger.",
             "payload": "I want a burger."
           },
           {
             "type":"postback",
-            "title": "What stage is popping right now?",
+            "title": "What stage is lit?",
             "payload": "What stage is lit?"
           },
           {
             "type":"postback",
-            "title": "How do I get to Sutro?",
+            "title": "Directions to Sutro?",
             "payload": "Directions to Sutro?"
           }
         ]
