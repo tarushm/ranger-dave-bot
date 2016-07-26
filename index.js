@@ -30,12 +30,12 @@ const DAY_TO_MOMENT_MAP = [
 ]
 
 const SENTIMENT_MAP = [
-    "pretty bad",
-    "Mediocre",
-    "Great",
-    "Okay",
-    "Fantastic",
-    "Awesome!",
+    "not the best.",
+    "below average",
+    "okay",
+    "great",
+    "awesome",
+    "legendary",
 ]
 
 app.set('port', (process.env.PORT || 5000))
@@ -542,6 +542,8 @@ function sendPlayingAtTimeCards(sender,playing) {
   })
 }
 
+
+
 function showMeFood(sender,list) {
   let elements = [];
   var rand = randFood(list);
@@ -603,7 +605,7 @@ function sendBandCard(sender,id){
           "buttons":[{
             "type": "web_url",
             "url": bands.band[id].website_url,
-            "title": 'Artist Website'
+            "title": '\u1032'
           },
           {
             "type": "web_url",
