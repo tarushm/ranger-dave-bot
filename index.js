@@ -185,7 +185,7 @@ function processMessage(facebookUid, text) {
             if (!data.result.actionIncomplete){
               processRequest(sender, data);
             }
-            else if (data.result.source == 'domains') {
+            else if (data.result.action == 'smalltalk.agent' || data.result.action == 'smalltalk.person') {
               sendTextMessage(sender, data.result.fulfillment.speech);
             }
             else {
