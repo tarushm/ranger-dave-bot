@@ -48,17 +48,17 @@ app.use(bodyParser.json())
 
 // Index route
 app.get('/', function (req, res) {
-  res.send('Hello world, I am a chat bt')
+  res.send('Hello world, I am a chat bot')
+  console.log('posting 1')
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-  console.log('Posting webhook')
-  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+  if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') 
+  {
     res.send(req.query['hub.challenge'])
   }
   res.send('Error, wrong token')
-  console.log('send error')
 })
 
 app.post('/webhook/', function (req, res) {
@@ -86,6 +86,7 @@ app.listen(app.get('port'), function() {
 })
 
 function processMessage(facebookUid, text) {
+    console.log('processing message')
     //var food_key = ['hungry',' eat','lunch','dinner','more options'];
     var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
     var band_key = [];
