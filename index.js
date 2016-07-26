@@ -106,7 +106,7 @@ function processMessage(facebookUid, text) {
       }, function(error, response, body) {
         try {
           var condition = body.query.results.channel.item.condition;
-          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park \u1032 \u1032');
+          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
         } catch(err) {
           console.error('error caught', err);
           sendTextMessage(facebookUid, "There was an error.");
@@ -261,7 +261,7 @@ function processMessage(facebookUid, text) {
        date = date.add(14, 'days');
        rater.get_hotness_at_epoch(date, 3).then(function(results) {
          if (results.length == 0) {
-             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them!')
+             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them! \u1032')
          } else {
            let msg = "Here are the following artists in order:\n";
            results.forEach(function(result) {
