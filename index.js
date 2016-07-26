@@ -106,7 +106,7 @@ function processMessage(facebookUid, text) {
       }, function(error, response, body) {
         try {
           var condition = body.query.results.channel.item.condition;
-          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
+          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park \u1032 \u1032');
         } catch(err) {
           console.error('error caught', err);
           sendTextMessage(facebookUid, "There was an error.");
