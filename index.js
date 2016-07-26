@@ -263,7 +263,11 @@ function processMessage(facebookUid, text) {
          if (results.length == 0) {
              sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them! \u{1F525}')
          } else {
-           sendRatingCard(sender, results);
+           let msg = "Here are the following artists in order:\n";
+           results.forEach(function(result) {
+             msg += bands.band[result].name + "\n";
+           });
+           sendTextMessage(sender, msg);
          }
        });
        break;
@@ -567,55 +571,6 @@ function showMeFood(sender,list) {
       }
     }
   }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-}
-
-function sendRatingCard(sender,results) {
-  let elements = [];
-  var rand = randFood(results);
-  for (var i = 0; i < results.length; i++){
-    console.log(results[i]);
-    var subtitle = '';
-    for (var j = 0; j < rater.get_rating_for_artist(bands.band(results[i])); j++){
-      subtitle += '\u{1F525}'
-    }
-    elements.push(
-    {
-      "title": bands.band[results[i]].name + ' at ' + bands.band[results[i]].stage + ' until ' + bands.band[results[i]].end_time,
-      "image_url": bands.band[results[i]].img,
-      "subtitle": rating + '(' + rater.get_rating_for_artist(bands.band(results[i])) + ')',
-      "buttons":[{
-        "type": "web_url",
-        "url": bands.band[results[i]].url,
-        "title": 'Check it out!'
-      }]
-    })
-  }
-
-  let messageData = {
-    "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"generic",
-        "elements": elements
-      }
-    }
-  }
-
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
