@@ -182,11 +182,11 @@ function processMessage(facebookUid, text) {
           var data = JSON.parse(body);
 
           handleSessionId(currentSender, data).then(function() {
-            if (!data.result.actionIncomplete){
-              processRequest(sender, data);
-            }
-            else if (data.result.action == 'smalltalk.agent' || data.result.action == 'smalltalk.person') {
+            if (data.result.source == 'domains') {
               sendTextMessage(sender, data.result.fulfillment.speech);
+            }
+            else if (!data.result.actionIncomplete){
+              processRequest(sender, data);
             }
             else {
               sendTextMessage(sender, data.result.fulfillment.speech);
