@@ -605,7 +605,7 @@ function sendBandCard(sender,id){
           "buttons":[{
             "type": "web_url",
             "url": bands.band[id].website_url,
-            "title": '\u1032'
+            "title": 'Artist Website'
           },
           {
             "type": "web_url",
