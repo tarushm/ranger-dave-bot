@@ -4,7 +4,7 @@ const request = require('request');
 var bands = require('./bands.json')
 var directions = require('./directions.json')
 
-const token = "EAAO4Pbcmmj0BAGZCQ4bJwOpBBJdGfDMOPqdmHHJv0f84Rxcd0ZABB3de00OWITlEbWGDHV4I1Fmiaphws4y8IGya0ECbVPMYbUZBgtUa9yYiOoZAr2cZA6kS3R0WZCjaLBouWtIXuAKi5W7HRvSGKUezSZArIyfWR4fcVZAFcefmiAZDZD";
+const token = "EAAO4Pbcmmj0BAP7cbXDDQJHlTPbXhu7F0BsuUFZBzOBeBApcpwrj147xQQ4BFdC9MAdkqmOgAVST21IyFMtWUXio7fzL48vOPkJ8ob744OOAhKyviKCQUgP7ljbAELiKblgZAGY0qQnVWeXPkfbRFfgLZCIkQ9AUmrep0S58wZDZD";
 
 function sendDirections(sender,bandID,stageID){
   var destination;

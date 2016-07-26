@@ -21,7 +21,7 @@ var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
-const token = 'EAAO4Pbcmmj0BAGZCQ4bJwOpBBJdGfDMOPqdmHHJv0f84Rxcd0ZABB3de00OWITlEbWGDHV4I1Fmiaphws4y8IGya0ECbVPMYbUZBgtUa9yYiOoZAr2cZA6kS3R0WZCjaLBouWtIXuAKi5W7HRvSGKUezSZArIyfWR4fcVZAFcefmiAZDZD';
+const token = 'EAAO4Pbcmmj0BAP7cbXDDQJHlTPbXhu7F0BsuUFZBzOBeBApcpwrj147xQQ4BFdC9MAdkqmOgAVST21IyFMtWUXio7fzL48vOPkJ8ob744OOAhKyviKCQUgP7ljbAELiKblgZAGY0qQnVWeXPkfbRFfgLZCIkQ9AUmrep0S58wZDZD';
 
 const DAY_TO_MOMENT_MAP = [
     moment('Friday, August 05 2016'),
