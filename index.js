@@ -376,8 +376,8 @@ function get_food_type(sender,type){
   showMeFood(sender, foodtype_map[type])
 }
 function get_bandinfo(sender, id){
-  sendBandCard(sender, id);
-  getSpotifyTracks(sender, id);
+  sendBandCard(sender, id)
+  getSpotifyTracks(sender, id)
   return true;
 }
 
@@ -666,8 +666,8 @@ function getSpotifyTracks(sender, band_id){
       console.log('Error sending messages: ', error)
     }
     else {
-      console.log(body)
-      sendTextMessage(sender, body)
+      console.log(body.artists.href)
+      sendTextMessage(sender, body.artists.href)
     }
   })
 }
