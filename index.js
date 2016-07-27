@@ -376,8 +376,8 @@ function get_food_type(sender,type){
   showMeFood(sender, foodtype_map[type])
 }
 function get_bandinfo(sender, id){
-  sendBandCard(sender, id)
-  getSpotifyTracks(sender, id)
+  sendBandCard(sender, id);
+  getSpotifyTracks(sender, id);
   return true;
 }
 
