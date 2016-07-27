@@ -626,7 +626,7 @@ function sendSingleScore(sender,id,rating){
           "buttons":[{
             "type": 'postback',
             "title": 'Take me there!',
-            "title": 'Take me to ' + bands.band[i].name + ' at ' + bands.band[i].stage
+            "payload": 'Take me to ' + bands.band[i].name + ' at ' + bands.band[i].stage
           },
           {
             "type": 'postback',
