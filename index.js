@@ -668,7 +668,8 @@ function getSpotifyTracks(sender, band_id){
     else {
       sendTextMessage(sender, response.artists.items[0].id)
     }
-  }
+  })
+}
 
 function sendBandCard(sender,id){
   let messageData = {
