@@ -666,7 +666,8 @@ function getSpotifyTracks(sender, band_id){
       console.log('Error sending messages: ', error)
     }
     else {
-      sendTextMessage(sender, response.artists.items[0].id)
+      console.log(body)
+      sendTextMessage(sender, body.artists.items[0].id)
     }
   })
 }
