@@ -572,7 +572,7 @@ function showMeFood(sender,list) {
   })
 }
 
-function getSingleScore(sender,id,rating){
+function sendSingleScore(sender,id,rating){
    let messageData = {
     "attachment": {
       "type": "template",
