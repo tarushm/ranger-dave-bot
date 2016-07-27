@@ -624,14 +624,14 @@ function sendSingleScore(sender,id,rating){
           "subtitle": '('+Math.round(rating*20)/10+') '+ msg,
           "image_url": bands.band[id].img,
           "buttons":[{
-            "type": "web_url",
-            "url": bands.band[id].website_url,
-            "title": 'Take me there!'
+            "type": 'postback',
+            "title": 'Take me there!',
+            "title": 'Take me to ' + bands.band[i].name + ' at ' + bands.band[i].stage
           },
           {
             "type": 'postback',
             "title": 'Send a rating',
-            "payload": 'Send a rating'
+            "payload": 'I want to rate ' + bands.band[i].name
           }
           ]
         }]
