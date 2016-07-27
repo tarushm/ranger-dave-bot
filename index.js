@@ -667,7 +667,7 @@ function getSpotifyTracks(sender, band_id){
     }
     else {
       console.log(body);
-      sendTextMessage(sender, body.artists.href)
+      sendTextMessage(sender, body.artists)
     }
   })
 }
