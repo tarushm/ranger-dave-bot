@@ -23,13 +23,12 @@ const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD';
 
-/*
 const DAY_TO_MOMENT_MAP = [
     moment('Friday, August 05 2016'),
     moment('Saturday, August 06 2016'),
     moment('Sunday, August 07 2016')
 ]
-*/
+
 const SENTIMENT_MAP = [
     "not the best.",
     "below average",
