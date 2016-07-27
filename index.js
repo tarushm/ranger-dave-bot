@@ -61,19 +61,63 @@ app.get('/webhook/', function (req, res) {
   res.send('Error, wrong token')
 })
 
-app.post('/webhook/', function (req, res) {
-  console.log('Posting webhook')
-  let messaging_events = req.body.entry[0].messaging
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i]
-    let sender = event.sender.id
-    if (event.message && event.message.text) {
-      let text = event.message.text
-      processMessage(sender, text);
-    }
+app.post('/webhook', function (req, res) {
+  var data = req.body;
+
+  // Make sure this is a page subscription
+  if (data.object == 'page') {
+    // Iterate over each entry
+    // There may be multiple if batched
+    data.entry.forEach(function(pageEntry) {
+      var pageID = pageEntry.id;
+      var timeOfEvent = pageEntry.time;
+
+      // Iterate over each messaging event
+      pageEntry.messaging.forEach(function(messagingEvent) {
+        if (messagingEvent.optin) {
+          receivedAuthentication(messagingEvent);
+        } else if (messagingEvent.message) {
+          receivedMessage(messagingEvent);
+        } else if (messagingEvent.delivery) {
+          receivedDeliveryConfirmation(messagingEvent);
+        } else if (messagingEvent.postback) {
+          receivedPostback(messagingEvent);
+        } else {
+          console.log("Webhook received unknown messagingEvent: ", messagingEvent);
+          let messaging_events = req.body.entry[0].messaging
+          for (let i = 0; i < messaging_events.length; i++) {
+            let event = req.body.entry[0].messaging[i]
+            let sender = event.sender.id
+            if (event.message && event.message.text) {
+              let text = event.message.text
+              processMessage(sender, text);
+            }
+          }
+        }
+      });
+    });
+
+    // Assume all went well.
+    //
+    // You must send back a 200, within 20 seconds, to let us know you've 
+    // successfully received the callback. Otherwise, the request will time out.
+    res.sendStatus(200);
   }
-  res.sendStatus(200)
 });
+
+// app.post('/webhook/', function (req, res) {
+//   console.log('Posting webhook')
+//   let messaging_events = req.body.entry[0].messaging
+//   for (let i = 0; i < messaging_events.length; i++) {
+//     let event = req.body.entry[0].messaging[i]
+//     let sender = event.sender.id
+//     if (event.message && event.message.text) {
+//       let text = event.message.text
+//       processMessage(sender, text);
+//     }
+//   }
+//   res.sendStatus(200)
+// });
 
 app.post('/personal/', function (req, res) {
   processMessage(req.body.uid, req.body.body);
