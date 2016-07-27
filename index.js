@@ -573,24 +573,28 @@ function showMeFood(sender,list) {
 }
 
 function sendSingleScore(sender,id,rating){
+  let msg = '';
+  for (var i = 0; i <= rating; i++){
+    msg += '\u{1F525}'
+  }
    let messageData = {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": bands.band[id].name,
-          "subtitle": bands.band[id].stage + ', ' + bands.band[id].day + ' at ' + bands.band[id].start_time,
+          "title": bands.band[id].name + ' at ' + bands.band[id].stage + ' from ' + bands.band[id].start_time + ' to ' + bands.band[id].end_time,
+          "subtitle": msg,
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
             "url": bands.band[id].website_url,
-            "title": 'Artist Website'
+            "title": 'Take me there!'
           },
           {
-            "type": "web_url",
-            "url": bands.band[id].url,
-            "title": 'Add to Schedule'
+            "type": 'postback',
+            "title": 'Send a rating',
+            "payload": 'Send a rating'
           }
           ]
         }]
