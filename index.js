@@ -274,7 +274,6 @@ function processMessage(facebookUid, text) {
       break;
       case 'get_settime':
       var id = body.result.parameters.bands;
-      getTopTracks(sender,id)
       get_settime(sender,id)
       break;
       case 'get_food_type':
