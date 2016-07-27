@@ -574,7 +574,7 @@ function showMeFood(sender,list) {
 
 function sendSingleScore(sender,id,rating){
   let msg = '';
-  for (var i = 0; i <= ((rating/5)*10); i++){
+  for (var i = 0; i <= ((rating/5)*8); i++){
     msg += '\u{1F525}'
   }
    let messageData = {
