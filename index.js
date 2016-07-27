@@ -583,8 +583,8 @@ function sendSingleScore(sender,id,rating){
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": '('+ Math.round(rating*20)/10 +')'+bands.band[id].name + ' @ ' + bands.band[id].stage + '\u000A' + msg,
-          "subtitle": bands.band[id].start_time + ' - ' + bands.band[id].end_time,
+          "title": bands.band[id].name + ' @ ' + bands.band[id].stage,
+          "subtitle": bands.band[id].start_time + ' to ' + bands.band[id].end_time + '\u000A'+ '('+Math.round(rating*20)/10+') '+msg,
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
