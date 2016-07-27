@@ -377,6 +377,7 @@ function get_food_type(sender,type){
 }
 function get_bandinfo(sender, id){
   sendBandCard(sender, id);
+  getSpotifyTracks(sender, id);
   return true;
 }
 
@@ -655,6 +656,19 @@ function sendSingleScore(sender,id,rating){
   })
 
 }
+
+function getSpotifyTracks(sender, band_id){
+  request({
+    url: 'https://api.spotify.com/v1/search?q='+bands.band[band_id]+'&type=artist&limit=1',
+    method: 'GET'
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    }
+    else {
+      sendTextMessage(sender, response.artists.items[0].id)
+    }
+  }
 
 function sendBandCard(sender,id){
   let messageData = {
