@@ -263,8 +263,7 @@ function processMessage(facebookUid, text) {
             if (!result.success) {
                 sendTextMessage(sender, bands.band[band_id].name + " has not been rated yet! You should rate artists as you\'re seeing them!");
             } else {
-                let msg = "The crowd thinks " + bands.band[band_id].name + " is " + SENTIMENT_MAP[Math.ceil(result.amount)];
-                sendTextMessage(sender, msg);
+                sendSingleScore(sender, band_id, result.amount);
             }
         });
         break;
@@ -571,6 +570,49 @@ function showMeFood(sender,list) {
       console.log('Error: ', response.body.error)
     }
   })
+}
+
+function getSingleScore(sender,id,rating){
+   let messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements":[{
+          "title": bands.band[id].name,
+          "subtitle": bands.band[id].stage + ', ' + bands.band[id].day + ' at ' + bands.band[id].start_time,
+          "image_url": bands.band[id].img,
+          "buttons":[{
+            "type": "web_url",
+            "url": bands.band[id].website_url,
+            "title": 'Artist Website'
+          },
+          {
+            "type": "web_url",
+            "url": bands.band[id].url,
+            "title": 'Add to Schedule'
+          }
+          ]
+        }]
+      }
+    }
+  }
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error)
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error)
+    }
+  })
+
 }
 
 function sendBandCard(sender,id){
