@@ -574,7 +574,7 @@ function showMeFood(sender,list) {
 
 function sendSingleScore(sender,id,rating){
   let msg = '';
-  for (var i = 0; i <= ((rating/5)*8); i++){
+  for (var i = 0; i <= ((rating/5)*10); i++){
     msg += '\u{1F525}'
   }
    let messageData = {
@@ -583,8 +583,8 @@ function sendSingleScore(sender,id,rating){
       "payload": {
         "template_type": "generic",
         "elements":[{
-          "title": bands.band[id].name + ' @ ' + bands.band[id].stage,
-          "subtitle": bands.band[id].start_time + ' to ' + bands.band[id].end_time + '\u000A'+ '('+Math.round(rating*20)/10+') '+msg,
+          "title": bands.band[id].name + ' at ' + bands.band[id].stage + ' from '+ bands.band[id].start_time + ' to ' + bands.band[id].end_time,
+          "subtitle": '('+Math.round(rating*20)/10+') '+ msg,
           "image_url": bands.band[id].img,
           "buttons":[{
             "type": "web_url",
