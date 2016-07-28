@@ -261,8 +261,6 @@ function processMessage(facebookUid, text) {
               date = moment();
           }
       }
-
-
       // get time and bump to 12 hr if necessary
       let timeItems = params.time.split(':').map(function(e) { return parseInt(e);} );
       if (timeItems[0] < 12) {
@@ -277,6 +275,29 @@ function processMessage(facebookUid, text) {
         sendPlayingAtTimeCards(sender,playingAtTime)
       else 
         sendTextMessage(sender, 'It doesn\'t seem like anyone one is playing at the time! Outside Lands is Friday August 5 - Sunday August 7 this year!')
+      break;
+      case 'conflict_with_band':
+      var band_id = body.result.parameters.bands;
+
+      var playingAtStart = rater.get_artist_at_time(bands.band[band_id].day + ' ' + bands.band[band_id].start_time);
+      var playingAtEnd = rater.get_artist_at_time(bands.band[band_id].day + ' ' + bands.band[band_id].end_time);
+      var conflicting = arrayUnique(playingAtStart.concat(playingAtEnd))
+
+      function arrayUnique(array) {
+        var a = array.concat();
+        for(var i=0; i<a.length; ++i) {
+          for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j])
+              a.splice(j--, 1);
+          }
+        }
+        return a;
+      }
+
+      if (conflicting.length > 0)
+        sendPlayingAtTimeCards(sender,conflicting)
+      else 
+        sendTextMessage(sender, 'Wow! No one is conflicting with ' + bands.band[band_id].name +'! It\'s your lucky day')
       break;
       case 'get_hotness_at_epoch':
        //var date = moment(new Date(), 'America/Los_Angeles');
