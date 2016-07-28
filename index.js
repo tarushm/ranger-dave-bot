@@ -284,8 +284,11 @@ function processMessage(facebookUid, text) {
 
       var playingAtStart = rater.get_artist_at_time(start);
       var playingAtEnd = rater.get_artist_at_time(end);
-      
+
       var conflicting = arrayUnique(playingAtStart.concat(playingAtEnd))
+      
+      var index = conflicting.indexOf(band_id);
+      conflicting.splice(index, 1);
 
       function arrayUnique(array) {
         var a = array.concat();
