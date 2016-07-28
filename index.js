@@ -279,8 +279,12 @@ function processMessage(facebookUid, text) {
       case 'conflict_with_band':
       var band_id = body.result.parameters.bands;
 
-      var playingAtStart = rater.get_artist_at_time(bands.band[band_id].day + ' ' + bands.band[band_id].start_time);
-      var playingAtEnd = rater.get_artist_at_time(bands.band[band_id].day + ' ' + bands.band[band_id].end_time);
+      var start = moment(bands.band[band_id].day + ' ' + bands.band[band_id].start_time)
+      var end = moment(bands.band[band_id].day + ' ' + bands.band[band_id].end_time)
+
+      var playingAtStart = rater.get_artist_at_time(start);
+      var playingAtEnd = rater.get_artist_at_time(end);
+      
       var conflicting = arrayUnique(playingAtStart.concat(playingAtEnd))
 
       function arrayUnique(array) {
