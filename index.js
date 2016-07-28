@@ -286,9 +286,6 @@ function processMessage(facebookUid, text) {
       var playingAtEnd = rater.get_artist_at_time(end);
 
       var conflicting = arrayUnique(playingAtStart.concat(playingAtEnd))
-      
-      var index = conflicting.indexOf(band_id);
-      conflicting.splice(index, 1);
 
       function arrayUnique(array) {
         var a = array.concat();
@@ -300,6 +297,9 @@ function processMessage(facebookUid, text) {
         }
         return a;
       }
+
+      var index = conflicting.indexOf(band_id);
+      conflicting.splice(index, 1);
 
       if (conflicting.length > 0)
         sendPlayingAtTimeCards(sender,conflicting)
