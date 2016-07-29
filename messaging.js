@@ -122,5 +122,6 @@ function sendPlayingAtTimeCards(sender,playing) {
 module.exports = {
 	sendTextMessage: sendTextMessage,
         sendPlayingAtTimeCards: sendPlayingAtTimeCards,
-        sendSingleScore: sendSingleScore
+        sendSingleScore: sendSingleScore,
+        randFood: randFood
 }

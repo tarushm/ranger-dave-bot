@@ -15,6 +15,7 @@ var bands = require('./bands.json')
 
 
 var sendTextMessage = require('./messaging.js').sendTextMessage;
+var randFood = require('./messaging.js').randFood;
 var sendLineup = require('./lineup.js').sendLineup;
 var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
