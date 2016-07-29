@@ -2,6 +2,7 @@
 
 const querystring = require('querystring')
 const express = require('express')
+const rollbar = require('rollbar');
 const bodyParser = require('body-parser')
 const moment = require('moment-timezone')
 const request = require('request')
@@ -39,6 +40,9 @@ const SENTIMENT_MAP = [
 ]
 
 app.set('port', (process.env.PORT || 5000))
+
+// Enable Rollbar
+app.use(rollbar.errorHandler('b8e7299b830a4f5b86c6859e887cfc65'))
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
