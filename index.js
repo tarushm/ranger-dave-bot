@@ -15,6 +15,7 @@ var bands = require('./bands.json')
 
 
 var sendTextMessage = require('./messaging.js').sendTextMessage;
+var randFood = require('./messaging.js').randFood;
 var sendLineup = require('./lineup.js').sendLineup;
 var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
@@ -155,7 +156,9 @@ function processWeather(facebookUid) {
 function processMessage(facebookUid, text) {
     console.log('processing message: ' + text)
     var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
+    var stop = ['help', 'no', 'stop', 'none', 'nothing'];
     var isWeather = checkIfContained(text,weather_key);
+    var shouldStop = checkIfContained(text, stop);
     if (isWeather) {
         processWeather(facebookUid)
     }
@@ -243,22 +246,42 @@ function processMessage(facebookUid, text) {
   }
 
 function get_stage(sender, id) {
+  if (id == 404){
+    sendTextMessage(sender, 'Sorry about that!')
+  }
+  else {
   sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
+  }
   return true;
 }
 
 function get_settime(sender, id) {
+  if (id == 404){
+    sendTextMessage(sender, 'Whoops! I must have misunderstood.')
+  }
+  else {
   sendTextMessage(sender, bands.band[id].name + ' is playing from ' + bands.band[id].start_time +' to '+ bands.band[id].end_time + ' on ' + bands.band[id].day);
+}
   return true;
 }
 
 function get_food_type(sender,type){
+  if (id == 404){
+    sendTextMessage(sender, 'I must be the one who\'s hungry. My bad.')
+  }
+  else {
   var foodtype_map = preprocessFoodTypes()
-  console.log('in get_food_type, moving on to show me food')
   showMeFood(sender, foodtype_map[type])
 }
+  return true;
+}
 function get_bandinfo(sender, id){
-  sendBandCard(sender, id);
+  if (id == 404){
+    sendTextMessage(sender, 'Whoops! I must have misunderstood.')
+  }
+  else {
+    sendBandCard(sender, id);
+  }
   //getSpotifyTracks(sender, id);
   return true;
 }
@@ -271,6 +294,7 @@ function get_lineup(sender){
   sendTextMessage(sender, "Here\'s the Outside Lands lineup!")
   sendLineup(sender);
 }
+
 function checkIfContained(text,key){
   var contained = false;
   for (var j = 0; j < key.length; j++){
