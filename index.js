@@ -39,6 +39,8 @@ const SENTIMENT_MAP = [
     "legendary",
 ]
 
+rollbar.init("b8e7299b830a4f5b86c6859e887cfc65");
+rollbar.reportMessage("Hello world!");
 app.set('port', (process.env.PORT || 5000))
 
 // Enable Rollbar
@@ -49,12 +51,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 // Process application/json
 app.use(bodyParser.json())
-
-// Index route
-app.get('/', function (req, res) {
-  res.send('Hello world, I am a chat bot')
-  console.log('posting 1')
-})
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -103,20 +99,6 @@ app.post('/webhook', function (req, res) {
   }
 });
 
-// app.post('/webhook/', function (req, res) {
-//   console.log('Posting webhook')
-//   let messaging_events = req.body.entry[0].messaging
-//   for (let i = 0; i < messaging_events.length; i++) {
-//     let event = req.body.entry[0].messaging[i]
-//     let sender = event.sender.id
-//     if (event.message && event.message.text) {
-//       let text = event.message.text
-//       processMessage(sender, text);
-//     }
-//   }
-//   res.sendStatus(200)
-// });
-
 app.post('/personal/', function (req, res) {
   processMessage(req.body.uid, req.body.body);
   res.sendStatus(200);
@@ -136,14 +118,8 @@ function processMessage(facebookUid, text) {
       band_key.push(bands.band[j].name);
     }
     var isBand = checkIfContained(text,band_key);
-    //var isHungry = checkIfContained(text,food_key);
     var isWeather = checkIfContained(text,weather_key);
     var band_id = checkBand(text,band_key);
-    // if (isHungry) {
-    //     sendTextMessage(facebookUid, 'Here are some options!');
-    //     sendFoodCards(facebookUid, randFood(),randFood(),randFood())
-    //     return;
-    // }
     if (isWeather) {
       var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
       request({
