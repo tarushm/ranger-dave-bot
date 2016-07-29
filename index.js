@@ -7,29 +7,25 @@ const bodyParser = require('body-parser')
 const moment = require('moment-timezone')
 const request = require('request')
 const rater = require('./rater.js');
+const utils = require('./utils.js');
 const uuid = require('node-uuid');
 var redis = require('redis');
 var foods = require('./food.json')
 var bands = require('./bands.json')
 
-var artist_to_genre = require('./artist_to_genre.json')
-var genre_to_artists = require('./genre_to_artists.json')
 
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendLineup = require('./lineup.js').sendLineup;
-var sendDirections = require('./maps.js').sendDirections;
 var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
+
+var band_key = [];
+for (var j = 0; j < bands.band.length; j++ ){
+  band_key.push(bands.band[j].name);
+}
 
 const app = express()
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD';
-
-const DAY_TO_MOMENT_MAP = [
-    moment('Friday, August 05 2016'),
-    moment('Saturday, August 06 2016'),
-    moment('Sunday, August 07 2016')
-]
-
 const SENTIMENT_MAP = [
     "not the best.",
     "below average",
@@ -38,6 +34,44 @@ const SENTIMENT_MAP = [
     "awesome",
     "legendary",
 ]
+
+var MAP_TO_PROCESS = {
+    'get_similar': utils.getSimilar,
+    'get_directions': utils.getDirections,
+    'get_rating': function(sender, body, func) {
+        rater.process_rating(sender, body);
+    },
+    'playing_at_time': utils.playingAtTime,
+    'get_hotness_at_epoch': utils.getHotnessAtEpoch,
+    'conflict_with_band': utils.conflictWithBand,
+    'score_single_artist': utils.scoreSingleArtist,
+    'get_stage': function(sender, body, func) {
+        var id = body.result.parameters.bands;
+        get_stage(sender,id);
+    },
+    'get_settime': function(sender, body, func) {
+        var id = body.result.parameters.bands;
+        get_settime(sender,id);
+    },
+    'get_food_type': function(sender, body, func) {
+        var type = body.result.parameters.food_type;
+        get_food_type(sender, type);
+    },
+    'get_bandinfo': function(sender, body, func) {
+          var id = body.result.parameters.bands;
+          get_bandinfo(sender,id);
+    },
+    'greet': function(sender, body, func) {
+        greet(sender);
+    },
+    'get_help': function(sender, body, func) {
+        get_help(sender);
+    },
+    'get_lineup': function(sender, body, func) {
+        get_lineup(sender);
+    }
+}
+
 
 rollbar.init("b8e7299b830a4f5b86c6859e887cfc65");
 app.set('port', (process.env.PORT || 5000))
@@ -87,13 +121,8 @@ app.post('/webhook', function (req, res) {
         }
       });
     });
-
-    // Assume all went well.
-    //
-    // You must send back a 200, within 20 seconds, to let us know you've 
-    // successfully received the callback. Otherwise, the request will time out.
-    res.sendStatus(200);
   }
+  res.sendStatus(200);
 });
 
 app.post('/personal/', function (req, res) {
@@ -107,33 +136,31 @@ app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
 })
 
-function processMessage(facebookUid, text) {
-    console.log('processing message')
-    //var food_key = ['hungry',' eat','lunch','dinner','more options'];
-    var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
-    var band_key = [];
-    for (var j = 0; j < bands.band.length; j++ ){
-      band_key.push(bands.band[j].name);
-    }
-    var isBand = checkIfContained(text,band_key);
-    var isWeather = checkIfContained(text,weather_key);
-    var band_id = checkBand(text,band_key);
-    if (isWeather) {
-      var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-      request({
+function processWeather(facebookUid) {
+    var weatherEndpoint = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22' + 'Golden Gate Park' + '%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+    request({
         url: weatherEndpoint,
         json: true
-      }, function(error, response, body) {
+    }, function(error, response, body) {
         try {
-          var condition = body.query.results.channel.item.condition;
-          sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
+            var condition = body.query.results.channel.item.condition;
+            sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
         } catch(err) {
-          console.error('error caught', err);
-          sendTextMessage(facebookUid, "There was an error.");
+            console.error('error caught', err);
+            sendTextMessage(facebookUid, "There was an error.");
         }
-      });
+    });
+}
+
+function processMessage(facebookUid, text) {
+    console.log('processing message: ' + text)
+    var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
+    var isWeather = checkIfContained(text,weather_key);
+    if (isWeather) {
+        processWeather(facebookUid)
     }
     else {
+      var band_id = checkBand(text, band_key);
       sendToApiAi(facebookUid, text, band_id);
     }
   }
@@ -202,140 +229,11 @@ function processMessage(facebookUid, text) {
 
   function processRequest(sender, body){
     var func = body.result.action;
-    switch(func){
-      case 'get_similar':
-        var params = body.result.parameters;
-        var band = params.bands;
-
-        // Get genre
-        let genreForBand = artist_to_genre[band.toString()];
-        if (genreForBand == undefined) {
-            sendTextMessage(sender, "we couldn't find similar artists at this time");
-        } else {
-            let reccomendList = genre_to_artists[genreForBand];
-            reccomendList = reccomendList.filter(function(el) {
-                return el != band;
-            });
-            sendPlayingAtTimeCards(sender,reccomendList);
-        }
-
-      case 'get_directions':
-      get_directions(sender,body);
-      break;
-      case 'get_rating':
-      rater.process_rating(sender, body)
-      break;
-      case 'playing_at_time':
-      var params = body.result.parameters;
-
-      // if no date, assume it's today
-      var date;
-      if (params.day) {
-          date = DAY_TO_MOMENT_MAP[parseInt(params.day)];
-      } else {
-          if (params.date) {
-              date = moment(params.date);
-          } else {
-              date = moment();
-          }
-      }
-      // get time and bump to 12 hr if necessary
-      let timeItems = params.time.split(':').map(function(e) { return parseInt(e);} );
-      if (timeItems[0] < 12) {
-        timeItems[0] += 12;
-      }
-      date.hour(timeItems[0]);
-      date.minutes(timeItems[1]);
-      date.seconds(0);
-
-      var playingAtTime = rater.get_artist_at_time(date);
-      if (playingAtTime.length > 0)
-        sendPlayingAtTimeCards(sender,playingAtTime)
-      else 
-        sendTextMessage(sender, 'It doesn\'t seem like anyone one is playing at the time! Outside Lands is Friday August 5 - Sunday August 7 this year!')
-      break;
-      case 'conflict_with_band':
-      var band_id = body.result.parameters.bands;
-
-      var start = moment(bands.band[band_id].day + ' ' + bands.band[band_id].start_time)
-      var end = moment(bands.band[band_id].day + ' ' + bands.band[band_id].end_time)
-
-      var playingAtStart = rater.get_artist_at_time(start);
-      var playingAtEnd = rater.get_artist_at_time(end);
-      
-      var conflicting = arrayUnique(playingAtStart.concat(playingAtEnd))
-
-      function arrayUnique(array) {
-        var a = array.concat();
-        for(var i=0; i<a.length; ++i) {
-          for(var j=i+1; j<a.length; ++j) {
-            if(a[i] === a[j])
-              a.splice(j--, 1);
-          }
-        }
-        return a;
-      }
-
-      if (conflicting.length > 0)
-        sendPlayingAtTimeCards(sender,conflicting)
-      else 
-        sendTextMessage(sender, 'Wow! No one is conflicting with ' + bands.band[band_id].name +'! It\'s your lucky day')
-      break;
-      case 'get_hotness_at_epoch':
-       //var date = moment(new Date(), 'America/Los_Angeles');
-       var date = moment()
-       date = date.add(14, 'days');
-       rater.get_hotness_at_epoch(date, 3).then(function(results) {
-         if (results.length == 0) {
-             sendTextMessage(sender, 'Nothing seems to be popping right now. You should rate artists as you\'re seeing them! \u{1F525}')
-         } else {
-           let msg = "Here are the following artists in order:\n";
-           results.forEach(function(result) {
-             msg += bands.band[result].name + "\n";
-           });
-           sendTextMessage(sender, msg);
-         }
-       });
-       break;
-      break;
-      case 'score_single_artist':
-        var band_id = body.result.parameters.bands;
-        rater.get_rating_for_artist(band_id).then(function(result) {
-            if (!result.success) {
-                sendTextMessage(sender, bands.band[band_id].name + " has not been rated yet! You should rate artists as you\'re seeing them!");
-            } else {
-                sendSingleScore(sender, band_id, result.amount);
-            }
-        });
-        break;
-
-      case 'get_stage':
-      var id = body.result.parameters.bands;
-      get_stage(sender,id)
-      break;
-      case 'get_settime':
-      var id = body.result.parameters.bands;
-      get_settime(sender,id)
-      break;
-      case 'get_food_type':
-      var type = body.result.parameters.food_type
-      get_food_type(sender, type)
-      break;
-      case 'get_bandinfo':
-      var id = body.result.parameters.bands;
-      get_bandinfo(sender,id)
-      break;
-      case 'greet':
-      greet(sender)
-      break;
-      case 'get_help':
-      get_help(sender);
-      break;
-      case 'get_lineup':
-      get_lineup(sender)
-      break;
-      default:
+    var funcHandler = MAP_TO_PROCESS[func];
+    if (funcHandler === undefined) {
       sendTextMessage(sender, 'Hmm. I\'m having some trouble getting you that information. Make sure you spelled the band or artist name correctly and try again!');
+    } else {
+        funcHandler(sender, body, func);
     }
   }
 
@@ -343,24 +241,7 @@ function processMessage(facebookUid, text) {
     sendHelp(sender);
     return true;
   }
-  function get_directions(sender, body) {
-    var band_id = body.result.parameters.bands;
-    var stage_id = body.result.parameters.stages;
-  // they did give stage and maybe band
-  if(stage_id != ""){
-    sendDirections(sender,"",stage_id);
-    sendTextMessage(sender, 'Make sure to rate the artist\'s performace when you get there!')
-  }
-  // they forsure gave us band only
-  else if(band_id != "") {
-    sendDirections(sender, band_id, bands.band[band_id].stageId);
-    sendTextMessage(sender, 'Make sure to rate '+bands.band[band_id].name+'\'s performance when you get there!')
-  }
-  else{
-    sendTextMessage(sender, 'I\'m a little bit confused about who you want to see');
-  }
-  return true;
-}
+
 function get_stage(sender, id) {
   sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
   return true;
@@ -373,14 +254,12 @@ function get_settime(sender, id) {
 
 function get_food_type(sender,type){
   var foodtype_map = preprocessFoodTypes()
-  // if(foodtype_map[type] instanceof Array){
-  // }
   console.log('in get_food_type, moving on to show me food')
   showMeFood(sender, foodtype_map[type])
 }
 function get_bandinfo(sender, id){
   sendBandCard(sender, id);
-  getSpotifyTracks(sender, id);
+  //getSpotifyTracks(sender, id);
   return true;
 }
 
@@ -400,20 +279,16 @@ function checkIfContained(text,key){
   return contained;
 }
 
-function checkBand(text,key){
+function checkBand(text){
   var contained = false;
   var band = -1;
-  for (var j = 0; j < key.length && !contained; j++){
-    contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
+  for (var j = 0; j < band_key.length && !contained; j++){
+    contained = contained || (text.toUpperCase().indexOf(band_key[j].toUpperCase()) > -1);
     if (contained){
-      band= j;
+      return j
     }
   }
-  return band;
-}
-
-function randFood(array){
-  return Math.floor(Math.random() * (array.length));
+  return -1;
 }
 
 function sendHelp(sender) {
@@ -523,49 +398,6 @@ function sendWeatherCard(sender,temp,text,loc){
   })
 }
 
-function sendPlayingAtTimeCards(sender,playing) {
-  let elements = [];
-  var rand = randFood(playing)
-  for (var i = 0; i < playing.length && i < 10; i++){
-    elements.push(
-    {
-      "title": bands.band[playing[(i+rand)%playing.length]].name,
-      "image_url": bands.band[playing[(i+rand)%playing.length]].img,
-      "subtitle": bands.band[playing[(i+rand)%playing.length]].start_time + ' - ' + bands.band[playing[(i+rand)%playing.length]].end_time + ' at ' + bands.band[playing[(i+rand)%playing.length]].stage,
-      "buttons" : [
-      	  {
-            "type": "web_url",
-            "url": bands.band[playing[(i+rand)%playing.length]].url,
-            "title": 'Add to Schedule'
-          }
-      ]
-    })
-  }
-  let messageData = {
-    "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"generic",
-        "elements": elements
-      }
-    }
-  }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-}
 
 
 
@@ -613,53 +445,6 @@ function showMeFood(sender,list) {
   })
 }
 
-function sendSingleScore(sender,id,rating){
-  let msg = '';
-  for (var i = 0; i <= ((rating/5)*8); i++){
-    msg += '\u{1F525}'
-  }
-   let messageData = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements":[{
-          "title": bands.band[id].name + ' at ' + bands.band[id].stage + ' from '+ bands.band[id].start_time + ' to ' + bands.band[id].end_time,
-          "subtitle": '('+Math.round(rating*20)/10+') '+ msg,
-          "image_url": bands.band[id].img,
-          "buttons":[{
-            "type": 'postback',
-            "title": 'Take me there!',
-            "payload": 'Take me to ' + bands.band[id].name + ' at ' + bands.band[id].stage
-          },
-          {
-            "type": 'postback',
-            "title": 'Send a rating',
-            "payload": 'I want to rate ' + bands.band[id].name
-          }
-          ]
-        }]
-      }
-    }
-  }
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
-
-}
-
 function getSpotifyTracks(sender, band_id){
   request({
     url: 'https://api.spotify.com/v1/search?q='+bands.band[band_id]+'&type=artist&limit=1',
@@ -669,8 +454,7 @@ function getSpotifyTracks(sender, band_id){
       console.log('Error sending messages: ', error)
     }
     else {
-      console.log(body.artists.href);
-      //sendTextMessage(sender, body.artists)
+      console.log("NOT SURE WHAT HERE");
     }
   })
 }
