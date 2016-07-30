@@ -108,7 +108,7 @@ app.post('/webhook', function (req, res) {
           receivedPostback(messagingEvent);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-          if (messagingEvent.message.is_echo) {
+          if (messagingEvent.message && messagingEvent.message.is_echo) {
               rollbar.reportMessage("Echo message from FB", "info");
               return;
           }
