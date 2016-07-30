@@ -80,17 +80,24 @@ function get_hotness_at_epoch(date, numBest) {
 }
 
 function process_rating(sender, parsedJson) {
-    new Promise(function(success, fail) {
-        let params = parsedJson.result.parameters;
+    let params = parsedJson.result.parameters;
+    let bandKey = "artist_rating_set:" + params.bands;
+    redisClient.sismember(bandKey, sender, function(err, reply) {
+        if (err) throw err;
 
-        redisClient.multi([
-            ["hincrby", "artist_rating_score", params.bands, parseInt(params.rating)],
-            ["hincrby", "artist_rating_count", params.bands, 1],
-        ]).exec(function(err, replies) {
-            success();
-        });
-    }).then(function() {
-        sendTextMessage(sender, "Thanks for letting us know!");
+        if (reply) {
+            // User has already voted
+            sendTextMessage(sender, "It seems like you have already rated this artist!");
+        } else {
+            // User votes
+            redisClient.multi([
+                ["hincrby", "artist_rating_score", params.bands, parseInt(params.rating)],
+                ["hincrby", "artist_rating_count", params.bands, 1],
+                ["sadd", bandKey, sender],
+            ]).exec(function(err, replies) {
+                sendTextMessage(sender, "Thanks for letting us know!");
+            });
+        }
     });
 }
 

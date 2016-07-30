@@ -10,7 +10,7 @@ const rater = require('./rater.js');
 const utils = require('./utils.js');
 const uuid = require('node-uuid');
 var redis = require('redis');
-var foods = require('./food.json')
+var foods = require('./food.json');
 var bands = require('./bands.json')
 
 
@@ -19,12 +19,7 @@ var randFood = require('./messaging.js').randFood;
 var sendLineup = require('./lineup.js').sendLineup;
 var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
 
-var band_key = [];
-for (var j = 0; j < bands.band.length; j++ ){
-  band_key.push(bands.band[j].name);
-}
-
-const app = express()
+const app = express();
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD';
 const SENTIMENT_MAP = [
@@ -160,11 +155,10 @@ function processMessage(facebookUid, text) {
     var isWeather = checkIfContained(text,weather_key);
     var shouldStop = checkIfContained(text, stop);
     if (isWeather) {
-        processWeather(facebookUid)
+        processWeather(facebookUid);
     }
     else {
-      var band_id = checkBand(text, band_key);
-      sendToApiAi(facebookUid, text, band_id);
+      sendToApiAi(facebookUid, text);
     }
   }
 
@@ -185,7 +179,7 @@ function processMessage(facebookUid, text) {
     });
   }
 
-  function sendToApiAi(sender, message, id){
+  function sendToApiAi(sender, message){
     let urlParams = {
       v: "20150910",
       query: message,
@@ -301,18 +295,6 @@ function checkIfContained(text,key){
     contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
   }
   return contained;
-}
-
-function checkBand(text){
-  var contained = false;
-  var band = -1;
-  for (var j = 0; j < band_key.length && !contained; j++){
-    contained = contained || (text.toUpperCase().indexOf(band_key[j].toUpperCase()) > -1);
-    if (contained){
-      return j
-    }
-  }
-  return -1;
 }
 
 function sendHelp(sender) {
