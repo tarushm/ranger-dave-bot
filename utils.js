@@ -92,7 +92,6 @@ function getHotnessAtEpoch(sender, body, func) {
 }
 
 function playingAtTime(sender, body, func) {
-    debugger;
     var params = body.result.parameters;
 
     // if no date, assume it's today
@@ -124,7 +123,6 @@ function playingAtTime(sender, body, func) {
 }
 
 function getDirections(sender, body, func) {
-    debugger;
     var band_id = body.result.parameters.bands;
     var stage_id = body.result.parameters.stages;
     // they did give stage and maybe band
