@@ -67,7 +67,7 @@ var MAP_TO_PROCESS = {
         get_lineup(sender);
     },
     'get_weather_forecast': function(sender, body, func) {
-        processWeather(facebookUid);
+        processWeather(sender);
     }
 };
 
