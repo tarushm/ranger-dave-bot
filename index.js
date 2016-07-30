@@ -265,8 +265,8 @@ function get_settime(sender, id) {
     return true;
 }
 
-function get_food_type(sender,type){
-    if (id == 404){
+function get_food_type(sender, type){
+    if (type == 404){
         sendTextMessage(sender, 'I must be the one who\'s hungry. My bad.');
     }
     else {
