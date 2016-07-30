@@ -119,7 +119,9 @@ app.post('/webhook', function (req, res) {
             let sender = event.sender.id;
             if (event.message && event.message.text) {
               let text = event.message.text;
-              sendToApiAi(sender, text);
+              let requestId = uuid.v1();
+              console.log("[" + sender + "][" + requestId + "][REQUEST] " + text);
+              sendToApiAi(sender, text, requestId);
             }
           }
         }
@@ -130,7 +132,7 @@ app.post('/webhook', function (req, res) {
 });
 
 app.post('/personal/', function (req, res) {
-  sendToApiAi(req.body.uid, req.body.body);
+  sendToApiAi(req.body.uid, req.body.body, uuid.v1());
   res.sendStatus(200);
 });
 
@@ -173,7 +175,7 @@ function processWeather(facebookUid) {
     });
   }
 
-  function sendToApiAi(sender, message){
+  function sendToApiAi(sender, message, requestId){
     let urlParams = {
       v: "20150910",
       query: message,
@@ -183,9 +185,11 @@ function processWeather(facebookUid) {
 
     redisClient.hget("api_ai_sessions", sender, function (err, sessionId) {
       if (sessionId) {
+        console.log("[" + sender + "][" + requestId + "][SESSION] Session found to be " + sessionId);
         urlParams["sessionId"] = sessionId;
       } else {
         urlParams["sessionId"] = uuid.v1();
+        console.log("[" + sender + "][" + requestId + "][SESSION] Generated new session " + urlParams["sessionId"]);
       }
 
       var options = {
@@ -206,12 +210,19 @@ function processWeather(facebookUid) {
 
           handleSessionId(currentSender, data).then(function() {
             if (data.result.source == 'domains') {
+                console.log("[" + sender + "][" + requestId + "][AI] Domain based chat");
                 sendTextMessage(sender, data.result.fulfillment.speech);
             }
             else if (!data.result.actionIncomplete){
+              var res = "Action: " + data.result.action;
+              if (data.result.parameters) {
+                  res += ". Params: " + JSON.stringify(data.result.parameters);
+              }
+              console.log("[" + sender + "][" + requestId + "][AI] Action Complete! " + res);
               processRequest(sender, data);
             }
             else {
+                console.log("[" + sender + "][" + requestId + "][AI] Action Incomplete: " + data.result.fulfillment.speech);
                 sendTextMessage(sender, data.result.fulfillment.speech);
                 rollbar.reportMessageWithPayloadData("Imcomplete action", {
                     level: "info",
