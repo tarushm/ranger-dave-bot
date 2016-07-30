@@ -116,6 +116,7 @@ function sendPlayingAtTimeCards(sender,playing) {
       message: messageData,
     }
   }, function(error, response, body) {
+    console.log(body);
     if (error) {
         rollbar.handleError(error);
     } else if (response.body.error) {
