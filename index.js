@@ -219,7 +219,11 @@ function processWeather(facebookUid) {
                   res += ". Params: " + JSON.stringify(data.result.parameters);
               }
               console.log("[" + sender + "][" + requestId + "][AI] Action Complete! " + res);
-              processRequest(sender, data);
+              redisClient.multi([
+                  ["del", 'last_message:' + sender],
+              ]).exec(function(err, replies) {
+                  processRequest(sender, data);
+              });
             }
             else {
 
