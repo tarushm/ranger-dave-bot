@@ -88,7 +88,7 @@
        "name": "Escape From New York Pizza",
        "url": "http://lineup.sfoutsidelands.com/band/escape-from-new-york-pizza",
        "description": "Pesto, Potato and Roasted Garlic Pizza Slices",
-       "type": "AMERICAN",
+       "type": "PIZZA",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69543/custom380a54565d1e1a30c045775771d18ef3.jpg"
     },
     {
@@ -109,7 +109,7 @@
        "name": "Four Barrel Coffee",
        "url": "http://lineup.sfoutsidelands.com/band/four-brand-coffee",
        "description": "Nitro Cold Brew Coffee",
-       "type": "DRINKS",
+       "type": "COFFEE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69663/custom50b56e480eb9e7e1a0f79ef5f1cd7879.jpg"
     },
     {
@@ -214,7 +214,7 @@
        "name": "Precita Park Cafe",
        "url": "http://lineup.sfoutsidelands.com/band/precita-park-cafe",
        "description": "Bacon Egg and Cheese Fries, Equator Coffee",
-       "type": "UNHEALTHY",
+       "type": "FRIES",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69581/custom038d6d5e725ad4e6c0846e619014cc28.jpg"
     },
     {
@@ -284,7 +284,7 @@
        "name": "Spicy Pie",
        "url": "http://lineup.sfoutsidelands.com/band/spicy-pie",
        "description": "Giant Pizza Slices, Cookie Pie",
-       "type": "UNHEALTHY",
+       "type": "PIZZA",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69615/custom0e1cf319855939bc7c6b89fbe5924dde.jpg"
     },
     {
@@ -368,7 +368,7 @@
        "name": "The Up & Under\nPub and Grill",
        "url": "http://lineup.sfoutsidelands.com/band/the-up-and-under-pub-and-grill",
        "description": "Gourmet Waffle Fries",
-       "type": "AMERICAN",
+       "type": "FRIES",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69645/customc7abf493169415c25308183b99376d28.jpg"
     },
     {
@@ -396,7 +396,7 @@
        "name": "Wise Sons Jewish Deli",
        "url": "http://lineup.sfoutsidelands.com/band/wise-sons-jewish-deli",
        "description": "Turkey Clubs, Pastrami Cheese Fries, Bagels & Shmear, Chocolate Bobka",
-       "type": "AMERICAN",
+       "type": "FRIES",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69655/custom0e53fa335c1edc7ab9349102e5467cfe.jpg"
     },
     {
@@ -424,7 +424,7 @@
        "name": "Del Popolo",
        "url": "http://lineup.sfoutsidelands.com/band/del-popolo",
        "description": "Margherita Pepperoni Pizzas",
-       "type": "AMERICAN",
+       "type": "PIZZA",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69531/custom14829b11d2e723a2a0ea189b8f3628cf.jpg"
     },
     {
@@ -459,7 +459,7 @@
        "name": "Mozzeria",
        "url": "http://lineup.sfoutsidelands.com/band/mozzeria",
        "description": "Salumi & Margherita Pizzas",
-       "type": "AMERICAN",
+       "type": "PIZZA",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69575/custom18916cb1eb792d510550c9fd8477fdc8.jpg"
     },
     {
@@ -529,7 +529,7 @@
        "name": "Il Morso",
        "url": "http://lineup.sfoutsidelands.com/band/il-morso",
        "description": "Coffee Without the Cup",
-       "type": "SWEET",
+       "type": "COFFEE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69715/custom1f8a1a520e5843a265809839b35bbe0a.png"
     },
     {

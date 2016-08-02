@@ -53,6 +53,30 @@ function preprocessFoodTypes(){
         food_types["SWEET"] = [foods.food[i]]
       }
     }
+    else if(foods.food[i].type == "FRIES"){
+      if("FRIES" in food_types){
+        food_types["FRIES"].push(foods.food[i])
+      }
+      else {
+        food_types["FRIES"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "PIZZA"){
+      if("PIZZA" in food_types){
+        food_types["PIZZA"].push(foods.food[i])
+      }
+      else {
+        food_types["PIZZA"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "COFFEE"){
+      if("COFFEE" in food_types){
+        food_types["COFFEE"].push(foods.food[i])
+      }
+      else {
+        food_types["COFFEE"] = [foods.food[i]]
+      }
+    }
   }
   return food_types
 }
