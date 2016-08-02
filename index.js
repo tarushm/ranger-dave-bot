@@ -222,16 +222,34 @@ function processWeather(facebookUid) {
               processRequest(sender, data);
             }
             else {
-                console.log("[" + sender + "][" + requestId + "][AI] Action Incomplete: " + data.result.fulfillment.speech);
-                sendTextMessage(sender, data.result.fulfillment.speech);
-                rollbar.reportMessageWithPayloadData("Imcomplete action", {
-                    level: "info",
-                    custom: {
-                        query: data.result.resolvedQuery,
-                        answer: data.result.fulfillment.speech,
-                        sender: currentSender
+
+                // If previous phrase is == earlyest, stop
+                redisClient.get('last_message:' + sender, function(err, res) {
+                    if (res == data.result.fulfillment.speech) {
+                        // Start again from scratch
+                        console.log("[" + sender + "][" + requestId + "][SESSION] Same response twice, restart");
+                        redisClient.multi([
+                            ["del", "session:" + sender],
+                            ["del", 'last_message:' + sender],
+                        ]).exec(function(err, replies) {
+                            return sendToApiAi(sender, "help", requestId);
+                        });
+                    } else {
+                        redisClient.setex('last_message:' + sender, 5 * 60, data.result.fulfillment.speech, function(err, res) {
+                            console.log("[" + sender + "][" + requestId + "][AI] Action Incomplete: " + data.result.fulfillment.speech);
+                            sendTextMessage(sender, data.result.fulfillment.speech);
+                            rollbar.reportMessageWithPayloadData("Imcomplete action", {
+                                level: "info",
+                                custom: {
+                                    query: data.result.resolvedQuery,
+                                    answer: data.result.fulfillment.speech,
+                                    sender: currentSender
+                                }
+                            });
+                        });
                     }
                 });
+
             }
           });
         }
