@@ -21,7 +21,7 @@ function sendDirections(sender,bandID,stageID){
         "template_type": "generic",
         "elements":[{
           "title": 'Here\'s how to get to ' + destination,
-          "image_url": 'http://cdn.funcheap.com/wp-content/uploads/2014/07/www.sfoutsidelands.com-sites-default-files-content-files-files-OL15_PrintableMap-1-.pdf.png',
+          "image_url": 'http://cdn2.sfoutsidelands.com/content-files/images/MobileMap12000x12000_img.jpg',
           "buttons":[{
             "type": "web_url",
             "url": directions.directions[stageID].url,
