@@ -161,14 +161,14 @@ function processWeather(facebookUid) {
   function handleSessionId(currentSender, info) {
     return new Promise(function(success, failure) {
       if (info.result && info.result.actionIncomplete === false) {
-        redisClient.hdel("api_ai_sessions", currentSender, function(err, res) {
+        redisClient.del("session:" + currentSender, function(err, res) {
           success();
         });
       } else {
         if (!info.sessionId) {
           return true;
         }
-        redisClient.hset("api_ai_sessions", currentSender, info.sessionId, function(err, res) {
+        redisClient.setex("session:" + currentSender, 60 * 5, info.sessionId, function(err, res) {
           success();
         });
       }
@@ -183,7 +183,7 @@ function processWeather(facebookUid) {
       timezone: "America/Los_Angeles"
     };
 
-    redisClient.hget("api_ai_sessions", sender, function (err, sessionId) {
+    redisClient.get("session:" + sender, function (err, sessionId) {
       if (sessionId) {
         console.log("[" + sender + "][" + requestId + "][SESSION] Session found to be " + sessionId);
         urlParams["sessionId"] = sessionId;
