@@ -1,23 +1,23 @@
 'use strict'
 
-const querystring = require('querystring')
-const express = require('express')
+const querystring = require('querystring');
+const express = require('express');
 const rollbar = require('rollbar');
-const bodyParser = require('body-parser')
-const moment = require('moment-timezone')
-const request = require('request')
+const bodyParser = require('body-parser');
+const moment = require('moment-timezone');
+const request = require('request');
 const rater = require('./rater.js');
 const utils = require('./utils.js');
 const uuid = require('node-uuid');
 var redis = require('redis');
 var foods = require('./food.json');
-var bands = require('./bands.json')
+var bands = require('./bands.json');
 
 
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var randFood = require('./messaging.js').randFood;
 var sendLineup = require('./lineup.js').sendLineup;
-var preprocessFoodTypes = require('./getfood.js').preprocessFoodTypes;
+var foodTypes = require('./getfood.js').preprocessFoodTypes();
 
 const app = express();
 const redisClient = redis.createClient(process.env.REDIS_URL);
@@ -65,8 +65,11 @@ var MAP_TO_PROCESS = {
     },
     'get_lineup': function(sender, body, func) {
         get_lineup(sender);
+    },
+    'get_weather_forecast': function(sender, body, func) {
+        processWeather(sender);
     }
-}
+};
 
 
 rollbar.init("b8e7299b830a4f5b86c6859e887cfc65");
@@ -105,13 +108,20 @@ app.post('/webhook', function (req, res) {
           receivedPostback(messagingEvent);
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
-          let messaging_events = req.body.entry[0].messaging
+          if (messagingEvent.message && messagingEvent.message.is_echo) {
+              rollbar.reportMessage("Echo message from FB", "info");
+              return;
+          }
+
+          let messaging_events = req.body.entry[0].messaging;
           for (let i = 0; i < messaging_events.length; i++) {
-            let event = req.body.entry[0].messaging[i]
-            let sender = event.sender.id
+            let event = req.body.entry[0].messaging[i];
+            let sender = event.sender.id;
             if (event.message && event.message.text) {
-              let text = event.message.text
-              processMessage(sender, text);
+              let text = event.message.text;
+              let requestId = uuid.v1();
+              console.log("[" + sender + "][" + requestId + "][REQUEST] " + text);
+              sendToApiAi(sender, text, requestId);
             }
           }
         }
@@ -122,7 +132,7 @@ app.post('/webhook', function (req, res) {
 });
 
 app.post('/personal/', function (req, res) {
-  processMessage(req.body.uid, req.body.body);
+  sendToApiAi(req.body.uid, req.body.body, uuid.v1());
   res.sendStatus(200);
 });
 
@@ -142,25 +152,11 @@ function processWeather(facebookUid) {
             var condition = body.query.results.channel.item.condition;
             sendWeatherCard(facebookUid, condition.temp,condition.text,'Outside Lands in Golden Gate Park');
         } catch(err) {
-            console.error('error caught', err);
+            rollbar.handleError(err);
             sendTextMessage(facebookUid, "There was an error.");
         }
     });
 }
-
-function processMessage(facebookUid, text) {
-    console.log('processing message: ' + text)
-    var weather_key = ['weather','sunny','umbrella','temperature','forecast'];
-    var stop = ['help', 'no', 'stop', 'none', 'nothing'];
-    var isWeather = checkIfContained(text,weather_key);
-    var shouldStop = checkIfContained(text, stop);
-    if (isWeather) {
-        processWeather(facebookUid);
-    }
-    else {
-      sendToApiAi(facebookUid, text);
-    }
-  }
 
   function handleSessionId(currentSender, info) {
     return new Promise(function(success, failure) {
@@ -179,7 +175,7 @@ function processMessage(facebookUid, text) {
     });
   }
 
-  function sendToApiAi(sender, message){
+  function sendToApiAi(sender, message, requestId){
     let urlParams = {
       v: "20150910",
       query: message,
@@ -189,9 +185,11 @@ function processMessage(facebookUid, text) {
 
     redisClient.hget("api_ai_sessions", sender, function (err, sessionId) {
       if (sessionId) {
+        console.log("[" + sender + "][" + requestId + "][SESSION] Session found to be " + sessionId);
         urlParams["sessionId"] = sessionId;
       } else {
         urlParams["sessionId"] = uuid.v1();
+        console.log("[" + sender + "][" + requestId + "][SESSION] Generated new session " + urlParams["sessionId"]);
       }
 
       var options = {
@@ -203,18 +201,37 @@ function processMessage(facebookUid, text) {
 
       let currentSender = sender;
       function callback(error, response, body) {
+        if (error) {
+            rollbar.handleError(error);
+        }
+
         if (!error && response.statusCode == 200) {
           var data = JSON.parse(body);
 
           handleSessionId(currentSender, data).then(function() {
             if (data.result.source == 'domains') {
-              sendTextMessage(sender, data.result.fulfillment.speech);
+                console.log("[" + sender + "][" + requestId + "][AI] Domain based chat");
+                sendTextMessage(sender, data.result.fulfillment.speech);
             }
             else if (!data.result.actionIncomplete){
+              var res = "Action: " + data.result.action;
+              if (data.result.parameters) {
+                  res += ". Params: " + JSON.stringify(data.result.parameters);
+              }
+              console.log("[" + sender + "][" + requestId + "][AI] Action Complete! " + res);
               processRequest(sender, data);
             }
             else {
-              sendTextMessage(sender, data.result.fulfillment.speech);
+                console.log("[" + sender + "][" + requestId + "][AI] Action Incomplete: " + data.result.fulfillment.speech);
+                sendTextMessage(sender, data.result.fulfillment.speech);
+                rollbar.reportMessageWithPayloadData("Imcomplete action", {
+                    level: "info",
+                    custom: {
+                        query: data.result.resolvedQuery,
+                        answer: data.result.fulfillment.speech,
+                        sender: currentSender
+                    }
+                });
             }
           });
         }
@@ -240,43 +257,41 @@ function processMessage(facebookUid, text) {
   }
 
 function get_stage(sender, id) {
-  if (id == 404){
-    sendTextMessage(sender, 'Sorry about that!')
-  }
-  else {
-  sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
-  }
-  return true;
+    if (id == 404){
+        sendTextMessage(sender, 'Sorry about that!');
+    }
+    else {
+        sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
+    }
+    return true;
 }
 
 function get_settime(sender, id) {
-  if (id == 404){
-    sendTextMessage(sender, 'Whoops! I must have misunderstood.')
-  }
-  else {
-  sendTextMessage(sender, bands.band[id].name + ' is playing from ' + bands.band[id].start_time +' to '+ bands.band[id].end_time + ' on ' + bands.band[id].day);
-}
-  return true;
+    if (id == 404){
+        sendTextMessage(sender, 'Whoops! I must have misunderstood.');
+    }
+    else {
+        sendTextMessage(sender, bands.band[id].name + ' is playing from ' + bands.band[id].start_time +' to '+ bands.band[id].end_time + ' on ' + bands.band[id].day);
+    }
+    return true;
 }
 
-function get_food_type(sender,type){
-  if (id == 404){
-    sendTextMessage(sender, 'I must be the one who\'s hungry. My bad.')
-  }
-  else {
-  var foodtype_map = preprocessFoodTypes()
-  showMeFood(sender, foodtype_map[type])
-}
-  return true;
+function get_food_type(sender, type){
+    if (type == 404){
+        sendTextMessage(sender, 'I must be the one who\'s hungry. My bad.');
+    }
+    else {
+        showMeFood(sender, foodTypes[type]);
+    }
+    return true;
 }
 function get_bandinfo(sender, id){
   if (id == 404){
-    sendTextMessage(sender, 'Whoops! I must have misunderstood.')
+    sendTextMessage(sender, 'Whoops! I must have misunderstood.');
   }
   else {
     sendBandCard(sender, id);
   }
-  //getSpotifyTracks(sender, id);
   return true;
 }
 
@@ -285,16 +300,8 @@ function greet(sender){
 }
 
 function get_lineup(sender){
-  sendTextMessage(sender, "Here\'s the Outside Lands lineup!")
+  sendTextMessage(sender, "Here\'s the Outside Lands lineup!");
   sendLineup(sender);
-}
-
-function checkIfContained(text,key){
-  var contained = false;
-  for (var j = 0; j < key.length; j++){
-    contained = contained || (text.toUpperCase().indexOf(key[j].toUpperCase()) > -1);
-  }
-  return contained;
 }
 
 function sendHelp(sender) {
@@ -335,11 +342,14 @@ function sendHelp(sender) {
     }
   }, function(error, response, body) {
     if (error) {
-      //console.log('Error sending messages: ', error)
+        rollbar.handleError(error);
     } else if (response.body.error) {
-      //console.log('Error: ', response.body.error)
+        rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+            level: "error",
+            custom: response.body
+        });
     }
-  })
+  });
 }
 
 function sendLineup(sender) {
@@ -362,9 +372,12 @@ function sendLineup(sender) {
     }
   }, function(error, response, body) {
     if (error) {
-      //console.log('Error sending messages: ', error)
+        rollbar.handleError(error);
     } else if (response.body.error) {
-      //console.log('Error: ', response.body.error)
+        rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+            level: "error",
+            custom: response.body
+        });
     }
   })
 }
@@ -396,12 +409,15 @@ function sendWeatherCard(sender,temp,text,loc){
       message: messageData,
     }
   }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
+      if (error) {
+          rollbar.handleError(error);
+      } else if (response.body.error) {
+          rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+              level: "error",
+              custom: response.body
+          });
+      }
+  });
 }
 
 
@@ -433,7 +449,7 @@ function showMeFood(sender,list) {
         "elements": elements
       }
     }
-  }
+  };
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -444,25 +460,14 @@ function showMeFood(sender,list) {
     }
   }, function(error, response, body) {
     if (error) {
-      console.log('Error sending messages: ', error)
+        rollbar.handleError(error);
     } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
+        rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+            level: "error",
+            custom: response.body
+        });
     }
-  })
-}
-
-function getSpotifyTracks(sender, band_id){
-  request({
-    url: 'https://api.spotify.com/v1/search?q='+bands.band[band_id]+'&type=artist&limit=1',
-    method: 'GET'
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    }
-    else {
-      console.log("NOT SURE WHAT HERE");
-    }
-  })
+  });
 }
 
 function sendBandCard(sender,id){
@@ -489,7 +494,7 @@ function sendBandCard(sender,id){
         }]
       }
     }
-  }
+  };
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -499,12 +504,15 @@ function sendBandCard(sender,id){
       message: messageData,
     }
   }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending messages: ', error)
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error)
-    }
-  })
+      if (error) {
+          rollbar.handleError(error);
+      } else if (response.body.error) {
+          rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+              level: "error",
+              custom: response.body
+          });
+      }
+  });
 }
 
 function receivedPostback(event) {
@@ -521,5 +529,5 @@ function receivedPostback(event) {
 
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
-  processMessage(senderID, payload);
+  sendToApiAi(senderID, payload);
 }
