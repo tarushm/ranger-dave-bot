@@ -344,6 +344,40 @@ function get_lineup(sender){
 }
 
 function sendHelp(sender) {
+  var questions = 
+  [
+    {
+      "type":"postback",
+      "title": "I want Mexican food.",
+      "payload": "I want Mexican food."
+    },
+    {
+      "type":"postback",
+      "title": "What stage is lit?",
+      "payload": "What stage is lit?"
+    },
+    {
+      "type":"postback",
+      "title": "Directions to Sutro?",
+      "payload": "Directions to Sutro?"
+    },
+    {
+      "type":"postback",
+      "title": "Who is similar to Radiohead?",
+      "payload": "Who is similar to Radiohead?"
+    },
+    {
+      "type":"postback",
+      "title": "Who conflicts with Wet?",
+      "payload": "Who conflicts with Wet?"
+    },
+    {
+      "type":"postback",
+      "title": "What is the weather",
+      "payload": "What is the weather"
+    }
+
+  ]
   let messageData =
   {
     "attachment":{
@@ -351,23 +385,7 @@ function sendHelp(sender) {
       "payload":{
         "template_type":"button",
         "text": "Here are some things you can ask me!",
-        "buttons":[
-          {
-            "type":"postback",
-            "title": "I want a burger.",
-            "payload": "I want a burger."
-          },
-          {
-            "type":"postback",
-            "title": "What stage is lit?",
-            "payload": "What stage is lit?"
-          },
-          {
-            "type":"postback",
-            "title": "Directions to Sutro?",
-            "payload": "Directions to Sutro?"
-          }
-        ]
+        "buttons": shuffle(questions).slice(0,3)
       }
     }
   }
@@ -568,4 +586,23 @@ function receivedPostback(event) {
   // When a postback is called, we'll send a message back to the sender to 
   // let them know it was successful
   sendToApiAi(senderID, payload);
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
