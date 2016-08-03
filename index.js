@@ -226,7 +226,7 @@ function processWeather(facebookUid) {
           var data = JSON.parse(body);
 
           handleSessionId(currentSender, data).then(function() {
-            if (data.result.source == 'domains') {
+            if (data.result.source == 'domains' || data.result.metadata.intentName.split('_')[0] == 'faq') {
                 console.log("[" + sender + "][" + requestId + "][AI] Domain based chat");
                 sendTextMessage(sender, data.result.fulfillment.speech);
             }
