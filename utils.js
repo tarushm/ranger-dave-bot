@@ -1,5 +1,6 @@
 'use strict'
 
+var redis = require('redis');
 var sendDirections = require('./maps.js').sendDirections;
 var sendTextMessage = require('./messaging.js').sendTextMessage;
 var sendPlayingAtTimeCards = require('./messaging.js').sendPlayingAtTimeCards;
@@ -9,6 +10,8 @@ var genre_to_artists = require('./genre_to_artists.json')
 var rater = require('./rater.js');
 var moment = require('moment-timezone')
 var bands = require('./bands.json')
+
+const redisClient = redis.createClient(process.env.REDIS_URL);
 
 const DAY_TO_MOMENT_MAP = [
     moment('Friday, August 05 2016'),
@@ -74,6 +77,12 @@ function conflictWithBand(sender, body, func) {
     } else {
         sendTextMessage(sender, 'Wow! No one is conflicting with ' + bands.band[band_id].name +'! It\'s your lucky day');
     }
+}
+
+function processOutsideHacks(sender, body, func) {
+    redisClient.sadd('speakeasy_pt1', sender, function(err, res) {
+         sendTextMessage(sender, 'go to the windmill then walk 59 paces North');
+    });
 }
 
 function getHotnessAtEpoch(sender, body, func) {
@@ -147,5 +156,6 @@ module.exports = {
     'playingAtTime': playingAtTime,
     'getHotnessAtEpoch': getHotnessAtEpoch,
     'conflictWithBand': conflictWithBand,
-    'scoreSingleArtist': scoreSingleArtist
-}
+    'scoreSingleArtist': scoreSingleArtist,
+    'processOutsideHacks': processOutsideHacks
+};

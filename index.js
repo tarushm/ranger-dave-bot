@@ -31,7 +31,12 @@ const SENTIMENT_MAP = [
     "legendary",
 ]
 
+const STATIC_REQUEST = {
+    'outside hacks': 'process_outside_hacks',
+}
+
 var MAP_TO_PROCESS = {
+    'process_outside_hacks': utils.processOutsideHacks,
     'get_similar': utils.getSimilar,
     'get_directions': utils.getDirections,
     'get_rating': function(sender, body, func) {
@@ -91,6 +96,18 @@ app.get('/webhook/', function (req, res) {
   res.send('Error, wrong token')
 })
 
+var handleRequest = function(sender, text, requestId) {
+    let trimmedText = text.trim().toLowerCase();
+    let staticRequestKey = STATIC_REQUEST[trimmedText];
+    if (staticRequestKey !== undefined) {
+        let staticRequestFn = MAP_TO_PROCESS[staticRequestKey];
+        console.log("[" + sender + "][" + requestId + "][STATIC] Going through a static route: " + staticRequestKey);
+        return staticRequestFn(sender, text, null);
+    } else {
+        return sendToApiAi(sender, text, requestId);
+    }
+};
+
 app.post('/webhook', function (req, res) {
   var data = req.body;
 
@@ -121,7 +138,7 @@ app.post('/webhook', function (req, res) {
               let text = event.message.text;
               let requestId = uuid.v1();
               console.log("[" + sender + "][" + requestId + "][REQUEST] " + text);
-              sendToApiAi(sender, text, requestId);
+              handleRequest(sender, text, requestId);
             }
           }
         }
@@ -132,7 +149,7 @@ app.post('/webhook', function (req, res) {
 });
 
 app.post('/personal/', function (req, res) {
-  sendToApiAi(req.body.uid, req.body.body, uuid.v1());
+  handleRequest(req.body.uid, req.body.body, uuid.v1());
   res.sendStatus(200);
 });
 
@@ -236,7 +253,7 @@ function processWeather(facebookUid) {
                             ["del", "session:" + sender],
                             ["del", 'last_message:' + sender],
                         ]).exec(function(err, replies) {
-                            return sendToApiAi(sender, "help", requestId);
+                            return handleRequest(sender, "help", requestId);
                         });
                     } else {
                         redisClient.setex('last_message:' + sender, 5 * 60, data.result.fulfillment.speech, function(err, res) {
@@ -449,7 +466,6 @@ function showMeFood(sender,list) {
   let elements = [];
   var rand = randFood(list);
   for (var i = 0; i < list.length && i < 10; i++){
-    console.log(list[(i+rand)%list.length]);
     elements.push(
     {
       "title": list[(i+rand)%list.length].name,
@@ -460,7 +476,7 @@ function showMeFood(sender,list) {
         "url": list[(i+rand)%list.length].url,
         "title": 'Check it out!'
       }]
-    })
+    });
   }
 
   let messageData = {
