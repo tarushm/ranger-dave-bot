@@ -33,9 +33,11 @@ const SENTIMENT_MAP = [
 
 const STATIC_REQUEST = {
     'outside hacks': 'process_outside_hacks',
+    'the hush': 'process_the_hush',
 }
 
 var MAP_TO_PROCESS = {
+    'process_the_hush': utils.processTheHush,
     'process_outside_hacks': utils.processOutsideHacks,
     'get_similar': utils.getSimilar,
     'get_directions': utils.getDirections,
@@ -96,13 +98,32 @@ app.get('/webhook/', function (req, res) {
   res.send('Error, wrong token')
 })
 
+var checkAuthForHush = function(sender, staticRequestKey) {
+    return new Promise(function(resolve, reject) {
+        if (staticRequestKey != "process_the_hush") {
+            return resolve(true);
+        }
+        redisClient.sismember('speakeasy_pt1', sender, function(err, res) {
+            resolve(res);
+        });
+    });
+};
+
 var handleRequest = function(sender, text, requestId) {
     let trimmedText = text.trim().toLowerCase();
     let staticRequestKey = STATIC_REQUEST[trimmedText];
     if (staticRequestKey !== undefined) {
-        let staticRequestFn = MAP_TO_PROCESS[staticRequestKey];
         console.log("[" + sender + "][" + requestId + "][STATIC] Going through a static route: " + staticRequestKey);
-        return staticRequestFn(sender, text, null);
+
+        checkAuthForHush(sender, staticRequestKey).then(function(hasAccess) {
+            if (!hasAccess) {
+                console.log("[" + sender + "][" + requestId + "][STATIC] Has no access for speakeasy");
+                return handleRequest(sender, "help", requestId);
+            }
+            let staticRequestFn = MAP_TO_PROCESS[staticRequestKey];
+            return staticRequestFn(sender, text, null);
+        });
+
     } else {
         return sendToApiAi(sender, text, requestId);
     }
