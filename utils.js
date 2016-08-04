@@ -79,6 +79,12 @@ function conflictWithBand(sender, body, func) {
     }
 }
 
+function processTheHush(sender, body, func) {
+    redisClient.sadd('speakeasy_pt2', sender, function(err, res) {
+         sendTextMessage(sender, 'congratulations!');
+    });
+}
+
 function processOutsideHacks(sender, body, func) {
     redisClient.sadd('speakeasy_pt1', sender, function(err, res) {
          sendTextMessage(sender, 'go to the windmill then walk 59 paces North');
@@ -157,5 +163,6 @@ module.exports = {
     'getHotnessAtEpoch': getHotnessAtEpoch,
     'conflictWithBand': conflictWithBand,
     'scoreSingleArtist': scoreSingleArtist,
-    'processOutsideHacks': processOutsideHacks
+    'processOutsideHacks': processOutsideHacks,
+    'processTheHush': processTheHush
 };
