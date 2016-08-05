@@ -74,6 +74,8 @@ function conflictWithBand(sender, body, func) {
 
     if (conflicting.length > 0) {
         sendPlayingAtTimeCards(sender,conflicting)
+    } else {
+        sendTextMessage(sender, 'Wow! No one is conflicting with ' + bands.band[band_id].name +'! It\'s your lucky day');
     }
 }
 
