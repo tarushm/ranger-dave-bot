@@ -161,7 +161,7 @@ var handleRequest = function(sender, text, requestId) {
         var word = words[i];
         if (SPEAKEASY_WORDS.has(word)) {
             console.log("[" + sender + "][" + requestId + "][STATIC] Nominated a speakeasy word");
-            return sendTextMessage(sender, "What's the year Golden Gate Park was founded?");
+            return sendTextMessage(sender, "The password is the year golden gate park was founded.");
         }
 
         if (CODING_CHALLENGE_WORDS.has(word)) {
