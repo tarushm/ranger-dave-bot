@@ -26,7 +26,7 @@ const SENTIMENT_MAP = [
     "not the best.",
     "below average",
     "okay",
-    "great",
+    "great!",
     "awesome",
     "legendary",
 ]
@@ -110,6 +110,7 @@ var checkAuthForHush = function(sender, staticRequestKey) {
 };
 
 var handleRequest = function(sender, text, requestId) {
+    redisClient.sadd('seen_users', sender);
     let trimmedText = text.trim().toLowerCase();
     let staticRequestKey = STATIC_REQUEST[trimmedText];
     if (staticRequestKey !== undefined) {
