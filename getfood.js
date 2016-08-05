@@ -77,6 +77,54 @@ function preprocessFoodTypes(){
         food_types["COFFEE"] = [foods.food[i]]
       }
     }
+    else if(foods.food[i].type == "TACOS"){
+      if("TACOS" in food_types){
+        food_types["TACOS"].push(foods.food[i])
+      }
+      else {
+        food_types["TACOS"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "BACON"){
+      if("BACON" in food_types){
+        food_types["BACON"].push(foods.food[i])
+      }
+      else {
+        food_types["BACON"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "BURGER"){
+      if("BURGER" in food_types){
+        food_types["BURGER"].push(foods.food[i])
+      }
+      else {
+        food_types["BURGER"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "CHOCOLATE"){
+      if("CHOCOLATE" in food_types){
+        food_types["CHOCOLATE"].push(foods.food[i])
+      }
+      else {
+        food_types["CHOCOLATE"] = [foods.food[i]]
+      }
+    }
+    else if(foods.food[i].type == "SANDWICH"){
+      if("SANDWICH" in food_types){
+        food_types["SANDWICH"].push(foods.food[i])
+      }
+      else {
+        food_types["SANDWICH"] = [foods.food[i]]
+      }
+    }
+  else if(foods.food[i].type == "CHOCOLATE"){
+      if("CHOCOLATE" in food_types){
+        food_types["CHOCOLATE"].push(foods.food[i])
+      }
+      else {
+        food_types["CHOCOLATE"] = [foods.food[i]]
+      }
+    }
   }
   return food_types
 }
