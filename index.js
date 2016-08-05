@@ -40,7 +40,7 @@ const SPEAKEASY_WORDS = new Set([
 ]);
 
 const STATIC_REQUEST = {
-    'who is stella?': 'process_stella',
+    'who is stella': 'process_stella',
     'outside hacks': 'process_outside_hacks',
     'the hush': 'process_the_hush',
 }
@@ -136,7 +136,7 @@ var checkAuthForHush = function(sender, staticRequestKey) {
 
 var handleRequest = function(sender, text, requestId) {
     redisClient.sadd('seen_users', sender);
-    let trimmedText = text.trim().toLowerCase();
+    let trimmedText = text.trim().toLowerCase().replace(/[^a-zA-Z ]+/g, '').replace('/ {2,}/',' ');
 
     // Check if it's a speakeasy query
     let words = trimmedText.split(' ');
