@@ -27,7 +27,7 @@ const DAY_TO_MOMENT_MAP = [
 function getCreators(sender, body, func) {
     var payload = {
         "recipient":{
-            "id":"USER_ID"
+            "id": sender,
         },
         "message":{
             "attachment":{
