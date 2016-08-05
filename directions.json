@@ -27,13 +27,9 @@
 		{
 			"stage": "The Barbary",
 			"url": "https://www.google.com/maps/dir//37.7711321,-122.4855067/@37.7712647,-122.4853236,16.49z"
-		}
-		{
-			"stage": "South Gate Venue Entrance",
-			"url": "https://www.google.com/maps/dir//37.7661205,-122.492912/@37.7691703,-122.4919657,16.24z"
 		},
 		{
-			"stage": "Main Gate Venue Entrance",
+			"stage": "Venue Entrance",
 			"url": "https://www.google.com/maps/dir//37.770997,-122.4897612/@37.7707128,-122.4910313,16.84z"
 		},
 		{
