@@ -38,12 +38,20 @@ const SPEAKEASY_WORDS = new Set([
     "secret",
     "hidden",
     "treasure",
+    "hush"
+]);
+
+const CODING_CHALLENGE_WORDS = new Set([
+    "char",
+    "characters",
+    "byte",
+    "bytes",
+    "chars",
 ]);
 
 const STATIC_REQUEST = {
     'who is stella': 'process_stella',
     'outside hacks': 'process_outside_hacks',
-    'the hush': 'process_the_hush',
 }
 
 var MAP_TO_PROCESS = {
@@ -62,7 +70,7 @@ var MAP_TO_PROCESS = {
     'process_stella': function(sender, body, func) {
         sendTextMessage(sender, "Stella is pretty sweet and will soon renovate Oakland!");
     },
-    'process_the_hush': utils.processTheHush,
+    'process_speakeasy_number': utils.processSpeakeasyNumber,
     'process_outside_hacks': utils.processOutsideHacks,
     'get_similar': utils.getSimilar,
     'get_directions': utils.getDirections,
@@ -128,11 +136,8 @@ app.get('/webhook/', function (req, res) {
   res.send('Error, wrong token')
 })
 
-var checkAuthForHush = function(sender, staticRequestKey) {
+var checkAuthForHush = function(sender) {
     return new Promise(function(resolve, reject) {
-        if (staticRequestKey != "process_the_hush") {
-            return resolve(true);
-        }
         redisClient.sismember('speakeasy_pt1', sender, function(err, res) {
             resolve(res);
         });
@@ -141,30 +146,47 @@ var checkAuthForHush = function(sender, staticRequestKey) {
 
 var handleRequest = function(sender, text, requestId) {
     redisClient.sadd('seen_users', sender);
-    let trimmedText = text.trim().toLowerCase().replace(/[^a-zA-Z ]+/g, '').replace('/ {2,}/',' ');
+    let trimmedText = text.trim().toLowerCase().replace(/[^a-zA-Z0-9 ]+/g, '').replace('/ {2,}/',' ');
 
     // Check if it's a speakeasy query
     let words = trimmedText.split(' ');
+    let complete = false;
+
     for (var i=0; i < words.length; i++) {
+
+        if (complete) {
+            break;
+        }
+
         var word = words[i];
         if (SPEAKEASY_WORDS.has(word)) {
             console.log("[" + sender + "][" + requestId + "][STATIC] Nominated a speakeasy word");
-            return sendTextMessage(sender, "are you talking about outside hacks?");
+            return sendTextMessage(sender, "What's the year Golden Gate Park was founded?");
         }
+
+        if (CODING_CHALLENGE_WORDS.has(word)) {
+            complete = true;
+            checkAuthForHush(sender).then(function(hasAccess) {
+                if (!hasAccess) {
+                    console.log("[" + sender + "][" + requestId + "][STATIC] Has no access for speakeasy");
+                    return handleRequest(sender, "help", requestId);
+                }
+                let staticRequestFn = MAP_TO_PROCESS['process_speakeasy_number'];
+                return staticRequestFn(sender, text, null);
+            });
+        }
+    }
+
+    if (complete) {
+        return;
     }
 
     let staticRequestKey = STATIC_REQUEST[trimmedText];
     if (staticRequestKey !== undefined) {
         console.log("[" + sender + "][" + requestId + "][STATIC] Going through a static route: " + staticRequestKey);
 
-        checkAuthForHush(sender, staticRequestKey).then(function(hasAccess) {
-            if (!hasAccess) {
-                console.log("[" + sender + "][" + requestId + "][STATIC] Has no access for speakeasy");
-                return handleRequest(sender, "help", requestId);
-            }
-            let staticRequestFn = MAP_TO_PROCESS[staticRequestKey];
-            return staticRequestFn(sender, text, null);
-        });
+        let staticRequestFn = MAP_TO_PROCESS[staticRequestKey];
+        return staticRequestFn(sender, text, null);
 
     } else {
         return sendToApiAi(sender, text, requestId);

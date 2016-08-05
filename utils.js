@@ -134,15 +134,15 @@ function conflictWithBand(sender, body, func) {
     }
 }
 
-function processTheHush(sender, body, func) {
+function processSpeakeasyNumber(sender, body, func) {
     redisClient.sadd('speakeasy_pt2', sender, function(err, res) {
-         sendTextMessage(sender, 'From the northern windmill find the yellow plastic road. Walk 35 paces to the phone booth from golden gate history.');
+         sendTextMessage(sender, '1870');
     });
 }
 
 function processOutsideHacks(sender, body, func) {
     redisClient.sadd('speakeasy_pt1', sender, function(err, res) {
-         sendTextMessage(sender, 'go to the windmill then walk 59 paces North');
+         sendTextMessage(sender, "Here's a coding challenge for you! what basic type makes up a string");
     });
 }
 
@@ -223,6 +223,6 @@ module.exports = {
     'conflictWithBand': conflictWithBand,
     'scoreSingleArtist': scoreSingleArtist,
     'processOutsideHacks': processOutsideHacks,
-    'processTheHush': processTheHush,
+    'processSpeakeasyNumber': processSpeakeasyNumber,
     'getCreators': getCreators,
 };
