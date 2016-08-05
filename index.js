@@ -31,6 +31,14 @@ const SENTIMENT_MAP = [
     "legendary",
 ]
 
+const SPEAKEASY_WORDS = new Set([
+    "password",
+    "speakeasy",
+    "secret",
+    "hidden",
+    "treasure",
+]);
+
 const STATIC_REQUEST = {
     'who is stella?': 'process_stella',
     'outside hacks': 'process_outside_hacks',
@@ -128,6 +136,17 @@ var checkAuthForHush = function(sender, staticRequestKey) {
 
 var handleRequest = function(sender, text, requestId) {
     let trimmedText = text.trim().toLowerCase();
+
+    // Check if it's a speakeasy query
+    let words = trimmedText.split(' ');
+    for (var i=0; i < words.length; i++) {
+        var word = words[i];
+        if (SPEAKEASY_WORDS.has(word)) {
+            console.log("[" + sender + "][" + requestId + "][STATIC] Nominated a speakeasy word");
+            return sendTextMessage(sender, "are you talking about outside hacks?");
+        }
+    }
+
     let staticRequestKey = STATIC_REQUEST[trimmedText];
     if (staticRequestKey !== undefined) {
         console.log("[" + sender + "][" + requestId + "][STATIC] Going through a static route: " + staticRequestKey);
