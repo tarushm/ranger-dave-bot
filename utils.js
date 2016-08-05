@@ -21,7 +21,13 @@ const DAY_TO_MOMENT_MAP = [
     moment('Friday, August 05 2016'),
     moment('Saturday, August 06 2016'),
     moment('Sunday, August 07 2016')
-]
+];
+
+const DAY_NAME_TO_MOMENT_MAP = {
+    'friday': moment('Friday, August 05 2016'),
+    'saturday': moment('Saturday, August 06 2016'),
+    'sunday': moment('Sunday, August 07 2016'),
+};
 
 
 function getCreators(sender, body, func) {
@@ -162,6 +168,9 @@ function playingAtTime(sender, body, func) {
     var date;
     if (params.day) {
         date = DAY_TO_MOMENT_MAP[parseInt(params.day)];
+        if (!date) {
+            date = DAY_NAME_TO_MOMENT_MAP[params.day.toLowerCase()];
+        }
     } else {
         if (params.date) {
             date = moment(params.date);
