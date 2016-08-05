@@ -10,9 +10,11 @@ var genre_to_artists = require('./genre_to_artists.json')
 var rater = require('./rater.js');
 var moment = require('moment-timezone')
 var bands = require('./bands.json')
+var request = require('request')
 
 const token = "EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD";
 const rollbar = require('rollbar');
+rollbar.init("b8e7299b830a4f5b86c6859e887cfc65");
 const redisClient = redis.createClient(process.env.REDIS_URL);
 
 const DAY_TO_MOMENT_MAP = [
