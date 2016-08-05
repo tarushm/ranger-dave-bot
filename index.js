@@ -32,11 +32,15 @@ const SENTIMENT_MAP = [
 ]
 
 const STATIC_REQUEST = {
+    'who is stella?': 'process_stella',
     'outside hacks': 'process_outside_hacks',
     'the hush': 'process_the_hush',
 }
 
 var MAP_TO_PROCESS = {
+    'process_stella': function(sender, body, func) {
+        sendTextMessage(sender, "Stella is pretty sweet and will soon renovate Oakland!");
+    },
     'process_the_hush': utils.processTheHush,
     'process_outside_hacks': utils.processOutsideHacks,
     'get_similar': utils.getSimilar,
