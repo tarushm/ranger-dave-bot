@@ -38,6 +38,18 @@ const STATIC_REQUEST = {
 }
 
 var MAP_TO_PROCESS = {
+    'get_headline': function(sender, body, func) {
+        var params = body.result.parameters;
+        utils.playingAtTime(sender, {
+            result: {
+                parameters: {
+                    day: params.day,
+                    date: params.date,
+                    time: "21:00:00"
+                }
+            }
+        }, func);
+    },
     'process_stella': function(sender, body, func) {
         sendTextMessage(sender, "Stella is pretty sweet and will soon renovate Oakland!");
     },
