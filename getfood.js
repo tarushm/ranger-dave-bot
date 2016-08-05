@@ -5,7 +5,7 @@ var foods = require('./food.json')
 function preprocessFoodTypes(){
   var food_types = {}
   for(var i = 0; i< foods.food.length; i++){
-    if(foods.food[i].type == "AMERICAN" || foods.food[i].type == "BURGER" || foods.food[i].type == "SANDWICH"){
+    if(foods.food[i].type == "AMERICAN"){
       if("AMERICAN" in food_types){
         food_types["AMERICAN"].push(foods.food[i])
       }
@@ -13,7 +13,7 @@ function preprocessFoodTypes(){
         food_types["AMERICAN"] = [foods.food[i]]
       }
     }
-    else if(foods.food[i].type == "UNHEALTHY" || foods.food[i].type == "PIZZA" || foods.food[i].type == "BACON"){
+    else if(foods.food[i].type == "UNHEALTHY"){
       if("UNHEALTHY" in food_types){
         food_types["UNHEALTHY"].push(foods.food[i])
       }
@@ -45,7 +45,7 @@ function preprocessFoodTypes(){
         food_types["VEGETARIAN"] = [foods.food[i]]
       }
     }
-    else if(foods.food[i].type == "SWEET" || foods.food[i].type == "CHOCOLATE"){
+    else if(foods.food[i].type == "SWEET"){
       if("SWEET" in food_types){
         food_types["SWEET"].push(foods.food[i])
       }
@@ -115,6 +115,14 @@ function preprocessFoodTypes(){
       }
       else {
         food_types["SANDWICH"] = [foods.food[i]]
+      }
+    }
+  else if(foods.food[i].type == "CHOCOLATE"){
+      if("CHOCOLATE" in food_types){
+        food_types["CHOCOLATE"].push(foods.food[i])
+      }
+      else {
+        food_types["CHOCOLATE"] = [foods.food[i]]
       }
     }
   }
