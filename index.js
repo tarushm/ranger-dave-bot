@@ -105,7 +105,7 @@ var MAP_TO_PROCESS = {
     'get_permitted': function(sender, body, func){
       var item = body.result.parameters.permitted;
       get_permitted(sender,item)
-    })
+    }
 };
 
 
