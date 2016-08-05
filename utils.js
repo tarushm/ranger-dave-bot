@@ -192,14 +192,15 @@ function getDirections(sender, body, func) {
     // they did give stage and maybe band
     if(stage_id != ""){
         sendDirections(sender,"",stage_id);
-        sendTextMessage(sender, 'Make sure to rate the artist\'s performace when you get there!')
+        if (stage_id <= 6)
+            sendTextMessage(sender, 'Make sure to rate the artist\'s performace when you get there!')
     }
     // they forsure gave us band only
     else if(band_id != "") {
         sendDirections(sender, band_id, bands.band[band_id].stageId);
         sendTextMessage(sender, 'Make sure to rate '+bands.band[band_id].name+'\'s performance when you get there!')
     }
-    else{
+    else {
         sendTextMessage(sender, 'I\'m a little bit confused about who you want to see');
     }
     return true;

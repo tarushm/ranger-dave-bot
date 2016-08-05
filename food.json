@@ -4,7 +4,7 @@
        "name": "4505 Meats",
        "url": "http://lineup.sfoutsidelands.com/band/4505-meats",
        "description": "Best Damn Cheeseburgers, Spicy Chimichurri Fries",
-       "type": "AMERICAN",
+       "type": "BURGER",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69507/custom9b7fe457c0f0602a50c7046626504924.jpg"
     },
     {
@@ -32,7 +32,7 @@
        "name": "Belcampo Meat Co.",
        "url": "http://lineup.sfoutsidelands.com/band/belcampo-meat-co",
        "description": "Fastburgers, Grass-Fed Beef Hot Dogs",
-       "type": "AMERICAN",
+       "type": "BURGER",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69957/customf2443ca9d41a4f549648ed35a3a39dc6.jpg"
     },
     {
@@ -46,14 +46,14 @@
        "name": "Bini's Kitchen",
        "url": "http://lineup.sfoutsidelands.com/band/binis-kitchen",
        "description": "Turkey Momos, Nepalese Veggie Dumplings",
-       "type": "VEGETARIAN",
+       "type": "HEALTHY",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69523/customf39a09a0cf4e4b3a218c6213530b8d8a.jpg"
     },
     {
        "name": "Charles Chocolates",
        "url": "http://lineup.sfoutsidelands.com/band/charles-chocolates",
        "description": "Frozen Hot Chocolate, S'mores",
-       "type": "SWEET",
+       "type": "CHOCOLATE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69689/custom08af232373f259978fefd261f52cc60a.jpg"
     },
     {
@@ -67,7 +67,7 @@
        "name": "Earthly Delights",
        "url": "http://lineup.sfoutsidelands.com/band/earthly-delights",
        "description": "Philly Cheesesteaks, Garlic Fries",
-       "type": "AMERICAN",
+       "type": "SANDWICH",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69535/custom58da11f7b14f02550e703cd0feeffac6.jpg"
     },
     {
@@ -144,7 +144,7 @@
        "name": "Koja Kitchen",
        "url": "http://lineup.sfoutsidelands.com/band/koja-kitchen",
        "description": "Korean BBQ Tacos",
-       "type": "ASIAN",
+       "type": "TACOS",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69563/custom97298f16240682d0240b327d4c3a3271.jpg"
     },
     {
@@ -172,7 +172,7 @@
        "name": "Lucca Foods",
        "url": "http://lineup.sfoutsidelands.com/band/lucca-foods",
        "description": "BBQ Pulled Pork Sandwiches, Rice Krispy Treats",
-       "type": "UNHEALTHY",
+       "type": "SANDWICH",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69593/customb9ed3b96036c13c224af0629c0350dfd.jpg"
     },
     {
@@ -270,7 +270,7 @@
        "name": "Southpaw BBQ &\nSouthern Cooking",
        "url": "http://lineup.sfoutsidelands.com/band/southpaw-bbq-and-southern-cooking",
        "description": "Brisket Sandwiches, Pulled Jackfruit Sandwiches",
-       "type": "AMERICAN",
+       "type": "SANDWICH",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69613/customd20123c1e553ccb77a4eed84a89605b5.jpg"
     },
     {
@@ -298,7 +298,7 @@
        "name": "Stones Throw",
        "url": "http://lineup.sfoutsidelands.com/band/stones-throw-hvvrvphf",
        "description": "Meatball Sandwiches, Fat Angel Kale Salads",
-       "type": "AMERICAN",
+       "type": "SANDWICH",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69621/customf3af9d29d47acf4e8c668067b5a10087.jpg"
     },
     {
@@ -326,7 +326,7 @@
        "name": "Tacolicious",
        "url": "http://lineup.sfoutsidelands.com/band/tacolicious",
        "description": "Shot-and-a-Beer Braised Chicken Tacos",
-       "type": "MEXICAN",
+       "type": "TACOS",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69629/custom1b556447ab58955cf465ca2ea950723e.jpg"
     },
     {
@@ -410,7 +410,7 @@
        "name": "Bacon Bacon",
        "url": "http://lineup.sfoutsidelands.com/band/bacon-bacon",
        "description": "California BBQ Bacon Burritos, Chocolate Covered Bacon",
-       "type": "UNHEALTHY",
+       "type": "BACON",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69515/custom0e83b64127f274da1c49444834716931.jpg"
     },
     {
@@ -438,7 +438,7 @@
        "name": "Homestead Cookies",
        "url": "http://lineup.sfoutsidelands.com/band/homestead-cookies",
        "description": "Signature Savory Sweet Chocolate Chip Cookies",
-       "type": "SWEET",
+       "type": "CHOCOLATE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69555/custom94ce9c68a26dc81c9904251bdb645c3f.jpg"
     },
     {
@@ -508,7 +508,7 @@
        "name": "Candybar Dessert Lounge",
        "url": "http://lineup.sfoutsidelands.com/band/candybar-dessert-lounge",
        "description": "Hot Chocolate, Chocolate French Macarons",
-       "type": "SWEET",
+       "type": "CHOCOLATE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69525/custom66f9af16f63ed7439f8457e70021be78.jpg"
     },
     {
@@ -522,7 +522,7 @@
        "name": "Guittard Chocolate\nCompany",
        "url": "http://lineup.sfoutsidelands.com/band/guittard-chocolate-company",
        "description": "Melted Chocolate Bars",
-       "type": "SWEET",
+       "type": "CHOCOLATE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69553/customa62dae03b02ecb3d8ea14d46d1a33aca.jpg"
     },
     {
@@ -543,7 +543,7 @@
        "name": "Sharona's Chocolate Shop",
        "url": "http://lineup.sfoutsidelands.com/band/sharonas-chocolate",
        "description": "Chocolate Dipped Brownies & Peanut Butter Cups",
-       "type": "SWEET",
+       "type": "CHOCOLATE",
        "img": "http://s3.amazonaws.com/dostuff-production/band_alternate_photo/custom_photos/69611/customf72b1b0d3ab8b67afd4b1d4199ce239d.jpg"
     }
  ]
