@@ -52,6 +52,7 @@ var MAP_TO_PROCESS = {
         var id = body.result.parameters.bands;
         get_stage(sender,id);
     },
+    'get_creators': utils.getCreators,
     'get_settime': function(sender, body, func) {
         var id = body.result.parameters.bands;
         get_settime(sender,id);

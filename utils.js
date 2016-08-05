@@ -11,6 +11,8 @@ var rater = require('./rater.js');
 var moment = require('moment-timezone')
 var bands = require('./bands.json')
 
+const token = "EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD";
+const rollbar = require('rollbar');
 const redisClient = redis.createClient(process.env.REDIS_URL);
 
 const DAY_TO_MOMENT_MAP = [
@@ -19,6 +21,51 @@ const DAY_TO_MOMENT_MAP = [
     moment('Sunday, August 07 2016')
 ]
 
+
+function getCreators(sender, body, func) {
+    var payload = {
+        "recipient":{
+            "id":"USER_ID"
+        },
+        "message":{
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":"Below are my creators. Feel free to contact them.",
+                    "buttons":[
+                    {
+                        "type":"web_url",
+                        "url":"https://www.facebook.com/daniel.pyrathon",
+                        "title":"Daniel Pyrathon"
+                    },
+                    {
+                        "type":"web_url",
+                        "url":"https://www.facebook.com/brian.yan.5264",
+                        "title":"Brian Yan"
+                    },
+                    {
+                        "type":"web_url",
+                        "url":"https://www.facebook.com/thetarush",
+                        "title":"Tarush Mohanti"
+                    }
+                    ]
+                }
+            }
+        }
+    };
+
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: payload
+    }, function(error, response, body) {
+        if (error) {
+            rollbar.handleError(error);
+        }
+    });
+}
 
 function getSimilar(sender, body, func) {
     var params = body.result.parameters;
@@ -164,5 +211,6 @@ module.exports = {
     'conflictWithBand': conflictWithBand,
     'scoreSingleArtist': scoreSingleArtist,
     'processOutsideHacks': processOutsideHacks,
-    'processTheHush': processTheHush
+    'processTheHush': processTheHush,
+    'getCreators': getCreators,
 };

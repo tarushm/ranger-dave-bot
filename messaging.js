@@ -24,7 +24,7 @@ function sendTextMessage(sender, text) {
 			message: messageData,
 		}
 	}, function(error, response, body) {
-            if (!error) {
+            if (error) {
                 rollbar.handleError(error);
             }
 	})
