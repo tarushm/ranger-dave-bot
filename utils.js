@@ -136,7 +136,7 @@ function conflictWithBand(sender, body, func) {
 
 function processTheHush(sender, body, func) {
     redisClient.sadd('speakeasy_pt2', sender, function(err, res) {
-         sendTextMessage(sender, 'congratulations!');
+         sendTextMessage(sender, 'From the northern windmill find the yellow plastic road. Walk 35 paces to the phone booth from golden gate history.');
     });
 }
 
