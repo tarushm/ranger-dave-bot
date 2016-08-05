@@ -19,6 +19,26 @@
 		{
 			"stage": "Sutro",
 			"url": "https://www.google.com/maps/dir//37.7702222,-122.4922402/@37.7703458,-122.4931696,16z"
+		},
+		{
+			"stage": "The House by Heineken",
+			"url": "https://www.google.com/maps/dir//37.7679036,-122.4915505/@37.7706849,-122.4884679,15.46z"
+		},
+		{
+			"stage": "The Barbary",
+			"url": "https://www.google.com/maps/dir//37.7711321,-122.4855067/@37.7712647,-122.4853236,16.49z"
+		}
+		{
+			"stage": "South Gate Venue Entrance",
+			"url": "https://www.google.com/maps/dir//37.7661205,-122.492912/@37.7691703,-122.4919657,16.24z"
+		},
+		{
+			"stage": "Main Gate Venue Entrance",
+			"url": "https://www.google.com/maps/dir//37.770997,-122.4897612/@37.7707128,-122.4910313,16.84z"
+		},
+		{
+			"stage": "VIP Entrance",
+			"url": "https://www.google.com/maps/dir//37.7691928,-122.4948994/@37.7686513,-122.4951057,17.38z"
 		}
 	]
 }
