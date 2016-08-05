@@ -12,6 +12,7 @@ const uuid = require('node-uuid');
 var redis = require('redis');
 var foods = require('./food.json');
 var bands = require('./bands.json');
+var allowed = require('./allowed.json');
 
 
 var sendTextMessage = require('./messaging.js').sendTextMessage;
@@ -75,7 +76,11 @@ var MAP_TO_PROCESS = {
     },
     'get_weather_forecast': function(sender, body, func) {
         processWeather(sender);
-    }
+    },
+    'get_permitted': function(sender, body, func){
+      var item = body.result.parameters.permitted;
+      get_permitted(sender,item)
+    })
 };
 
 
@@ -325,6 +330,11 @@ function get_stage(sender, id) {
         sendTextMessage(sender, bands.band[id].name + ' is playing at ' + bands.band[id].stage);
     }
     return true;
+}
+
+function get_permitted(sender, item){
+  sendTextMessage(sender, allowed.allowed[item].message);
+  return true;
 }
 
 function get_settime(sender, id) {

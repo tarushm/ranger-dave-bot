@@ -1,0 +1,136 @@
+{
+  "allowed": [
+    {
+      "item": 0,
+      "message": "Blankets are allowed!"
+    },
+    {
+      "item": 1,
+      "message": "Soft-sided coolers, no larger than a 12-pack size, are allowed!"
+    },
+    {
+      "item": 2,
+      "message": "Regular sized or unframed backpacks are allowed!"
+    },
+    {
+      "item": 3,
+      "message": "Two factory-sealed water bottles, up to 1 liter each, are allowed!"
+    },
+    {
+      "item": 4,
+      "message": "Empty Camelbaks or other empty plastic containers, i.e. Nalgene bottles, Klean Kanteens are allowed!"
+    },
+    {
+      "item": 5,
+      "message": "Ice contained in a soft­-sided cooler or Camelbak - no large bags allowed"
+    },
+    {
+      "item": 6,
+      "message": "Binoculars are allowed!"
+    },
+    {
+      "item": 7,
+      "message": "Personal cameras with a detachable lens 2 inches or shorter are allowed."
+    },
+    {
+      "item": 8,
+      "message": "Totems are allowed, but they must be no taller than 6ft and no thicker than 1/2 inch. Must be made of light material: swim noodles foam type material cardboard tubes fabric string yarn light plastic balloons and/or blow up items. Totems made of wood metal and/or PVC material will NOT be allowed."
+    },
+    {
+      "item": 9,
+      "message": "Weapons of any kind are NOT prohibited. C'mon."
+    },
+    {
+      "item": 10,
+      "message": "Illegal substances are not allowed."
+    },
+    {
+      "item": 11,
+      "message": "Large or framed backpacks are not allowed. Bring a a regular sized one instead."
+    },
+    {
+      "item": 12,
+      "message": "Alcohol alcohol will be sold at the festival"
+    },
+    {
+      "item": 13,
+      "message": "Glass containers of ANY kind are not allowed."
+    },
+    {
+      "item": 14,
+      "message": "Cans of ANY kind are prohibited."
+    },
+    {
+      "item": 15,
+      "message": "Skateboards, scooters, or personal motorized vehicles are not allowed."
+    },
+    {
+      "item": 16,
+      "message": "Bicycles inside Festival grounds are not allowd. Bike racks are available along JFK from Transverse to Stow Lake and at the bike valet located at Transverse and Overlook."
+    },
+    {
+      "item": 17,
+      "message": "Strollers are not allowd."
+    },
+    {
+      "item": 18,
+      "message": "Fireworks and explosives are not allowed."
+    },
+    {
+      "item": 19,
+      "message": "Instruments and laser pointers are not allowed."
+    },
+    {
+      "item": 20,
+      "message": "Umbrellas are not allowed."
+    },
+    {
+      "item": 21,
+      "message": "Selfie sticks are not allowed."
+    },
+    {
+      "item": 22,
+      "message": "Spray paint and large markers are not allowed."
+    },
+    {
+      "item": 23,
+      "message": "Picnic baskets are not allowed."
+    },
+    {
+      "item": 24,
+      "message": "Lawn furniture or any chairs with legs are not allowed."
+    },
+    {
+      "item": 25,
+      "message": "Large or hard-sided coolers are not allowed. Bring a smaller soft-sided cooler instead."
+    },
+    {
+      "item": 26,
+      "message": "Tents are not allowed."
+    },
+    {
+      "item": 27,
+      "message": "Pets are not allowed, except animals that assist people with disabilities. Important to read Service and Support Animal Policy & Procedures."
+    },
+    {
+      "item": 28,
+      "message": "Video equipment no video recording will be allowed"
+    },
+    {
+      "item": 29,
+      "message": "Professional still camera equipment with a detachable lens longer than 2 inches tripods big zooms or commercial use rigs"
+    },
+    {
+      "item": 30,
+      "message": "Audio recording equipment"
+    },
+    {
+      "item": 31,
+      "message": "No illegal vending is permitted no unauthorized or unlicensed vendors allowed"
+    },
+    {
+      "item": 32,
+      "message": "Drones"
+    }
+  ]
+}
