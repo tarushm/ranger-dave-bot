@@ -42,11 +42,10 @@ const SPEAKEASY_WORDS = new Set([
 ]);
 
 const CODING_CHALLENGE_WORDS = new Set([
-    "char",
-    "characters",
-    "byte",
-    "bytes",
-    "chars",
+    "Binary Code",
+    "binary",
+    "binary code",
+    "binarycode",
 ]);
 
 const STATIC_REQUEST = {
