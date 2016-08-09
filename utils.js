@@ -10,6 +10,7 @@ var genre_to_artists = require('./genre_to_artists.json')
 var rater = require('./rater.js');
 var moment = require('moment-timezone')
 var bands = require('./bands.json')
+var creators = require('./creators.json')
 var request = require('request')
 
 const token = "EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD";
@@ -29,7 +30,57 @@ const DAY_NAME_TO_MOMENT_MAP = {
     'sunday': moment('Sunday, August 07 2016'),
 };
 
+function getCreators(sender, body, func){
+  var elements = [];
+  for (var i = 0; i < randOrder.length; i++){
+    elements.push(
+    {
+        "title": creators.creator[i].name,
+        "image_url": creators.creator[i].img,
+        "buttons":[
+            {
+                "type": "web_url",
+                "url": creators.creator[i].fb,
+                "title": "Facebook"
+            },
+            {
+                "type": "web_url",
+                "url": creators.creator[i].linkedin,
+                "title": "LinkedIn"
+            }
+        ]
+    })
+  }
 
+  let messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": shuffle(elements)
+      }
+    }
+  };
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+      if (error) {
+          rollbar.handleError(error);
+      } else if (response.body.error) {
+          rollbar.reportMessageWithPayloadData("Facebook gave an error", {
+              level: "error",
+              custom: response.body
+          });
+      }
+  });
+}
+/*
 function getCreators(sender, body, func) {
     var payload = {
         "recipient":{
@@ -74,7 +125,7 @@ function getCreators(sender, body, func) {
         }
     });
 }
-
+*/
 function getSimilar(sender, body, func) {
     var params = body.result.parameters;
     var band = params.bands;
@@ -213,6 +264,16 @@ function getDirections(sender, body, func) {
         sendTextMessage(sender, 'I\'m a little bit confused about who you want to see');
     }
     return true;
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
 }
 
 module.exports = {
