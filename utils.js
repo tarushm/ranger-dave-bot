@@ -31,33 +31,28 @@ const DAY_NAME_TO_MOMENT_MAP = {
 };
 
 function getCreators(sender, body, func){
-  var elements = [];
-  for (var i = 0; i < randOrder.length; i++){
-    elements.push(
-    {
-        "title": creators.creator[i].name,
-        "image_url": creators.creator[i].img,
-        "buttons":[
-            {
-                "type": "web_url",
-                "url": creators.creator[i].fb,
-                "title": "Facebook"
-            },
-            {
-                "type": "web_url",
-                "url": creators.creator[i].linkedin,
-                "title": "LinkedIn"
-            }
-        ]
-    })
-  }
-
   let messageData = {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "generic",
-        "elements": shuffle(elements)
+        "elements":     
+                {
+                "title": creators.creator[0].name,
+                "image_url": creators.creator[0].img,
+                "buttons":[
+                    {
+                        "type": "web_url",
+                        "url": creators.creator[0].fb,
+                        "title": "Facebook"
+                    },
+                    {
+                        "type": "web_url",
+                        "url": creators.creator[0].linkedin,
+                        "title": "LinkedIn"
+                    }
+                ]
+            }
       }
     }
   };
