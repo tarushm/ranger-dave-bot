@@ -23,6 +23,12 @@ var foodTypes = require('./getfood.js').preprocessFoodTypes();
 const app = express();
 const redisClient = redis.createClient(process.env.REDIS_URL);
 const token = 'EAAO4Pbcmmj0BALB6dbkRSM6dXO30iFWTANp1DP4dW3U5z0uwoMFsuvVZCOi6aTXMMwckQqVwo3Te0xskc6VyOsuVDaPAAO32NHJ8sLO7jZBs4NNlgZA8e6LmTiqxHISdYyOBVCKoCTNjNoaC4hs9FbJsWk7gYCemuFOtASh8QZDZD';
+const OSL_WORDS = [
+    "OSL",
+    "Outside Lands",
+    "OutsideLands"
+];
+
 const SENTIMENT_MAP = [
     "not the best.",
     "below average",
@@ -143,9 +149,50 @@ var checkAuthForHush = function(sender) {
     });
 };
 
+var checkIfIsOSL = function(sender) {
+    return new Promise(function(resolve, reject) {
+        redisClient.exists('isOsl:' + sender, function(err, res) {
+            if (err) {
+                return reject(err);
+            }
+            resolve(res);
+        });
+    });
+};
+
+var handleRequestWrapper = function(sender, text, requestId) {
+    return new Promise(function(resolve, reject) {
+        checkIfIsOSL(sender).then(function(res) {
+            if (!res) {
+
+                // No festival is set, check if user says he is at Outside Lands
+                var lowercaseString = text.trim().toLowerCase();
+                var found = false;
+                OSL_WORDS.forEach(function(word) {
+                    if (lowercaseString.indexOf(word.toLowerCase()) != -1) {
+                        found = true;
+                        redisClient.setex("isOsl:" + sender, 60 * 5, "1", function(err, res) {
+                            sendTextMessage(sender, "Brilliant! Happy to have you here! how can I help?");
+                            reject();
+                        });
+                    }
+                });
+                if (!found) {
+                    sendTextMessage(sender, "Hi! In order to serve you better, you should tell me what festival you are referring to");
+                    reject();
+                }
+            } else {
+                resolve();
+            }
+        });
+    });
+};
+
 var handleRequest = function(sender, text, requestId) {
     redisClient.sadd('seen_users', sender);
     let trimmedText = text.trim().toLowerCase().replace(/[^a-zA-Z0-9 ]+/g, '').replace('/ {2,}/',' ');
+
+    // Check if user is already in OSL
 
     // Check if it's a speakeasy query
     let words = trimmedText.split(' ');
@@ -222,7 +269,9 @@ app.post('/webhook', function (req, res) {
               let text = event.message.text;
               let requestId = uuid.v1();
               console.log("[" + sender + "][" + requestId + "][REQUEST] " + text);
-              handleRequest(sender, text, requestId);
+              handleRequestWrapper(sender, text, requestId).then(function() {
+                  handleRequest(sender, text, requestId);
+              });
             }
           }
         }
@@ -233,7 +282,10 @@ app.post('/webhook', function (req, res) {
 });
 
 app.post('/personal/', function (req, res) {
-  handleRequest(req.body.uid, req.body.body, uuid.v1());
+  var currentUuid = uuid.v1();
+  handleRequestWrapper(req.body.uid, req.body.body, currentUuid).then(function() {
+      handleRequest(req.body.uid, req.body.body, currentUuid);
+  });
   res.sendStatus(200);
 });
 
